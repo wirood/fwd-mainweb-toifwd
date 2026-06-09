@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ตัวแทนประกันชีวิต FWD MDRT | วางแผนอนาคตอย่างมั่นใจ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+    :root {
+        --primary: #e86614; /* FWD Orange */
+        --primary-light: #fff2e8;
+        --secondary: #333333; /* Dark Gray */
+        --text-dark: #111111;
+        --text-grey: #666666;
+        --bg-color: #fcf9f5;
+        --white: #ffffff;
+        --line-green: #06C755;
+        --border-color: #e5e5e5;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        font-family: 'Prompt', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-dark);
+        line-height: 1.6;
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* Generic Section Style */
+    section { padding: 80px 0; }
+    .section-title { font-size: 36px; font-weight: 700; text-align: center; margin-bottom: 15px; color: var(--secondary); }
+    .section-subtitle { font-size: 18px; color: var(--text-grey); text-align: center; max-width: 700px; margin: 0 auto 60px auto; }
+
+    /* Button Style */
+    .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+        padding: 12px 30px; border-radius: 30px;
+        font-weight: 600; font-size: 16px; cursor: pointer; transition: all 0.3s ease;
+        border: none; font-family: 'Prompt', sans-serif;
+    }
+    .btn-primary { background-color: var(--primary); color: var(--white); }
+    .btn-primary:hover { background-color: #d15c12; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(232, 102, 20, 0.3); }
+    .btn-line { background-color: var(--line-green); color: var(--white); }
+    .btn-line:hover { background-color: #05a044; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(6, 199, 85, 0.2); }
+
+    /* --- HEADER --- */
+    header {
+        background-color: var(--white); padding: 15px 0;
+        position: fixed; top: 0; width: 100%; z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .nav-container { display: flex; justify-content: space-between; align-items: center; }
+    .logo-placeholder { font-size: 24px; font-weight: 700; color: var(--primary); }
+    .logo-placeholder span { color: var(--secondary); font-weight: 400; font-size: 16px; margin-left: 5px;}
+    .nav-menu { display: flex; gap: 30px; }
+    .nav-menu a { font-weight: 500; color: var(--secondary); font-size: 15px; }
+    .nav-menu a:hover { color: var(--primary); }
+    .nav-menu a.active { color: var(--primary); font-weight: 600;}
+
+    /* --- 1. HERO SECTION --- */
+    .hero {
+        background: linear-gradient(to right, rgba(252, 249, 245, 0.98) 0%, rgba(252, 249, 245, 0.8) 45%, rgba(252, 249, 245, 0) 100%), 
+                    url("family.png") no-repeat center center/cover;
+        padding: 220px 0 160px 0; 
+        position: relative; 
+        overflow: hidden;
+    }
+    .hero-content { display: flex; align-items: center; }
+    .hero-text { flex: 1; max-width: 650px; }
+    .hero-text h1 { font-size: 48px; font-weight: 700; line-height: 1.2; margin-bottom: 20px; color: var(--secondary); }
+    .hero-text h1 span { color: var(--primary); }
+    .hero-text p { font-size: 20px; color: #444; margin-bottom: 35px; max-width: 550px; }
+    .hero-btns { display: flex; gap: 20px; }
+
+    /* --- 2. PRODUCT CATEGORIES --- */
+    .services { background-color: var(--white); min-height: 800px;}
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    
+    .service-card {
+        background: var(--white); padding: 40px 30px; border-radius: 15px;
+        border: 1px solid #f0f0f0; text-align: center;
+        transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center;
+        position: relative; overflow: hidden; cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
+    }
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(232, 102, 20, 0.15); 
+        border-color: var(--primary-light);
+    }
+    .service-card::after {
+        content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; 
+        background: linear-gradient(to right, var(--primary), #ff8533); transform: scaleX(0); transition: 0.3s ease;
+    }
+    .service-card:hover::after { transform: scaleX(1); }
+
+    .service-icon { 
+        font-size: 45px; color: var(--white); margin-bottom: 25px; 
+        background: linear-gradient(135deg, var(--primary) 0%, #ff8533 100%); 
+        width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; border-radius: 50%;
+        box-shadow: 0 8px 20px rgba(232, 102, 20, 0.25); transition: 0.3s ease;
+    }
+    .service-card:hover .service-icon { transform: scale(1.1); box-shadow: 0 10px 25px rgba(232, 102, 20, 0.4); }
+
+    .service-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 15px; color: var(--secondary); }
+    .service-card p { font-size: 15px; color: var(--text-grey); margin-bottom: 25px; flex-grow: 1; }
+    .service-link { font-size: 15px; font-weight: 600; color: var(--primary); display: flex; align-items: center; gap: 8px; transition: 0.2s; }
+    .service-link i { font-size: 12px; transition: 0.2s; }
+    .service-card:hover .service-link i { transform: translateX(5px); }
+
+    /* --- 2.1 SUB PLANS --- */
+    .back-btn {
+        display: inline-flex; align-items: center; gap: 8px; font-size: 16px; font-family: 'Prompt';
+        color: var(--text-grey); background: none; border: none; cursor: pointer; margin-bottom: 20px; font-weight: 600; transition: 0.2s;
+    }
+    .back-btn:hover { color: var(--primary); transform: translateX(-5px); }
+
+    .sub-plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+    
+    .plan-detail-card {
+        background: var(--white); border-radius: 12px; padding: 20px;
+        border: 1px solid var(--border-color, #e5e5e5);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; flex-direction: column; transition: 0.3s;
+    }
+    .plan-detail-card:hover { box-shadow: 0 10px 25px rgba(232, 102, 20, 0.15); border-color: var(--primary-light); transform: translateY(-3px);}
+    
+    .plan-img-wrapper { width: 100%; height: 160px; border-radius: 8px; overflow: hidden; margin-bottom: 15px; }
+    .plan-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .plan-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .plan-type { font-size: 12px; color: var(--primary); font-weight: 500; }
+    .share-btn { color: var(--primary); cursor: pointer; background: none; border: none; font-size: 16px;}
+    
+    .plan-title-text { font-size: 20px; font-weight: 700; color: var(--secondary); margin-bottom: 10px; line-height: 1.3; }
+    .plan-desc { font-size: 13px; color: var(--text-grey); margin-bottom: 15px; flex-grow: 1;
+        display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    
+    .plan-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+    .plan-tag {
+        font-size: 11px; color: var(--primary); border: 1px solid var(--primary);
+        padding: 3px 8px; border-radius: 4px; background: var(--primary-light);
+    }
+    
+    .plan-actions { display: flex; flex-direction: column; gap: 8px; }
+    .btn-ask {
+        background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px;
+        font-family: 'Prompt'; font-weight: 600; font-size: 15px; cursor: pointer; transition: 0.2s;
+    }
+    .btn-ask:hover { background: #d15c12; }
+    .btn-more {
+        background: transparent; color: var(--primary); border: none; padding: 10px;
+        font-family: 'Prompt'; font-weight: 500; font-size: 14px; cursor: pointer; transition: 0.2s;
+    }
+    .btn-more:hover { text-decoration: underline; }
+
+    /* --- 3. ABOUT AGENT --- */
+    .about-agent { background-color: var(--bg-color); }
+    .agent-content { display: flex; align-items: center; gap: 60px; }
+    .agent-image-container { flex: 0.7; position: relative; }
+    .agent-image-container img {
+        width: 100%; height: auto; border-radius: 50%; object-fit: cover;
+        border: 10px solid var(--white); box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        aspect-ratio: 1 / 1;
+    }
+    .agent-image-container::before {
+        content: ''; position: absolute; top: -15px; left: -15px; right: -15px; bottom: -15px;
+        border: 2px dashed var(--primary); border-radius: 50%; opacity: 0.4;
+    }
+    .agent-info { flex: 1; }
+    .mdrt-badge { display: inline-block; background-color: var(--primary); color: var(--white); padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; }
+    .agent-name { font-size: 32px; font-weight: 700; margin-bottom: 10px; color: var(--secondary); }
+    .agent-title { font-size: 16px; color: var(--primary); font-weight: 600; margin-bottom: 25px; display: flex; flex-wrap: wrap; gap: 15px; }
+    .agent-bio { font-size: 16px; color: var(--text-grey); margin-bottom: 30px; }
+    .agent-stats { display: flex; gap: 30px; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 20px 0; margin-bottom: 30px; }
+    .stat-item { text-align: center; }
+    .stat-val { font-size: 24px; font-weight: 700; color: var(--primary); }
+    .stat-label { font-size: 13px; color: var(--text-grey); }
+
+    /* --- 4. TESTIMONIALS --- */
+    .testimonials { background-color: var(--white); }
+    .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    .testimonial-card { background: var(--bg-color); padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: relative; }
+    .quote-icon { font-size: 24px; color: var(--primary); opacity: 0.2; position: absolute; top: 25px; left: 25px; }
+    .testimonial-text { font-size: 15px; color: var(--text-dark); margin-bottom: 20px; font-style: italic; padding-top: 20px; }
+    .client-info { display: flex; align-items: center; gap: 15px; }
+    .client-img-placeholder { width: 50px; height: 50px; background: #e5e5e5; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #999; }
+    .client-name { font-size: 15px; font-weight: 600; color: var(--secondary); }
+    .client-plan { font-size: 13px; color: var(--text-grey); }
+
+    /* --- 5. CONTACT & FOOTER --- */
+    footer { background-color: var(--secondary); color: var(--white); padding: 60px 0 30px 0; font-size: 15px; }
+    .footer-content { display: grid; grid-template-columns: 1.2fr 0.8fr 1fr; gap: 50px; margin-bottom: 40px;}
+    .footer-about h4, .footer-links h4, .footer-contact h4 { font-size: 18px; margin-bottom: 20px; color: var(--white); }
+    .footer-about p { color: #bbb; margin-bottom: 20px; font-size: 14px;}
+    .footer-contact ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-contact li { display: flex; align-items: center; gap: 12px; color: #bbb; }
+    .footer-contact i { color: var(--primary); width: 20px; text-align: center;}
+    .footer-contact a:hover { color: var(--white); text-decoration: underline; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px; text-align: center; color: #888; font-size: 13px; }
+
+    /* STICKY CONTACT BAR */
+    .sticky-contact-bar {
+        position: fixed; bottom: -100px; left: 0; width: 100%; background: var(--white);
+        box-shadow: 0 -4px 15px rgba(0,0,0,0.1); padding: 15px 0; z-index: 999;
+        transition: bottom 0.4s ease; border-top: 2px solid var(--primary);
+    }
+    .sticky-contact-bar.show { bottom: 0; }
+    .sticky-contact-content { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .sticky-text { font-weight: 600; font-size: 16px; color: var(--secondary); }
+    .sticky-btns { display: flex; gap: 15px; align-items: center;}
+
+    /* --- 6. MODAL (POPUP FORM) STYLES --- */
+    .modal-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.6); z-index: 2000;
+        display: none; align-items: center; justify-content: center;
+        opacity: 0; transition: opacity 0.3s ease;
+    }
+    .modal-overlay.active { display: flex; opacity: 1; }
+    
+    .modal-content {
+        background: var(--white); width: 90%; max-width: 500px;
+        border-radius: 15px; padding: 30px; position: relative;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        transform: translateY(-20px); transition: transform 0.3s ease;
+        max-height: 90vh; overflow-y: auto;
+    }
+    .modal-overlay.active .modal-content { transform: translateY(0); }
+    
+    .close-modal {
+        position: absolute; top: 20px; right: 20px;
+        background: none; border: none; font-size: 24px; color: var(--text-grey);
+        cursor: pointer; transition: 0.2s;
+    }
+    .close-modal:hover { color: var(--primary); }
+    
+    .modal-header { margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+    .modal-header h3 { font-size: 22px; color: var(--secondary); margin-bottom: 5px; }
+    .modal-header p { font-size: 14px; color: var(--text-grey); }
+    
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: var(--text-dark); }
+    .form-row { display: flex; gap: 15px; }
+    .form-row .form-group { flex: 1; }
+    
+    .dob-row { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 10px; }
+    
+    .modal-content input[type="text"],
+    .modal-content input[type="tel"],
+    .modal-content input[type="number"],
+    .modal-content select {
+        width: 100%; padding: 12px 15px; border: 1px solid var(--border-color);
+        border-radius: 8px; font-family: 'Prompt', sans-serif; font-size: 15px;
+        outline: none; transition: 0.2s; background: #fafafa;
+    }
+    .modal-content input:focus, .modal-content select:focus { border-color: var(--primary); background: var(--white); }
+    
+    .consent-box {
+        display: flex; gap: 10px; align-items: flex-start;
+        background: var(--bg-color); padding: 15px; border-radius: 8px; margin-bottom: 20px;
+    }
+    .consent-box input[type="checkbox"] { margin-top: 4px; accent-color: var(--primary); }
+    .consent-box label { font-size: 12px; color: var(--text-grey); line-height: 1.4; }
+
+    .btn-submit {
+        width: 100%; background: var(--primary); color: white; border: none; padding: 14px;
+        font-family: 'Prompt', sans-serif; font-size: 16px; font-weight: 600; border-radius: 8px;
+        cursor: pointer; transition: 0.2s;
+    }
+    .btn-submit:disabled { background: #ccc; cursor: not-allowed; }
+    .btn-submit:hover:not(:disabled) { background: #d15c12; }
+
+    /* RESPONSIVE MEDIA QUERIES */
+    @media (max-width: 991px) {
+        .hero { background: linear-gradient(rgba(252, 249, 245, 0.85), rgba(252, 249, 245, 0.95)), url("family.png") no-repeat center center/cover; padding: 160px 0 100px 0; }
+        .hero-content, .agent-content { flex-direction: column; text-align: center; }
+        .hero-text { max-width: 100%; }
+        .hero-text h1 { font-size: 38px; }
+        .hero-text p { margin-left: auto; margin-right: auto; }
+        .hero-btns { justify-content: center; }
+        .services-grid, .testimonial-grid, .sub-plans-grid { grid-template-columns: repeat(2, 1fr); }
+        .footer-content { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 767px) {
+        .services-grid, .testimonial-grid, .sub-plans-grid { grid-template-columns: 1fr; }
+        .section-title { font-size: 28px; }
+        .agent-stats { flex-wrap: wrap; justify-content: center; gap: 15px; }
+        .sticky-contact-content { flex-direction: column; gap: 10px; text-align: center;}
+        .footer-content { grid-template-columns: 1fr; gap: 30px;}
+        .nav-menu { display: none; }
+        .form-row { flex-direction: column; gap: 0; }
+        .dob-row { grid-template-columns: 1fr; gap: 10px; }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="container nav-container">
+        <div class="logo-placeholder">FWD <span>| นฤมล คำใบ</span></div>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="#" class="active">หน้าแรก</a></li>
+                <li><a href="#services">แผนประกัน</a></li>
+                <li><a href="#about">รู้จักตัวแทน</a></li>
+                <li><a href="#testimonials">รีวิวลูกค้า</a></li>
+                <li><a href="#contact">ติดต่อ</a></li>
+            </ul>
+        </nav>
+        <a href="#contact" class="btn btn-primary" style="padding: 8px 20px; font-size: 14px;">ปรึกษาฟรี</a>
+    </div>
+</header>
+
+<section class="hero" id="home">
+    <div class="container hero-content">
+        <div class="hero-text">
+            <h1>วางแผนอนาคตอย่างมั่นใจ <br> ไปกับ <span>FWD ประกันชีวิต</span></h1>
+            <p>ออกแบบแผนประกันที่ใช่ เพื่อความมั่นคงและการดูแลคนที่คุณรักอย่างยั่งยืน โดยตัวแทนมืออาชีพ</p>
+            <div class="hero-btns">
+                <a href="#services" class="btn btn-primary">ค้นหาแผนประกัน <i class="fa-solid fa-arrow-down"></i></a>
+                <a href="https://line.me/R/oaMessage/@toifwd/?" target="_blank" class="btn btn-line"><i class="fa-brands fa-line" style="font-size: 20px;"></i> ทักแอดไลน์</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="services" id="services">
+    <div class="container">
+        
+        <div id="category-view">
+            <h2 class="section-title">เลือกความคุ้มครองที่ตรงใจคุณ</h2>
+            <p class="section-subtitle">เราพร้อมดูแลทุกช่วงชีวิต ด้วยแผนประกันที่หลากหลายและตอบโจทย์ทุกความต้องการ</p>
+            
+            <div class="services-grid">
+                <div class="service-card" onclick="showPlans('health')">
+                    <div class="service-icon"><i class="fa-solid fa-bed-pulse"></i></div>
+                    <h3>ประกันสุขภาพ</h3>
+                    <p>คุ้มครองค่ารักษาพยาบาล ครอบคลุมทั้งผู้ป่วยใน (IPD) และผู้ป่วยนอก (OPD)</p>
+                    <a href="javascript:void(0)" class="service-link">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="service-card" onclick="showPlans('saving')">
+                    <div class="service-icon"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+                    <h3>ประกันสะสมทรัพย์</h3>
+                    <p>ออมเงินระยะสั้น-ยาว พร้อมความคุ้มครองชีวิตและผลตอบแทนที่มั่นคง</p>
+                    <a href="javascript:void(0)" class="service-link">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="service-card" onclick="showPlans('ci')">
+                    <div class="service-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                    <h3>ประกันโรคร้ายแรง</h3>
+                    <p>เตรียมพร้อมรับมือโรคไม่คาดฝัน ด้วยเงินก้อนใหญ่เมื่อตรวจพบโรคร้าย</p>
+                    <a href="javascript:void(0)" class="service-link">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="service-card" onclick="showPlans('pension')">
+                    <div class="service-icon"><i class="fa-solid fa-person-cane"></i></div>
+                    <h3>ประกันบำนาญ</h3>
+                    <p>วางแผนเกษียณสุขใจ มีเงินบำนาญใช้จ่ายหลังเกษียณตลอดชีพ</p>
+                    <a href="javascript:void(0)" class="service-link">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="service-card" onclick="showPlans('legacy')">
+                    <div class="service-icon"><i class="fa-solid fa-gem"></i></div>
+                    <h3>ประกันสร้างมรดก</h3>
+                    <p>สร้างหลักประกันส่งต่อความมั่งคั่ง ให้ครอบครัวเดินหน้าต่อไปได้</p>
+                    <a href="javascript:void(0)" class="service-link">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="service-card" onclick="showPlans('nonlife')">
+                    <div class="service-icon"><i class="fa-solid fa-car"></i></div>
+                    <h3>ประกันวินาศภัย</h3>
+                    <p>คุ้มครองทรัพย์สิน ทั้งประกันรถยนต์ ประกันอัคคีภัย และอื่นๆ</p>
+                    <a href="javascript:void(0)" class="service-link">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div id="plans-view" style="display: none;">
+            <button class="back-btn" onclick="showCategories()"><i class="fa-solid fa-arrow-left"></i> ย้อนกลับหมวดหมู่หลัก</button>
+            <h2 class="section-title" id="plan-section-title" style="text-align: left; margin-bottom: 5px;">แผนประกันสุขภาพ</h2>
+            <p class="section-subtitle" style="text-align: left; margin-left: 0; margin-bottom: 40px;">เลือกแผนที่เหมาะสมกับการใช้ชีวิตของคุณ</p>
+            <div class="sub-plans-grid" id="plans-container"></div>
+        </div>
+
+    </div>
+</section>
+
+<section class="about-agent" id="about">
+    <div class="container agent-content">
+        <div class="agent-image-container">
+            <img src="agent.jpg" alt="นฤมล คำใบ ตัวแทนประกัน FWD" onerror="this.src='https://via.placeholder.com/400/e86614/fff.png?text=Agent+Photo';">
+        </div>
+        <div class="agent-info">
+            <span class="mdrt-badge">MDRT Agent (ปี 2022)</span>
+            <h2 class="agent-name">นฤมล คำใบ</h2>
+            <div class="agent-title">
+                <span><i class="fa-solid fa-certificate"></i> ใบอนุญาตเลขที่: 6901010926</span>
+                <span><i class="fa-solid fa-calendar-alt"></i> ประสบการณ์ <span id="experience-text-main">...</span></span>
+            </div>
+            <p class="agent-bio">
+                สวัสดีค่ะ ดิฉันนฤมล คำใบ มุ่งมั่นที่จะเป็น "เพื่อนคู่คิด" ในการวางแผนประกันชีวิตและการเงินของคุณ <br>
+                ไม่ได้เป็นเพียงแค่ผู้ขายประกัน แต่คือผู้ให้คำปรึกษาที่ใส่ใจในการออกแบบแผนความคุ้มครองที่ "ใช่" และตรงกับเป้าหมายชีวิตจริงของลูกค้าแต่ละท่าน เพื่อให้คุณและครอบครัวใช้ชีวิตได้อย่างมั่นใจและไร้กังวลค่ะ
+            </p>
+            <div class="agent-stats">
+                <div class="stat-item"><div class="stat-val">500+</div><div class="stat-label">ลูกค้าดูแล</div></div>
+                <div class="stat-item"><div class="stat-val">20 ปี</div><div class="stat-label">วงการประกัน</div></div>
+                <div class="stat-item"><div class="stat-val">24/7</div><div class="stat-label">บริการหลังการขาย</div></div>
+            </div>
+            <a href="https://line.me/R/oaMessage/@toifwd/?" target="_blank" class="btn btn-line"><i class="fa-brands fa-line" style="font-size: 20px;"></i> ปรึกษาตัวแทน MDRT</a>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+    <div class="container">
+        <h2 class="section-title">เสียงตอบรับจากลูกค้าที่วางใจ</h2>
+        <p class="section-subtitle">ความประทับใจจริงในการให้บริการและการออกแบบแผนประกัน</p>
+        
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <i class="fa-solid fa-quote-left quote-icon"></i>
+                <p class="testimonial-text">"บริการดีมาก เคลมไว อธิบายแผนเข้าใจง่ายและตรงตามความต้องการที่สุด" </p>
+                <div class="client-info">
+                    <div class="client-img-placeholder"><i class="fa-solid fa-user"></i></div>
+                    <div>
+                        <div class="client-name">คุณสมชาย ก.</div>
+                        <div class="client-plan">แผนประกันสุขภาพ Precious Care</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <i class="fa-solid fa-quote-left quote-icon"></i>
+                <p class="testimonial-text">"ช่วยวางแผนการเงินได้เห็นภาพชัดเจน ช่วยจัดแผนให้คุ้มค่ากับงบที่ตั้งไว้" </p>
+                <div class="client-info">
+                    <div class="client-img-placeholder"><i class="fa-solid fa-user-tie"></i></div>
+                    <div>
+                        <div class="client-name">คุณนกน้อย จ.</div>
+                        <div class="client-plan">แผนประกันสะสมทรัพย์</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <i class="fa-solid fa-quote-left quote-icon"></i>
+                <p class="testimonial-text">"เป็นกันเอง ให้คำปรึกษาตลอดไม่หายหน้าเวลาเคลม รู้สึกอุ่นใจมากๆ เลยค่ะ" </p>
+                <div class="client-info">
+                    <div class="client-img-placeholder"><i class="fa-solid fa-user-graduate"></i></div>
+                    <div>
+                        <div class="client-name">คุณพัชรี ส.</div>
+                        <div class="client-plan">แผนประกันบำนาญ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer id="contact">
+    <div class="container footer-content">
+        <div class="footer-about">
+            <h4 style="color: var(--primary); font-size: 24px;">FWD <span style="color:var(--white); font-weight: 400; font-size: 16px;">| นฤมล คำใบ</span></h4>
+            <p>ตัวแทนประกันชีวิต FWD พร้อมออกแบบความคุ้มครองที่ตรงใจ ดูแลตลอดชีพแบบเพื่อนคู่คิด</p>
+            <img id="footer-qr" src="line-qr.png" alt="LINE QR Code" style="max-width: 120px; border-radius: 8px; border: 2px solid #fff; padding: 4px;" onerror="this.style.display='none';">
+        </div>
+        
+        <div class="footer-links">
+            <h4>แผนประกัน</h4>
+            <ul style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #bbb;">
+                <li><a href="javascript:void(0)" onclick="showPlans('health')">ประกันสุขภาพ</a></li>
+                <li><a href="javascript:void(0)" onclick="showPlans('saving')">ประกันสะสมทรัพย์</a></li>
+                <li><a href="javascript:void(0)" onclick="showPlans('ci')">ประกันโรคร้ายแรง</a></li>
+                <li><a href="javascript:void(0)" onclick="showPlans('pension')">ประกันบำนาญ</a></li>
+                <li><a href="javascript:void(0)" onclick="showPlans('legacy')">ประกันสร้างมรดก</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-contact">
+            <h4>ติดต่อตัวแทน</h4>
+            <ul>
+                <li><i class="fa fa-phone"></i> <a href="tel:0869017235">086-901-7235 (ต๋อย)</a></li>
+                <li><i class="fa-brands fa-line"></i> <a href="https://line.me/R/oaMessage/@toifwd/?" target="_blank">@toifwd (ทางการ)</a></li>
+                <li><i class="fa fa-location-dot"></i> <a href="https://maps.app.goo.gl/cX6kjrhXPyP6i1Fd9" target="_blank">ประจำสำนักงานตัวแทน FWD นวนคร จ.ปทุมธานี</a></li>
+            </ul>
+            <a href="https://line.me/R/oaMessage/@toifwd/?" target="_blank" class="btn btn-line" style="margin-top: 25px;"><i class="fa-brands fa-line" style="font-size: 20px;"></i> ทักแอดไลน์ด่วน</a>
+        </div>
+    </div>
+    
+    <div class="footer-bottomcontainer">
+        <div class="footer-bottom">
+            © 2026 คุณนฤมล คำใบ (ตัวแทน FWD License 6901010926) | สงวนลิขสิทธิ์
+        </div>
+    </div>
+</footer>
+
+<div class="sticky-contact-bar" id="sticky-bar">
+    <div class="sticky-contact-content">
+        <div class="sticky-text">สนใจแผนประกัน? ปรึกษาตัวแทนมืออาชีพได้เลยค่ะ</div>
+        <div class="sticky-btns">
+            <a href="tel:0869017235" class="btn btn-primary" style="background:#555; padding: 10px 20px; font-size: 14px;"><i class="fa fa-phone"></i> โทรเลย</a>
+            <a href="https://line.me/R/oaMessage/@toifwd/?" target="_blank" class="btn btn-line" style="padding: 10px 20px; font-size: 14px;"><i class="fa-brands fa-line"></i> แอดไลน์</a>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="inquiry-modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeModal()"><i class="fa-solid fa-times"></i></button>
+        <div class="modal-header">
+            <h3>ใช้เวลาเพียงสักครู่ เพื่อสอบถามเกี่ยวกับแผนประกันนี้</h3>
+            <p>เราจะขอให้คุณให้ข้อมูลเพื่อใช้ในการติดต่อกลับเท่านั้น <br><strong id="modal-plan-name" style="color:var(--primary);"></strong></p>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label>ชื่อจริง</label>
+                <input type="text" id="form-fname" placeholder="กรุณากรอกชื่อ">
+            </div>
+            <div class="form-group">
+                <label>นามสกุล</label>
+                <input type="text" id="form-lname" placeholder="กรุณากรอกนามสกุล">
+            </div>
+        </div>
+
+        <label style="display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: var(--text-dark);">วันเกิด</label>
+        <div class="dob-row">
+            <div class="form-group">
+                <select id="form-day">
+                    <option value="">วัน</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select id="form-month">
+                    <option value="">เดือน</option>
+                    <option value="1">มกราคม</option>
+                    <option value="2">กุมภาพันธ์</option>
+                    <option value="3">มีนาคม</option>
+                    <option value="4">เมษายน</option>
+                    <option value="5">พฤษภาคม</option>
+                    <option value="6">มิถุนายน</option>
+                    <option value="7">กรกฎาคม</option>
+                    <option value="8">สิงหาคม</option>
+                    <option value="9">กันยายน</option>
+                    <option value="10">ตุลาคม</option>
+                    <option value="11">พฤศจิกายน</option>
+                    <option value="12">ธันวาคม</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="number" id="form-year" placeholder="ปี (พ.ศ./ค.ศ.)">
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 15px;">
+            <label>หมายเลขโทรศัพท์</label>
+            <input type="tel" id="form-phone" placeholder="08X-XXX-XXXX">
+        </div>
+        
+        <div class="consent-box" style="margin-top: 15px;">
+            <input type="checkbox" id="form-consent">
+            <label for="form-consent">คุณยินยอมให้ตัวแทนประกันชีวิตรวบรวมและใช้ข้อมูลส่วนบุคคลของข้าพเจ้าเพื่อนำเสนอผลิตภัณฑ์ บริการ และข้อเสนอพิเศษ</label>
+        </div>
+        
+        <button class="btn-submit" id="btn-submit-form" onclick="submitForm()">ตกลง (ส่งข้อมูลให้ตัวแทน)</button>
+    </div>
+</div>
+
+<script>
+    // สร้างตัวเลือกวัน
+    const daySelect = document.getElementById('form-day');
+    for (let i = 1; i <= 31; i++) {
+        let opt = document.createElement('option');
+        opt.value = i; opt.innerHTML = i;
+        daySelect.appendChild(opt);
+    }
+
+    const plansData = {
+        'health': {
+            title: 'แผนประกันสุขภาพ',
+            items: [
+                {
+                    type: 'ผลิตภัณฑ์', title: 'ประกันสุขภาพ เหมาจ่าย FWD Precious Protection',
+                    desc: 'ดูแลคุ้มครองครบทั้ง IPD และ OPD ไม่ว่าป่วยหนักหรือป่วยเบา ครอบคลุมทุกค่ารักษา ด้วยผลประโยชน์เหมาจ่ายสูงสุด 100 ล้านบาท',
+                    tags: ['สุขภาพ', 'ค่ารักษาผู้ป่วยใน', 'ค่ารักษาผู้ป่วยนอก'], img: 'precious-pic.png?text=Precious+Care',
+                    url: 'https://precious-protection-toifwd.wirood01.workers.dev/' 
+                },
+                {
+                    type: 'ผลิตภัณฑ์', title: 'ประกันสุขภาพ FWD Prema Care',
+                    desc: 'แผนความคุ้มครองสุขภาพที่เข้ามาช่วยแบ่งเบาภาระ พร้อมดูแลทุกค่าใช้จ่ายจากการรักษาเมื่อต้องเข้ารับการรักษาตัวในโรงพยาบาล',
+                    tags: ['สุขภาพ',  'ครอบครัว'], img: 'prema-pic.png?text=Family+Sharing',
+                    url: 'https://prema-care-toifwd.wirood01.workers.dev/'
+                },
+                {
+                    type: 'ผลิตภัณฑ์', title: 'ประกันสุขภาพ เอฟดับบลิวดี พรีเชียส แคร์ ฟอร์ คิดส์',
+                    desc: 'ประกันสุขภาพเหมาจ่ายสำหรับเด็ก พร้อมดูแลสุขภาพและการเจ็บป่วย ช่วยแบ่งเบาภาระค่ารักษา เพิ่มความอุ่นใจ หากลูกรักเจ็บป่วยจะได้รับการรักษาที่...',
+                    tags: ['สุขภาพ', 'โรคร้ายแรง'], img: 'kid.png?text=HB+Plus',
+                    url: 'https://precious-care-for-kid-toifwd.wirood01.workers.dev/'
+                }
+            ]
+        },
+        'saving': {
+            title: 'แผนประกันสะสมทรัพย์',
+            items: [
+                {
+                    type: 'ผลิตภัณฑ์', title: 'ประกันสะสมทรัพย์ เอฟดับบลิวดี ฟอร์ เซฟวิ่ง 25/15',
+                    desc: 'แผนประกันที่ให้คุณเก็บเงินสบาย ๆ อยากได้อะไรก็ยังซื้อได้ เพราะมีเงินคืนให้คุณทุกปี พร้อมเงินก้อนโตเมื่อครบกำหนดสัญญา',
+                    tags: ['เงินคืน', 'ลดหย่อนภาษี', 'เสียชีวิต'], img: 'saving-25-15.png', url: 'https://fwd-for-saving-toifwd.wirood01.workers.dev/'
+                },
+                {
+                    type: 'ผลิตภัณฑ์', title: 'ประกันสะสมทรัพย์ เอฟดับบลิวดี ไลฟ์ เซฟวิ่ง 30/15',
+                    desc: 'แผนความคุ้มครองพร้อมวางแผนการเงิน สำหรับคนเริ่มต้นทำงาน ช่วยวางแผนการเงินระยะยาว เพื่อถึงเป้าหมายได้อย่างมั่นใจด้วยผลตอบแทนที่คุ้มค่า',
+                    tags: ['เงินคืน', 'เสียชีวิต', 'ลดหย่อนภาษี'], img: 'saving-30-15.png', url: 'https://fwd-life-saving-toifwd.wirood01.workers.dev/'
+                },
+                {
+                    type: 'ผลิตภัณฑ์', title: 'ประกันสะสมทรัพย์ เอฟดับบลิวดี ไลฟ์ เซฟวิ่ง 18/9',
+                    desc: 'แผนความคุ้มครองพร้อมวางแผนการเงิน เพื่อต่อยอดอนาคตให้ตัวเอง ครบครันทั้งผลตอบแทนที่คุ้มค่าและความคุ้มครองชีวิตตลอดสัญญา',
+                    tags: ['เงินคืน', 'เสียชีวิต', 'ลดหย่อนภาษี'], img: 'saving-18-9.png', url: 'https://fwd-life-saving-1809-toifwd.wirood01.workers.dev/'
+                },
+                {
+                    type: 'ผลิตภัณฑ์', title: 'เอฟดับบลิวดี พาวเวอร์ เซฟวิ่ง 12/6',
+                    desc: 'รับผลประโยชน์รวมตลอดสัญญาสูงสุด 654% ของทุนประกันภัย ชำระเบี้ยประกันภัยเพียง 6 ปี พร้อมความคุ้มครองชีวิตตลอด 12 ปี',
+                    tags: ['เงินคืน', 'ลดหย่อนภาษี', 'เสียชีวิต'], img: 'saving-12-6.png', url: 'https://fwd-power-saving-toifwd.wirood01.workers.dev/'
+                }
+            ]
+        },
+        'ci': { 
+            title: 'แผนประกันโรคร้ายแรง', 
+            items: [
+                {
+                    type: 'สัญญาเพิ่มเติม', title: 'ประกันโรคร้าย ซีไอ 50',
+                    desc: 'เตรียมพร้อมไว้เสมอ กับแผนประกันที่ออกแบบมาให้คุณพร้อมรับมือกับ 50 โรคร้าย มาเมื่อไหร่ก็รับมือได้ทันที',
+                    tags: ['สุขภาพ', 'โรคร้ายแรง', 'เสียชีวิต'], img: 'ci50.png', url: 'https://life-value-protect-ci50-toifwd.wirood01.workers.dev/' 
+                },
+                {
+                    type: 'ผลิตภัณฑ์', title: 'CI Re-Claim Re-Care Plus',
+                    desc: 'แพ็กเกจความคุ้มครองชีวิตและโรคร้ายแรง เคลมได้สูงสุด 14 ครั้ง และเคลมซ้ำใน 5 โรคร้ายแรงระดับรุนแรงเดิมได้อีกครั้ง ครอบคลุมมากถึง 110 โรคร้าย...',
+                    tags: ['โรคร้ายแรง', 'โรคมะเร็ง', 'สุขภาพ'], img: 'ci-reclaim.png', url: 'https://ci-reclaim-recare-plus-toifwd.wirood01.workers.dev/' 
+                },
+                {
+                    type: 'ผลิตภัณฑ์', title: 'ซีไอ ฟิกซ์ เปย์ ตลอดชีพ รับมือโรคร้ายแรง',
+                    desc: 'เพิ่มความมั่นใจในการใช้ชีวิต และไร้กังวลกับเรื่องที่ไม่คาดฝัน ด้วยแผนความคุ้มครองชีวิต และโรคร้ายแรงตลอดชีพ',
+                    tags: ['เสียชีวิต', 'โรคร้ายแรง', 'ลดหย่อนภาษี'], img: 'cifixpay.png', url: 'https://ci-fixed-pay-toifwd.wirood01.workers.dev/' 
+                },
+                {
+                    type: 'ผลิตภัณฑ์', title: 'ประกันโรคร้ายแรง Big 3',
+                    desc: 'คุ้มครองครอบคลุม 3 กลุ่มโรคร้ายแรง อันดับต้นๆ ของไทย เจอ จ่าย เต็ม 100%',
+                    tags: ['สุขภาพ', 'โรคร้ายแรง', 'เสียชีวิต'], img: 'big3.png', url: 'https://big3-toifwd.wirood01.workers.dev/'
+                }
+            ] 
+        },
+        'pension': { 
+            title: 'แผนประกันบำนาญ', 
+            items: [
+                {
+                    type: 'ผลิตภัณฑ์', title: 'เอฟดับบลิวดี ชัวร์ เพนชัน',
+                    desc: 'รับเงินบำนาญสูงถึง 20% ของทุนประกันภัย ต่อเนื่องจนถึงอายุ 85 ปี เพื่อชีวิตหลังเกษียณที่อิสระ และมีคุณภาพในแบบที่คุณวางแผนไว้',
+                    tags: ['เกษียณ/บำนาญ', 'เงินคืน', 'ลดหย่อนภาษี'], img: 'sure-pension.png', url: 'https://fwd-sure-pension-toifwd.wirood01.workers.dev/'
+                }
+            ] 
+        },
+        'legacy': { 
+            title: 'แผนประกันสร้างมรดก', 
+            items: [
+                {
+                    type: 'แพ็กเกจ', title: 'ประกันสร้างมรดก + คุ้มครอง 50 โรคร้ายแรง',
+                    desc: 'แผนความคุ้มครองเพื่อการสร้างมรดกและเตรียมความพร้อมรับมือกับ 50 โรคร้ายแรง มอบความอุ่นใจให้คุณและครอบครัวในทุกสถานการณ์',
+                    tags: ['มรดก', 'โรคร้ายแรง', 'เสียชีวิต'], img: 'legacy-ci50.png', url: 'https://life-value-protect-ci50-toifwd.wirood01.workers.dev/'
+                },
+                {
+                    type: 'ผลิตภัณฑ์', title: 'ประกันคุ้มครองชีวิต คุ้มครอง คุ้มค่า คุ้มภัย',
+                    desc: 'แผนประกันชีวิตที่ออกแบบมาเพื่อให้คุณเบาใจ หากวันใดที่ไม่มีคุณเคียงข้าง ครอบครัวที่คุณรักและห่วงใยจะยังดำเนินชีวิตต่อได้ไม่สะดุด',
+                    tags: ['เสียชีวิต', 'ลดหย่อนภาษี'], img: 'legacy-value.png', url: 'https://ivp-toifwd.wirood01.workers.dev/'
+                },
+                {
+                    type: 'ผลิตภัณฑ์', title: 'ประกันคุ้มครองชีวิต มั่นใจชัวร์',
+                    desc: 'ประกันชีวิตที่มีเบี้ยประกันแบบเบา ๆ แต่มอบความคุ้มครองสูง เพื่อให้คุณมั่นใจได้ชัวร์ ว่าคนที่คุณรักจะยังยืนอยู่ได้แม้ในวันที่ไม่มีคุณเคียง...',
+                    tags: ['เสียชีวิต', 'ลดหย่อนภาษี'], img: 'legacy-sure.png', url: 'https://term15-toifwd.wirood01.workers.dev/'
+                },
+                {
+                    type: 'ผลิตภัณฑ์', title: 'เอฟดับบลิวดี เฮอริเทจ พลัส',
+                    desc: 'คุ้มครองชีวิตสูงถึงอายุ 99 ปี พร้อมทางเลือกรับผลประโยชน์ก่อนครบกำหนดสัญญา เพิ่มความคุ้มครองกรณีอุบัติเหตุ',
+                    tags: ['เสียชีวิต', 'ลดหย่อนภาษี'], img: 'legacy-heritage.png', url: 'https://fwd-heritage-plus-toifwd.wirood01.workers.dev/'
+                },
+                {
+                    type: 'ผลิตภัณฑ์', title: 'ประกันคุ้มครองชีวิต คุ้มชีวี เอ็กซ์ตร้า',
+                    desc: 'แผนประกันชีวิตที่ไม่เพียงแต่มอบความคุ้มครองตลอดชีพให้ครอบครัวและคนที่คุณรัก แต่ยังมอบเงินคืนให้คุณทุกปี พร้อมโอกาสรับเงินปันผล',
+                    tags: ['เสียชีวิต', 'เงินคืน'], img: 'legacy-extra.png', url: 'https://whole-life-extra-toifwd.wirood01.workers.dev/'
+                }
+            ] 
+        },
+        'nonlife': { title: 'ประกันวินาศภัย', items: [] }
+    };
+
+    function showPlans(categoryId) {
+        document.getElementById('category-view').style.display = 'none';
+        document.getElementById('plans-view').style.display = 'block';
+        
+        const categoryData = plansData[categoryId];
+        document.getElementById('plan-section-title').innerText = categoryData.title;
+        
+        const container = document.getElementById('plans-container');
+        container.innerHTML = ''; 
+
+        if (categoryData.items.length > 0) {
+            categoryData.items.forEach(plan => {
+                let tagsHtml = plan.tags.map(tag => `<span class="plan-tag">${tag}</span>`).join('');
+                
+                let cardHtml = `
+                    <div class="plan-detail-card">
+                        <div class="plan-img-wrapper"><img src="${plan.img}" alt="${plan.title}"></div>
+                        <div class="plan-meta">
+                            <span class="plan-type">${plan.type}</span>
+                            <button class="share-btn"><i class="fa-solid fa-share-nodes"></i></button>
+                        </div>
+                        <h3 class="plan-title-text">${plan.title}</h3>
+                        <p class="plan-desc">${plan.desc}</p>
+                        <div class="plan-tags">${tagsHtml}</div>
+                        <div class="plan-actions">
+                            <button class="btn-ask" onclick="openModal('${plan.title}')">สอบถาม</button>
+                            <button class="btn-more" onclick="window.location.href='${plan.url}'">รายละเอียดเพิ่มเติม</button>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHtml;
+            });
+        } else {
+            container.innerHTML = '<p style="color:#888; grid-column: 1/-1;">กำลังอัปเดตข้อมูลแผนประกันในหมวดหมู่นี้...</p>';
+        }
+        document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showCategories() {
+        document.getElementById('category-view').style.display = 'block';
+        document.getElementById('plans-view').style.display = 'none';
+        document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // --- MODAL FUNCTIONS ---
+    let currentInquiryPlan = "";
+    
+    function openModal(planTitle) {
+        currentInquiryPlan = planTitle;
+        document.getElementById('modal-plan-name').innerText = "แผน: " + planTitle;
+        document.getElementById('inquiry-modal').classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('inquiry-modal').classList.remove('active');
+    }
+
+    function calculateAge(day, month, year) {
+        let currentYear = new Date().getFullYear();
+        let birthYear = parseInt(year);
+        // แปลง พ.ศ. เป็น ค.ศ. แบบคร่าวๆ ถ้ากรอกเกิน 2400
+        if (birthYear > 2400) {
+            birthYear -= 543;
+        }
+        let birthDate = new Date(birthYear, parseInt(month) - 1, parseInt(day));
+        let today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        // ถ้าเดือนเกิดยังไม่ถึง หรือถ้าเดือนตรงกันแต่วันเกิดยังไม่ถึง ให้ลบอายุออก 1 ปี
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    }
+
+    function submitForm() {
+        let fname = document.getElementById('form-fname').value;
+        let lname = document.getElementById('form-lname').value;
+        let day = document.getElementById('form-day').value;
+        let month = document.getElementById('form-month').value;
+        let year = document.getElementById('form-year').value;
+        let phone = document.getElementById('form-phone').value;
+        let consent = document.getElementById('form-consent').checked;
+
+        if(!fname || !lname || !day || !month || !year || !phone) {
+            alert("กรุณากรอกข้อมูลให้ครบถ้วน"); return;
+        }
+        if(!consent) {
+            alert("กรุณากดยอมรับเงื่อนไขการให้ข้อมูล"); return;
+        }
+
+        let age = calculateAge(day, month, year);
+        let dob = `${day}/${month}/${year}`;
+
+        let formData = {
+            fname: fname, lname: lname, dob: dob, age: age, phone: phone, plan: currentInquiryPlan
+        };
+
+        let submitBtn = document.getElementById('btn-submit-form');
+        let originalText = submitBtn.innerText;
+        submitBtn.innerText = "กำลังส่งข้อมูล...";
+        submitBtn.disabled = true;
+
+        // 1. ส่งข้อมูลไป Google Sheets
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzRHbXA35obf3n_4QyhFodCiAfSiZAdYkBzqli5ivPuiPevZYu-GQX-ypfONxOwUlQ_gQ/exec";
+        
+        fetch(WEB_APP_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData)
+        }).then(() => {
+            // 2. จัดการเรื่อง LINE ต่อหลังจากส่งข้อมูลเสร็จ
+            let msg = `[สอบถามข้อมูลประกัน]\nแผน: ${currentInquiryPlan}\nชื่อ: ${fname} ${lname}\nวันเกิด: ${dob} (อายุ ${age} ปี)\nเบอร์: ${phone}`;
+            let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+            if (isMobile) {
+                window.open("https://line.me/R/oaMessage/@toifwd/?" + encodeURIComponent(msg), '_blank');
+            } else {
+                navigator.clipboard.writeText(msg);
+                alert("✅ ส่งข้อมูลให้ตัวแทนเรียบร้อยแล้วค่ะ! \n(และระบบได้คัดลอกข้อความไว้ให้คุณกดวางใน LINE แล้ว)");
+                window.open("https://line.me/R/ti/p/@toifwd", '_blank');
+            }
+            
+            closeModal();
+            submitBtn.innerText = originalText;
+            submitBtn.disabled = false;
+            
+            // ล้างข้อมูลฟอร์ม
+            document.getElementById('form-fname').value = "";
+            document.getElementById('form-lname').value = "";
+            document.getElementById('form-year').value = "";
+            document.getElementById('form-phone').value = "";
+            document.getElementById('form-day').value = "";
+            document.getElementById('form-month').value = "";
+            document.getElementById('form-consent').checked = false;
+        }).catch(error => {
+            alert("❌ เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้งค่ะ");
+            submitBtn.innerText = originalText;
+            submitBtn.disabled = false;
+        });
+    }
+
+    window.addEventListener('scroll', () => {
+        let stickyBar = document.getElementById('sticky-bar');
+        if (window.scrollY > 500 && (window.innerHeight + window.scrollY) < (document.body.offsetHeight - 500)) {
+            stickyBar.classList.add('show');
+        } else {
+            stickyBar.classList.remove('show');
+        }
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            let targetId = this.getAttribute('href');
+            if (targetId === "#") return;
+            let targetElement = document.querySelector(targetId);
+            if(targetElement) targetElement.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    function calculateExperience() {
+        let startDate = new Date(2006, 6, 28); 
+        let today = new Date();
+        let years = today.getFullYear() - startDate.getFullYear();
+        let months = today.getMonth() - startDate.getMonth();
+        let days = today.getDate() - startDate.getDate();
+
+        if (days < 0) { months--; }
+        if (months < 0) { years--; months += 12; }
+
+        let expText = "";
+        if (years > 0) expText += years + " ปี ";
+        if (months > 0) expText += months + " เดือน";
+        if (expText === "") expText = "0 เดือน"; 
+
+        document.getElementById('experience-text-main').innerText = expText.trim();
+    }
+    calculateExperience(); 
+</script>
+
+</body>
+</html>
