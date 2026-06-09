@@ -82,41 +82,144 @@
     .hero-text p { font-size: 20px; color: #444; margin-bottom: 35px; max-width: 550px; }
     .hero-btns { display: flex; gap: 20px; }
 
-    /* --- 2. PRODUCT CATEGORIES --- */
+    /* --- 2. PRODUCT CATEGORIES (ดีไซน์ใหม่) --- */
     .services { background-color: var(--white); min-height: 800px;}
     .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
     
     .service-card {
-        background: var(--white); padding: 40px 30px; border-radius: 15px;
-        border: 1px solid #f0f0f0; text-align: center;
-        transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center;
-        position: relative; overflow: hidden; cursor: pointer;
+        background: var(--white); 
+        border-radius: 15px;
+        border: 1px solid #f0f0f0; 
+        transition: all 0.3s ease; 
+        display: flex; 
+        flex-direction: column; 
+        position: relative; 
+        overflow: hidden; 
+        cursor: pointer;
         box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
+        padding: 0; 
     }
     .service-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 15px 30px rgba(232, 102, 20, 0.15); 
         border-color: var(--primary-light);
     }
-    .service-card::after {
-        content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; 
-        background: linear-gradient(to right, var(--primary), #ff8533); transform: scaleX(0); transition: 0.3s ease;
+
+    .service-img-wrapper {
+        width: 100%;
+        height: 220px;
+        overflow: hidden;
+        position: relative;
     }
-    .service-card:hover::after { transform: scaleX(1); }
+    .service-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    .service-card:hover .service-img-wrapper img {
+        transform: scale(1.08); 
+    }
+
+    .service-content {
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        align-items: center;
+    }
+
+    .service-header-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 15px;
+        width: 100%;
+    }
 
     .service-icon { 
-        font-size: 45px; color: var(--white); margin-bottom: 25px; 
+        font-size: 26px; 
+        color: var(--white); 
         background: linear-gradient(135deg, var(--primary) 0%, #ff8533 100%); 
-        width: 90px; height: 90px; display: flex; align-items: center; justify-content: center; border-radius: 50%;
-        box-shadow: 0 8px 20px rgba(232, 102, 20, 0.25); transition: 0.3s ease;
+        width: 60px; 
+        height: 60px; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        border-radius: 50%;
+        box-shadow: 0 6px 15px rgba(232, 102, 20, 0.25); 
+        transition: 0.3s ease;
+        flex-shrink: 0;
     }
-    .service-card:hover .service-icon { transform: scale(1.1); box-shadow: 0 10px 25px rgba(232, 102, 20, 0.4); }
 
-    .service-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 15px; color: var(--secondary); }
-    .service-card p { font-size: 15px; color: var(--text-grey); margin-bottom: 25px; flex-grow: 1; }
-    .service-link { font-size: 15px; font-weight: 600; color: var(--primary); display: flex; align-items: center; gap: 8px; transition: 0.2s; }
-    .service-link i { font-size: 12px; transition: 0.2s; }
-    .service-card:hover .service-link i { transform: translateX(5px); }
+    @keyframes iconBounce {
+        0%, 100% { transform: translateY(0) scale(1.05); }
+        50% { transform: translateY(-8px) scale(1.05); }
+    }
+    .service-card:hover .service-icon { 
+        animation: iconBounce 0.8s infinite ease-in-out;
+        box-shadow: 0 10px 25px rgba(232, 102, 20, 0.4); 
+    }
+
+    .service-header-row h3 { 
+        font-size: 20px; 
+        font-weight: 600; 
+        color: var(--secondary); 
+        margin: 0;
+    }
+
+    .service-content p { 
+        font-size: 15px; 
+        color: var(--text-grey); 
+        margin-bottom: 25px; 
+        flex-grow: 1; 
+        text-align: center;
+    }
+
+    .glowing-btn {
+        background: var(--primary);
+        color: var(--white) !important;
+        padding: 10px 25px;
+        border-radius: 30px;
+        font-size: 15px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.3s ease;
+        border: 2px solid transparent;
+        animation: floatGlow 2s infinite ease-in-out;
+        text-decoration: none;
+    }
+    .glowing-btn i {
+        font-size: 14px;
+        transition: transform 0.3s;
+    }
+    .service-card:hover .glowing-btn {
+        background: #d15c12;
+    }
+    .service-card:hover .glowing-btn i {
+        transform: translateX(5px);
+    }
+
+    @keyframes floatGlow {
+        0% {
+            transform: translateY(0);
+            box-shadow: 0 0 5px rgba(232, 102, 20, 0.3), 0 0 10px rgba(232, 102, 20, 0.1);
+            border-color: rgba(232, 102, 20, 0.4);
+        }
+        50% {
+            transform: translateY(-4px);
+            box-shadow: 0 0 15px rgba(232, 102, 20, 0.6), 0 0 20px rgba(232, 102, 20, 0.3);
+            border-color: rgba(232, 102, 20, 0.7);
+        }
+        100% {
+            transform: translateY(0);
+            box-shadow: 0 0 5px rgba(232, 102, 20, 0.3), 0 0 10px rgba(232, 102, 20, 0.1);
+            border-color: rgba(232, 102, 20, 0.4);
+        }
+    }
 
     /* --- 2.1 SUB PLANS --- */
     .back-btn {
@@ -349,47 +452,91 @@
             <p class="section-subtitle">เราพร้อมดูแลทุกช่วงชีวิต ด้วยแผนประกันที่หลากหลายและตอบโจทย์ทุกความต้องการ</p>
             
             <div class="services-grid">
+                
                 <div class="service-card" onclick="showPlans('health')">
-                    <div class="service-icon"><i class="fa-solid fa-bed-pulse"></i></div>
-                    <h3>ประกันสุขภาพ</h3>
-                    <p>คุ้มครองค่ารักษาพยาบาล ครอบคลุมทั้งผู้ป่วยใน (IPD) และผู้ป่วยนอก (OPD)</p>
-                    <a href="javascript:void(0)" class="service-link">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    <div class="service-img-wrapper">
+                        <img src="precious.png" alt="ประกันสุขภาพ">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-header-row">
+                            <div class="service-icon"><i class="fa-solid fa-bed-pulse"></i></div>
+                            <h3>แผนประกันสุขภาพ</h3>
+                        </div>
+                        <p>คุ้มครองค่ารักษาพยาบาล ครอบคลุมทั้งผู้ป่วยใน (IPD) และผู้ป่วยนอก (OPD)</p>
+                        <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
                 </div>
                 
                 <div class="service-card" onclick="showPlans('saving')">
-                    <div class="service-icon"><i class="fa-solid fa-money-bill-trend-up"></i></div>
-                    <h3>ประกันสะสมทรัพย์</h3>
-                    <p>ออมเงินระยะสั้น-ยาว พร้อมความคุ้มครองชีวิตและผลตอบแทนที่มั่นคง</p>
-                    <a href="javascript:void(0)" class="service-link">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    <div class="service-img-wrapper">
+                        <img src="deposit.png" alt="ประกันสะสมทรัพย์">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-header-row">
+                            <div class="service-icon"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+                            <h3>แผนประกันสะสมทรัพย์</h3>
+                        </div>
+                        <p>ออมเงินระยะสั้น-ยาว พร้อมความคุ้มครองชีวิตและผลตอบแทนที่มั่นคง</p>
+                        <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
                 </div>
                 
                 <div class="service-card" onclick="showPlans('ci')">
-                    <div class="service-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-                    <h3>ประกันโรคร้ายแรง</h3>
-                    <p>เตรียมพร้อมรับมือโรคไม่คาดฝัน ด้วยเงินก้อนใหญ่เมื่อตรวจพบโรคร้าย</p>
-                    <a href="javascript:void(0)" class="service-link">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    <div class="service-img-wrapper">
+                        <img src="critical-Illness.png" alt="ประกันโรคร้ายแรง">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-header-row">
+                            <div class="service-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <h3>แผนประกันโรคร้ายแรง</h3>
+                        </div>
+                        <p>เตรียมพร้อมรับมือโรคไม่คาดฝัน ด้วยเงินก้อนใหญ่เมื่อตรวจพบโรคร้าย</p>
+                        <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
                 </div>
                 
                 <div class="service-card" onclick="showPlans('pension')">
-                    <div class="service-icon"><i class="fa-solid fa-person-cane"></i></div>
-                    <h3>ประกันบำนาญ</h3>
-                    <p>วางแผนเกษียณสุขใจ มีเงินบำนาญใช้จ่ายหลังเกษียณตลอดชีพ</p>
-                    <a href="javascript:void(0)" class="service-link">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    <div class="service-img-wrapper">
+                        <img src="pension-pic.png" alt="ประกันบำนาญ">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-header-row">
+                            <div class="service-icon"><i class="fa-solid fa-person-cane"></i></div>
+                            <h3>แผนประกันบำนาญ</h3>
+                        </div>
+                        <p>วางแผนเกษียณสุขใจ มีเงินบำนาญใช้จ่ายหลังเกษียณตลอดชีพ</p>
+                        <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
                 </div>
                 
                 <div class="service-card" onclick="showPlans('legacy')">
-                    <div class="service-icon"><i class="fa-solid fa-gem"></i></div>
-                    <h3>ประกันสร้างมรดก</h3>
-                    <p>สร้างหลักประกันส่งต่อความมั่งคั่ง ให้ครอบครัวเดินหน้าต่อไปได้</p>
-                    <a href="javascript:void(0)" class="service-link">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    <div class="service-img-wrapper">
+                        <img src="legacy.png" alt="ประกันสร้างมรดก">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-header-row">
+                            <div class="service-icon"><i class="fa-solid fa-gem"></i></div>
+                            <h3>แผนประกันสร้างมรดก</h3>
+                        </div>
+                        <p>สร้างหลักประกันส่งต่อความมั่งคั่ง ให้ครอบครัวเดินหน้าต่อไปได้</p>
+                        <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
                 </div>
                 
                 <div class="service-card" onclick="showPlans('nonlife')">
-                    <div class="service-icon"><i class="fa-solid fa-car"></i></div>
-                    <h3>ประกันวินาศภัย</h3>
-                    <p>คุ้มครองทรัพย์สิน ทั้งประกันรถยนต์ ประกันอัคคีภัย และอื่นๆ</p>
-                    <a href="javascript:void(0)" class="service-link">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    <div class="service-img-wrapper">
+                        <img src="non-motor.png" alt="ประกันวินาศภัย">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-header-row">
+                            <div class="service-icon"><i class="fa-solid fa-car"></i></div>
+                            <h3>แผนประกันวินาศภัย</h3>
+                        </div>
+                        <p>คุ้มครองทรัพย์สิน ทั้งประกันรถยนต์ ประกันอัคคีภัย และอื่นๆ</p>
+                        <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
                 </div>
+                
             </div>
         </div>
 
