@@ -804,21 +804,19 @@
 
         let submitBtn = document.getElementById('btn-submit-form');
         let originalText = submitBtn.innerText;
-        submitBtn.innerText = "กำลังส่งข้อมูล...";
+        submitBtn.innerText = "กำลังบันทึกข้อมูล...";
         submitBtn.disabled = true;
 
-        // 1. ส่งข้อมูลไป Google Sheets
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzdSvDiFNl0CzRh-9SWy7f5T1lY90H91L8yxSOjNjrSHdOSISvY1C3gA919Bau0o_0Dbg/exec";
+        // 1. นำลิงก์ Web App URL ใหม่มาวางตรงนี้ครับ 👇
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxn9YZXgEkfeIPKgeLpxEpjaxljnf_UTBi1HinY_27SCVIJoVhh3ljJlHnu9W8DJ-kA7g/exec"; 
         
+        // 2. ส่งข้อมูลไป Google Sheets (ปรับลด Header เพื่อไม่ให้ Browser บล็อก)
         fetch(WEB_APP_URL, {
             method: "POST",
-            mode: "no-cors",
-            headers: { 
-                "Content-Type": "text/plain;charset=utf-8" // <--- แก้ไขจุดนี้จุดเดียว เพื่อไม่ให้เบราว์เซอร์บล็อกข้อมูล
-            },
             body: JSON.stringify(formData)
         }).then(() => {
-            // 2. จัดการเรื่อง LINE ต่อหลังจากส่งข้อมูลเสร็จ
+            
+            // 3. จัดการเรื่อง LINE ต่อหลังจากส่งข้อมูลเสร็จ
             let msg = `[สอบถามข้อมูลประกัน]\nแผน: ${currentInquiryPlan}\nชื่อ: ${fname} ${lname}\nวันเกิด: ${dob} (อายุ ${age} ปี)\nเบอร์: ${phone}`;
             let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
@@ -842,6 +840,7 @@
             document.getElementById('form-day').value = "";
             document.getElementById('form-month').value = "";
             document.getElementById('form-consent').checked = false;
+
         }).catch(error => {
             alert("❌ เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้งค่ะ");
             submitBtn.innerText = originalText;
