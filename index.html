@@ -166,8 +166,8 @@
 
     /* --- 3. ABOUT AGENT --- */
     .about-agent { background-color: var(--bg-color); }
-    .agent-content { display: flex; align-items: center; gap: 60px; }
-    .agent-image-container { flex: 0.7; position: relative; }
+    .agent-content { display: flex; align-items: center; gap: 40px; justify-content: space-between; }
+    .agent-image-container { flex: 0.3; max-width: 300px; position: relative; }
     .agent-image-container img {
         width: 100%; height: auto; border-radius: 50%; object-fit: cover;
         border: 10px solid var(--white); box-shadow: 0 10px 30px rgba(0,0,0,0.1);
@@ -177,15 +177,20 @@
         content: ''; position: absolute; top: -15px; left: -15px; right: -15px; bottom: -15px;
         border: 2px dashed var(--primary); border-radius: 50%; opacity: 0.4;
     }
-    .agent-info { flex: 1; }
+    .agent-info { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
     .mdrt-badge { display: inline-block; background-color: var(--primary); color: var(--white); padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; }
     .agent-name { font-size: 32px; font-weight: 700; margin-bottom: 10px; color: var(--secondary); }
-    .agent-title { font-size: 16px; color: var(--primary); font-weight: 600; margin-bottom: 25px; display: flex; flex-wrap: wrap; gap: 15px; }
-    .agent-bio { font-size: 16px; color: var(--text-grey); margin-bottom: 30px; }
-    .agent-stats { display: flex; gap: 30px; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 20px 0; margin-bottom: 30px; }
+    .agent-title { font-size: 16px; color: var(--primary); font-weight: 600; margin-bottom: 25px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+    .agent-bio { font-size: 16px; font-weight: 400; color: var(--text-grey); margin-bottom: 30px; max-width: 90%; }
+    .agent-stats { display: flex; gap: 30px; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 20px 0; margin-bottom: 30px; justify-content: center; width: 100%; }
     .stat-item { text-align: center; }
     .stat-val { font-size: 24px; font-weight: 700; color: var(--primary); }
     .stat-label { font-size: 13px; color: var(--text-grey); }
+    .license-image-container { flex: 0.25; max-width: 250px; }
+    .license-image-container img {
+        width: 100%; height: auto; border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 5px solid var(--white);
+    }
 
     /* --- 4. TESTIMONIALS --- */
     .testimonials { background-color: var(--white); }
@@ -421,6 +426,9 @@
             </div>
             <a href="https://line.me/R/oaMessage/@toifwd/?" target="_blank" class="btn btn-line"><i class="fa-brands fa-line" style="font-size: 20px;"></i> ปรึกษาตัวแทน</a>
         </div>
+        <div class="license-image-container">
+            <img src="license.png" alt="ใบอนุญาตตัวแทนประกันชีวิต" style="width: 150%; height: auto; max-width: 450px; border-radius: 12px; box-shadow: none; border: 5px solid var(--white); background: transparent;">
+        </div>
     </div>
 </section>
 
@@ -501,7 +509,7 @@
     
     <div class="footer-bottomcontainer">
         <div class="footer-bottom">
-            © 2026 คุณนฤมล คำใบ (ตัวแทน FWD License 6901010926) | สงวนลิขสิทธิ์
+            © 2026 คุณนฤมล คำใบ (ตัวแทน FWD License 5101051893) | สงวนลิขสิทธิ์
         </div>
     </div>
 </footer>
