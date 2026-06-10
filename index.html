@@ -60,7 +60,7 @@
         box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
     .nav-container { display: flex; justify-content: space-between; align-items: center; }
-    .logo-placeholder { font-size: 24px; font-weight: 700; color: var(--primary); }
+    .logo-placeholder { font-size: 24px; font-weight: 700; color: var(--primary); display: flex; align-items: center; }
     .logo-placeholder span { color: var(--secondary); font-weight: 400; font-size: 16px; margin-left: 5px;}
     .nav-menu { display: flex; gap: 30px; }
     .nav-menu a { font-weight: 500; color: var(--secondary); font-size: 15px; }
@@ -82,7 +82,7 @@
     .hero-text p { font-size: 20px; color: #444; margin-bottom: 35px; max-width: 550px; }
     .hero-btns { display: flex; gap: 20px; }
 
-    /* --- 2. PRODUCT CATEGORIES (ดีไซน์ใหม่) --- */
+    /* --- 2. PRODUCT CATEGORIES --- */
     .services { background-color: var(--white); min-height: 800px;}
     .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
     
@@ -192,33 +192,14 @@
         animation: floatGlow 2s infinite ease-in-out;
         text-decoration: none;
     }
-    .glowing-btn i {
-        font-size: 14px;
-        transition: transform 0.3s;
-    }
-    .service-card:hover .glowing-btn {
-        background: #d15c12;
-    }
-    .service-card:hover .glowing-btn i {
-        transform: translateX(5px);
-    }
+    .glowing-btn i { font-size: 14px; transition: transform 0.3s; }
+    .service-card:hover .glowing-btn { background: #d15c12; }
+    .service-card:hover .glowing-btn i { transform: translateX(5px); }
 
     @keyframes floatGlow {
-        0% {
-            transform: translateY(0);
-            box-shadow: 0 0 5px rgba(232, 102, 20, 0.3), 0 0 10px rgba(232, 102, 20, 0.1);
-            border-color: rgba(232, 102, 20, 0.4);
-        }
-        50% {
-            transform: translateY(-4px);
-            box-shadow: 0 0 15px rgba(232, 102, 20, 0.6), 0 0 20px rgba(232, 102, 20, 0.3);
-            border-color: rgba(232, 102, 20, 0.7);
-        }
-        100% {
-            transform: translateY(0);
-            box-shadow: 0 0 5px rgba(232, 102, 20, 0.3), 0 0 10px rgba(232, 102, 20, 0.1);
-            border-color: rgba(232, 102, 20, 0.4);
-        }
+        0% { transform: translateY(0); box-shadow: 0 0 5px rgba(232, 102, 20, 0.3), 0 0 10px rgba(232, 102, 20, 0.1); border-color: rgba(232, 102, 20, 0.4); }
+        50% { transform: translateY(-4px); box-shadow: 0 0 15px rgba(232, 102, 20, 0.6), 0 0 20px rgba(232, 102, 20, 0.3); border-color: rgba(232, 102, 20, 0.7); }
+        100% { transform: translateY(0); box-shadow: 0 0 5px rgba(232, 102, 20, 0.3), 0 0 10px rgba(232, 102, 20, 0.1); border-color: rgba(232, 102, 20, 0.4); }
     }
 
     /* --- 2.1 SUB PLANS --- */
@@ -334,11 +315,12 @@
         background: rgba(0, 0, 0, 0.6); z-index: 2000;
         display: none; align-items: center; justify-content: center;
         opacity: 0; transition: opacity 0.3s ease;
+        padding: 20px;
     }
     .modal-overlay.active { display: flex; opacity: 1; }
     
     .modal-content {
-        background: var(--white); width: 90%; max-width: 500px;
+        background: var(--white); width: 100%; max-width: 500px;
         border-radius: 15px; padding: 30px; position: relative;
         box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         transform: translateY(-20px); transition: transform 0.3s ease;
@@ -353,11 +335,11 @@
     }
     .close-modal:hover { color: var(--primary); }
     
-    .modal-header { margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
-    .modal-header h3 { font-size: 22px; color: var(--secondary); margin-bottom: 5px; }
+    .modal-header { margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; padding-right: 20px;}
+    .modal-header h3 { font-size: 22px; color: var(--secondary); margin-bottom: 5px; line-height: 1.4;}
     .modal-header p { font-size: 14px; color: var(--text-grey); }
     
-    .form-group { margin-bottom: 15px; }
+    .form-group { margin-bottom: 15px; width: 100%; }
     .form-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: var(--text-dark); }
     .form-row { display: flex; gap: 15px; }
     .form-row .form-group { flex: 1; }
@@ -378,7 +360,7 @@
         display: flex; gap: 10px; align-items: flex-start;
         background: var(--bg-color); padding: 15px; border-radius: 8px; margin-bottom: 20px;
     }
-    .consent-box input[type="checkbox"] { margin-top: 4px; accent-color: var(--primary); }
+    .consent-box input[type="checkbox"] { margin-top: 4px; accent-color: var(--primary); flex-shrink: 0;}
     .consent-box label { font-size: 12px; color: var(--text-grey); line-height: 1.4; }
 
     .btn-submit {
@@ -389,27 +371,95 @@
     .btn-submit:disabled { background: #ccc; cursor: not-allowed; }
     .btn-submit:hover:not(:disabled) { background: #d15c12; }
 
-    /* RESPONSIVE MEDIA QUERIES */
+    /* ========================================================
+       RESPONSIVE MEDIA QUERIES - อัปเดตใหม่ให้ UI เป็นระเบียบ 
+       ======================================================== */
+    
+    /* แท็บเล็ต (iPad / Tablet) */
     @media (max-width: 991px) {
-        .hero { background: linear-gradient(rgba(252, 249, 245, 0.85), rgba(252, 249, 245, 0.95)), url("family.png") no-repeat center center/cover; padding: 160px 0 100px 0; }
-        .hero-content, .agent-content { flex-direction: column; text-align: center; }
+        section { padding: 70px 0; }
+        
+        /* Hero Section */
+        .hero { background-position: center; padding: 160px 0 80px 0; }
+        .hero-content { flex-direction: column; text-align: center; gap: 40px; }
         .hero-text { max-width: 100%; }
-        .hero-text h1 { font-size: 38px; }
-        .hero-text p { margin-left: auto; margin-right: auto; }
+        .hero-text h1 { font-size: 40px; }
+        .hero-text p { margin: 0 auto 30px auto; }
         .hero-btns { justify-content: center; }
-        .services-grid, .testimonial-grid, .sub-plans-grid { grid-template-columns: repeat(2, 1fr); }
-        .footer-content { grid-template-columns: repeat(2, 1fr); }
+
+        /* Grids */
+        .services-grid, .testimonial-grid, .sub-plans-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+        /* Agent Section */
+        .agent-content { flex-direction: column; text-align: center; gap: 30px; }
+        .agent-image-container { max-width: 280px; margin: 0 auto; }
+        .license-image-container { max-width: 250px; margin: 0 auto; }
+        
+        /* Footer */
+        .footer-content { grid-template-columns: repeat(2, 1fr); gap: 40px; }
     }
 
+    /* มือถือ (Mobile) */
     @media (max-width: 767px) {
-        .services-grid, .testimonial-grid, .sub-plans-grid { grid-template-columns: 1fr; }
-        .section-title { font-size: 28px; }
-        .agent-stats { flex-wrap: wrap; justify-content: center; gap: 15px; }
-        .sticky-contact-content { flex-direction: column; gap: 10px; text-align: center;}
-        .footer-content { grid-template-columns: 1fr; gap: 30px;}
+        section { padding: 50px 0; }
+        .section-title { font-size: 26px; line-height: 1.3; margin-bottom: 10px; padding: 0 10px;}
+        .section-subtitle { font-size: 15px; margin-bottom: 40px; padding: 0 10px;}
+
+        /* Header */
+        header { padding: 12px 0; }
+        .logo-placeholder { font-size: 18px; flex-direction: column; align-items: flex-start; gap: 2px;}
+        .logo-placeholder span { font-size: 12px; margin-left: 0; }
         .nav-menu { display: none; }
+        .nav-container > a.btn { padding: 8px 16px; font-size: 13px; }
+
+        /* Hero */
+        .hero { padding: 130px 0 60px 0; }
+        .hero-text h1 { font-size: 32px; margin-bottom: 15px; }
+        .hero-text p { font-size: 16px; margin-bottom: 25px; padding: 0 10px;}
+        .hero-btns { flex-direction: column; width: 100%; gap: 15px; padding: 0 10px;}
+        .hero-btns .btn { width: 100%; justify-content: center; }
+
+        /* Grids (เปลี่ยนเป็น 1 คอลัมน์) */
+        .services-grid, .testimonial-grid, .sub-plans-grid { grid-template-columns: 1fr; gap: 20px; }
+        
+        /* Service Cards */
+        .service-img-wrapper { height: 180px; } /* ลดความสูงรูปลงนิดหน่อยบนมือถือ */
+        
+        /* Agent Section */
+        .agent-image-container { max-width: 200px; }
+        .agent-name { font-size: 26px; }
+        .agent-bio { font-size: 15px; max-width: 100%; }
+        .agent-stats { gap: 15px; padding: 15px 0; flex-wrap: wrap; }
+        .stat-item { flex: 1 1 40%; } /* แบ่งเป็น 2 แถว แถวละ 2 กล่องให้ดูสมดุล */
+        .stat-val { font-size: 22px; }
+        .license-image-container { max-width: 220px; }
+
+        /* Testimonials */
+        .testimonial-card { padding: 25px 20px; }
+
+        /* Footer */
+        .footer-content { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+        .footer-contact ul { align-items: center; }
+        .footer-contact li { justify-content: center; }
+        #footer-qr { margin: 0 auto; }
+
+        /* Sticky Contact Bar */
+        .sticky-contact-content { flex-direction: column; gap: 12px; text-align: center; padding: 12px 20px; }
+        .sticky-text { font-size: 14px; }
+        .sticky-btns { width: 100%; justify-content: space-between; gap: 10px; }
+        .sticky-btns .btn { flex: 1; padding: 12px; font-size: 14px; }
+
+        /* Modal Popup Form */
+        .modal-content { padding: 25px 20px; width: 100%; }
+        .modal-header h3 { font-size: 18px; }
         .form-row { flex-direction: column; gap: 0; }
+        .dob-row { grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    }
+    
+    /* มือถือจอเล็กมาก (เช่น iPhone SE) */
+    @media (max-width: 400px) {
         .dob-row { grid-template-columns: 1fr; gap: 10px; }
+        .stat-item { flex: 1 1 100%; }
     }
 </style>
 </head>
@@ -559,7 +609,7 @@
             <span class="mdrt-badge">MDRT Agent (ปี 2022)</span>
             <h2 class="agent-name">นฤมล คำใบ</h2>
             <div class="agent-title">
-                <span><i class="fa-solid fa-certificate"></i> ใบอนุญาตเลขที่: 6901010926</span>
+                <span><i class="fa-solid fa-certificate"></i> ใบอนุญาตเลขที่: 5101051893</span>
                 <span><i class="fa-solid fa-calendar-alt"></i> ประสบการณ์ <span id="experience-text-main">...</span></span>
             </div>
             <p class="agent-bio">
@@ -665,8 +715,8 @@
     <div class="sticky-contact-content">
         <div class="sticky-text">สนใจแผนประกัน? ปรึกษาตัวแทนมืออาชีพได้เลยค่ะ</div>
         <div class="sticky-btns">
-            <a href="tel:0869017235" class="btn btn-primary" style="background:#555; padding: 10px 20px; font-size: 14px;"><i class="fa fa-phone"></i> โทรเลย</a>
-            <a href="https://line.me/R/oaMessage/@toifwd/?" target="_blank" class="btn btn-line" style="padding: 10px 20px; font-size: 14px;"><i class="fa-brands fa-line"></i> แอดไลน์</a>
+            <a href="tel:0869017235" class="btn btn-primary" style="background:#555;"><i class="fa fa-phone"></i> โทรเลย</a>
+            <a href="https://line.me/R/oaMessage/@toifwd/?" target="_blank" class="btn btn-line"><i class="fa-brands fa-line"></i> แอดไลน์</a>
         </div>
     </div>
 </div>
@@ -715,7 +765,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="number" id="form-year" placeholder="ปี (พ.ศ./ค.ศ.)">
+                <input type="number" id="form-year" placeholder="ปี (พ.ศ.)">
             </div>
         </div>
 
@@ -892,7 +942,7 @@
                 container.innerHTML += cardHtml;
             });
         } else {
-            container.innerHTML = '<p style="color:#888; grid-column: 1/-1;">กำลังอัปเดตข้อมูลแผนประกันในหมวดหมู่นี้...</p>';
+            container.innerHTML = '<p style="color:#888; grid-column: 1/-1;">กำลังอัปเดตข้อมูลแผนประกันในหมวดหมู่นี้...กรุณาทัก  Line สอบถามข้อมูลเพิ่มเติม</p>';
         }
         document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
     }
