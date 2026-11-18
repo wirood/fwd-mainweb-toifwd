@@ -1,0 +1,2983 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ตัวแทนประกันชีวิต FWD MDRT | วางแผนอนาคตอย่างมั่นใจ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- html2canvas สำหรับแคปเจอร์เอกสาร A4 ความละเอียดสูง -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+    :root {
+        --primary: #e86614; /* FWD Orange */
+        --primary-light: #fff2e8;
+        --secondary: #333333; /* Dark Gray */
+        --text-dark: #111111;
+        --text-grey: #666666;
+        --bg-color: #fcf9f5;
+        --white: #ffffff;
+        --line-green: #06C755;
+        --border-color: #e5e5e5;
+        --danger: #dc3545;
+        --success: #198754;
+        --info: #0284c7;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        font-family: 'Prompt', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-dark);
+        line-height: 1.6;
+        transition: padding-top 0.3s ease;
+    }
+
+    body.admin-active {
+        padding-top: 56px;
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* Generic Section Style */
+    section { padding: 80px 0; }
+    .section-title { font-size: 36px; font-weight: 700; text-align: center; margin-bottom: 15px; color: var(--secondary); }
+    .section-subtitle { font-size: 18px; color: var(--text-grey); text-align: center; max-width: 700px; margin: 0 auto 60px auto; }
+
+    /* Button Style */
+    .btn {
+        display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+        padding: 12px 30px; border-radius: 30px;
+        font-weight: 600; font-size: 16px; cursor: pointer; transition: all 0.3s ease;
+        border: none; font-family: 'Prompt', sans-serif;
+    }
+    .btn-primary { background-color: var(--primary); color: var(--white); }
+    .btn-primary:hover { background-color: #d15c12; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(232, 102, 20, 0.3); }
+    .btn-line { background-color: var(--line-green); color: var(--white); }
+    .btn-line:hover { background-color: #05a044; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(6, 199, 85, 0.2); }
+
+    /* --- ADMIN TOP CONTROL BAR --- */
+    .admin-top-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(90deg, #1e293b 0%, #0f172a 100%);
+        color: var(--white);
+        z-index: 1100;
+        padding: 10px 20px;
+        display: none;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+        border-bottom: 2px solid var(--primary);
+    }
+    body.admin-active .admin-top-bar { display: block; }
+    body.admin-active header { top: 54px; }
+    .admin-bar-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .admin-status-badge {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #ff9f59;
+    }
+    .admin-bar-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    .btn-admin-action {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        border: 1px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.1);
+        color: var(--white);
+        font-family: 'Prompt', sans-serif;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: 0.2s;
+    }
+    .btn-admin-action:hover { background: rgba(255,255,255,0.2); transform: translateY(-1px); }
+    .btn-admin-action.primary { background: var(--primary); border-color: var(--primary); }
+    .btn-admin-action.primary:hover { background: #d15c12; }
+    .btn-admin-action.info { background: #0284c7; border-color: #0284c7; }
+    .btn-admin-action.info:hover { background: #0369a1; }
+    .btn-admin-action.success { background: #0d9488; border-color: #0d9488; }
+    .btn-admin-action.success:hover { background: #0f766e; }
+    .btn-admin-action.danger { background: rgba(220, 53, 69, 0.25); border-color: #dc3545; color: #ff858f; }
+    .btn-admin-action.danger:hover { background: #dc3545; color: var(--white); }
+    .lead-count-pill {
+        background: var(--white);
+        color: #0284c7;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 1px 7px;
+        border-radius: 12px;
+        margin-left: 2px;
+    }
+
+    /* Admin Inline Toolbar */
+    .admin-inline-toolbar {
+        display: none;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--primary-light);
+        border: 1px dashed var(--primary);
+        padding: 15px 20px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    body.admin-active .admin-inline-toolbar { display: flex; }
+
+    /* Admin Card Floating Buttons */
+    .card-admin-btns {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        display: none;
+        gap: 6px;
+        z-index: 5;
+    }
+    body.admin-active .card-admin-btns { display: flex; }
+    .btn-card-tool {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--white);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        transition: 0.2s;
+    }
+    .btn-card-tool.edit { background: #2563eb; }
+    .btn-card-tool.edit:hover { background: #1d4ed8; transform: scale(1.08); }
+    .btn-card-tool.delete { background: #dc3545; }
+    .btn-card-tool.delete:hover { background: #b02a37; transform: scale(1.08); }
+
+    /* --- HEADER --- */
+    header {
+        background-color: var(--white); padding: 15px 0;
+        position: fixed; top: 0; width: 100%; z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        transition: top 0.3s ease;
+    }
+    .nav-container { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .logo-placeholder { font-size: 22px; font-weight: 700; color: var(--primary); display: flex; align-items: center; white-space: nowrap; }
+    .logo-placeholder span { color: var(--secondary); font-weight: 400; font-size: 15px; margin-left: 5px;}
+    .nav-menu { display: flex; gap: 20px; }
+    .nav-menu a { font-weight: 500; color: var(--secondary); font-size: 14px; white-space: nowrap; }
+    .nav-menu a:hover { color: var(--primary); }
+    .nav-menu a.active { color: var(--primary); font-weight: 600;}
+
+    .header-right-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+    .btn-staff-login {
+        background: #f5f5f5;
+        color: var(--text-grey);
+        border: 1px solid #e0e0e0;
+        padding: 8px 14px;
+        border-radius: 25px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: 'Prompt', sans-serif;
+        transition: all 0.25s ease;
+        white-space: nowrap;
+    }
+    .btn-staff-login:hover { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
+    body.admin-active .btn-staff-login {
+        background: var(--primary-light);
+        color: var(--primary);
+        border-color: var(--primary);
+        font-weight: 600;
+    }
+
+    /* --- 1. HERO SECTION --- */
+    .hero {
+        background: linear-gradient(to right, rgba(252, 249, 245, 0.98) 0%, rgba(252, 249, 245, 0.8) 45%, rgba(252, 249, 245, 0) 100%),
+                    url("family.png") no-repeat center center/cover;
+        padding: 220px 0 160px 0;
+        position: relative;
+        overflow: hidden;
+    }
+    .hero-content { display: flex; align-items: center; }
+    .hero-text { flex: 1; max-width: 650px; }
+    .hero-text h1 { font-size: 48px; font-weight: 700; line-height: 1.2; margin-bottom: 20px; color: var(--secondary); }
+    .hero-text h1 span { color: var(--primary); }
+    .hero-text p { font-size: 20px; color: #444; margin-bottom: 35px; max-width: 550px; }
+    .hero-btns { display: flex; gap: 20px; flex-wrap: wrap; }
+
+    /* --- 2. PRODUCT CATEGORIES --- */
+    .services { background-color: var(--white); min-height: 800px; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+
+    .service-card {
+        background: var(--white);
+        border-radius: 15px;
+        border: 1px solid #f0f0f0;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        padding: 0;
+    }
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(232, 102, 20, 0.15);
+        border-color: var(--primary-light);
+    }
+
+    .service-img-wrapper {
+        width: 100%;
+        height: 220px;
+        overflow: hidden;
+        position: relative;
+        background-color: #f8f4f0;
+    }
+    .service-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    .service-card:hover .service-img-wrapper img { transform: scale(1.08); }
+
+    .service-content {
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        align-items: center;
+    }
+
+    .service-header-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    .service-icon {
+        font-size: 26px;
+        color: var(--white);
+        background: linear-gradient(135deg, var(--primary) 0%, #ff8533 100%);
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        box-shadow: 0 6px 15px rgba(232, 102, 20, 0.25);
+        transition: 0.3s ease;
+        flex-shrink: 0;
+    }
+
+    @keyframes iconBounce {
+        0%, 100% { transform: translateY(0) scale(1.05); }
+        50% { transform: translateY(-8px) scale(1.05); }
+    }
+    .service-card:hover .service-icon {
+        animation: iconBounce 0.8s infinite ease-in-out;
+        box-shadow: 0 10px 25px rgba(232, 102, 20, 0.4);
+    }
+
+    .service-header-row h3 { font-size: 20px; font-weight: 600; color: var(--secondary); margin: 0; }
+    .service-content p { font-size: 15px; color: var(--text-grey); margin-bottom: 25px; flex-grow: 1; text-align: center; }
+
+    .glowing-btn {
+        background: var(--primary);
+        color: var(--white) !important;
+        padding: 10px 25px;
+        border-radius: 30px;
+        font-size: 15px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.3s ease;
+        border: 2px solid transparent;
+        animation: floatGlow 2s infinite ease-in-out;
+        text-decoration: none;
+    }
+    .glowing-btn i { font-size: 14px; transition: transform 0.3s; }
+    .service-card:hover .glowing-btn { background: #d15c12; }
+    .service-card:hover .glowing-btn i { transform: translateX(5px); }
+
+    @keyframes floatGlow {
+        0% { transform: translateY(0); box-shadow: 0 0 5px rgba(232, 102, 20, 0.3), 0 0 10px rgba(232, 102, 20, 0.1); border-color: rgba(232, 102, 20, 0.4); }
+        50% { transform: translateY(-4px); box-shadow: 0 0 15px rgba(232, 102, 20, 0.6), 0 0 20px rgba(232, 102, 20, 0.3); border-color: rgba(232, 102, 20, 0.7); }
+        100% { transform: translateY(0); box-shadow: 0 0 5px rgba(232, 102, 20, 0.3), 0 0 10px rgba(232, 102, 20, 0.1); border-color: rgba(232, 102, 20, 0.4); }
+    }
+
+    /* --- 2.1 SUB PLANS --- */
+    .back-btn {
+        display: inline-flex; align-items: center; gap: 8px; font-size: 16px; font-family: 'Prompt';
+        color: var(--text-grey); background: none; border: none; cursor: pointer; margin-bottom: 20px; font-weight: 600; transition: 0.2s;
+    }
+    .back-btn:hover { color: var(--primary); transform: translateX(-5px); }
+
+    .sub-plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+
+    .plan-detail-card {
+        background: var(--white); border-radius: 12px; padding: 20px;
+        border: 1px solid var(--border-color, #e5e5e5);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; flex-direction: column; transition: 0.3s;
+    }
+    .plan-detail-card:hover { box-shadow: 0 10px 25px rgba(232, 102, 20, 0.15); border-color: var(--primary-light); transform: translateY(-3px); }
+
+    .plan-img-wrapper { width: 100%; height: 160px; border-radius: 8px; overflow: hidden; margin-bottom: 15px; background: #f8f4f0; }
+    .plan-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+    .plan-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .plan-type { font-size: 12px; color: var(--primary); font-weight: 500; }
+    .share-btn { color: var(--primary); cursor: pointer; background: none; border: none; font-size: 16px; }
+
+    .plan-title-text { font-size: 20px; font-weight: 700; color: var(--secondary); margin-bottom: 10px; line-height: 1.3; }
+    .plan-desc {
+        font-size: 13px; color: var(--text-grey); margin-bottom: 15px; flex-grow: 1;
+        display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    }
+
+    .plan-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+    .plan-tag {
+        font-size: 11px; color: var(--primary); border: 1px solid var(--primary);
+        padding: 3px 8px; border-radius: 4px; background: var(--primary-light);
+    }
+
+    .plan-actions { display: flex; flex-direction: column; gap: 8px; }
+    .btn-ask {
+        background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px;
+        font-family: 'Prompt'; font-weight: 600; font-size: 15px; cursor: pointer; transition: 0.2s;
+    }
+    .btn-ask:hover { background: #d15c12; }
+    .btn-more {
+        background: transparent; color: var(--primary); border: none; padding: 10px;
+        font-family: 'Prompt'; font-weight: 500; font-size: 14px; cursor: pointer; transition: 0.2s;
+    }
+    .btn-more:hover { text-decoration: underline; }
+
+    /* --- 3. ABOUT AGENT --- */
+    .about-agent { background-color: var(--bg-color); }
+    .agent-content { display: flex; align-items: center; gap: 40px; justify-content: space-between; }
+    .agent-image-container { flex: 0.3; max-width: 300px; position: relative; }
+    .agent-image-container img {
+        width: 100%; height: auto; border-radius: 50%; object-fit: cover;
+        border: 10px solid var(--white); box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        aspect-ratio: 1 / 1;
+    }
+    .agent-image-container::before {
+        content: ''; position: absolute; top: -15px; left: -15px; right: -15px; bottom: -15px;
+        border: 2px dashed var(--primary); border-radius: 50%; opacity: 0.4;
+    }
+    .agent-info { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .mdrt-badge { display: inline-block; background-color: var(--primary); color: var(--white); padding: 6px 15px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px; }
+    .agent-name { font-size: 32px; font-weight: 700; margin-bottom: 10px; color: var(--secondary); }
+    .agent-title { font-size: 16px; color: var(--primary); font-weight: 600; margin-bottom: 25px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+    .agent-bio { font-size: 16px; font-weight: 400; color: var(--text-grey); margin-bottom: 30px; max-width: 90%; }
+    .agent-stats { display: flex; gap: 30px; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 20px 0; margin-bottom: 30px; justify-content: center; width: 100%; }
+    .stat-item { text-align: center; }
+    .stat-val { font-size: 24px; font-weight: 700; color: var(--primary); }
+    .stat-label { font-size: 13px; color: var(--text-grey); }
+    .license-image-container { flex: 0.25; max-width: 250px; }
+    .license-image-container img {
+        width: 100%; height: auto; border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 5px solid var(--white);
+    }
+
+    /* --- 4. NEWS & ACTIVITIES SECTION --- */
+    .news-section {
+        background-color: var(--white);
+        border-top: 1px solid #f0ebe6;
+        position: relative;
+    }
+    .news-filter-bar {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 40px;
+    }
+    .filter-pill {
+        padding: 8px 22px;
+        border-radius: 25px;
+        border: 1px solid #e0e0e0;
+        background: var(--bg-color);
+        color: var(--text-grey);
+        font-family: 'Prompt', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+    .filter-pill:hover, .filter-pill.active {
+        background: var(--primary);
+        color: var(--white);
+        border-color: var(--primary);
+        box-shadow: 0 4px 12px rgba(232, 102, 20, 0.25);
+    }
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+    .news-card {
+        background: var(--bg-color);
+        border-radius: 15px;
+        overflow: hidden;
+        border: 1px solid #efefef;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+    .news-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 15px 30px rgba(232, 102, 20, 0.12);
+        border-color: var(--primary-light);
+    }
+    .news-img-box {
+        width: 100%;
+        height: 210px;
+        min-height: 210px;
+        position: relative;
+        overflow: hidden;
+        background: #ece7e1;
+        flex-shrink: 0;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+    .news-img-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s ease;
+    }
+    .news-card:hover .news-img-box img { transform: scale(1.06); }
+    .news-category-badge {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        background: var(--primary);
+        color: var(--white);
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .news-body {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+    .news-date {
+        font-size: 13px;
+        color: var(--text-grey);
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .news-date i { color: var(--primary); }
+    .news-title {
+        font-size: 19px;
+        font-weight: 700;
+        color: var(--secondary);
+        margin-bottom: 10px;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .news-excerpt {
+        font-size: 14px;
+        color: var(--text-grey);
+        margin-bottom: 20px;
+        flex-grow: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .news-readmore-btn {
+        align-self: flex-start;
+        background: none;
+        border: none;
+        color: var(--primary);
+        font-family: 'Prompt', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0;
+        transition: 0.2s;
+    }
+    .news-readmore-btn:hover { color: #d15c12; gap: 10px; }
+
+    /* --- 5. TESTIMONIALS (DYNAMIC CMS) --- */
+    .testimonials { background-color: var(--bg-color); }
+    .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+    .testimonial-card {
+        background: var(--white);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid #f2ece6;
+        transition: all 0.3s ease;
+    }
+    .testimonial-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 25px rgba(232, 102, 20, 0.1);
+    }
+    .quote-icon { font-size: 24px; color: var(--primary); opacity: 0.2; position: absolute; top: 25px; left: 25px; }
+    .testimonial-text { font-size: 15px; color: var(--text-dark); margin-bottom: 22px; font-style: italic; padding-top: 22px; flex-grow: 1; }
+    .client-info { display: flex; align-items: center; gap: 15px; }
+    .client-img-placeholder {
+        width: 50px; height: 50px; background: #fff2e8; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 20px; color: var(--primary); flex-shrink: 0;
+    }
+    .client-name { font-size: 15px; font-weight: 600; color: var(--secondary); }
+    .client-plan { font-size: 13px; color: var(--text-grey); }
+
+    /* Testimonial Optional Media (Image / Video) */
+    .testimonial-media-box {
+        width: 100%;
+        height: 210px;
+        min-height: 200px;
+        aspect-ratio: 16 / 9;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 18px;
+        background: #f5f0eb;
+        position: relative;
+        border: 1px solid #eee5dc;
+        flex-shrink: 0;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+    .testimonial-media-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        cursor: zoom-in;
+        transition: transform 0.35s ease;
+    }
+    .testimonial-media-box img:hover {
+        transform: scale(1.04);
+    }
+    .testimonial-media-zoom-hint {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        background: rgba(0, 0, 0, 0.58);
+        color: #ffffff;
+        font-size: 11px;
+        padding: 4px 9px;
+        border-radius: 20px;
+        pointer-events: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .testimonial-media-box iframe,
+    .testimonial-media-box video {
+        width: 100%;
+        height: 100%;
+        min-height: 200px;
+        border: none;
+        display: block;
+        background: #000000;
+        object-fit: contain;
+    }
+
+    /* Full-size Image Lightbox Modal */
+    .lightbox-content {
+        position: relative;
+        max-width: 92vw;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .lightbox-content img {
+        max-width: 100%;
+        max-height: 82vh;
+        border-radius: 12px;
+        box-shadow: 0 15px 45px rgba(0,0,0,0.45);
+        object-fit: contain;
+        background: #111;
+    }
+    .lightbox-caption {
+        color: #ffffff;
+        font-size: 14px;
+        margin-top: 12px;
+        text-align: center;
+        background: rgba(0,0,0,0.55);
+        padding: 6px 16px;
+        border-radius: 20px;
+    }
+    .lightbox-close-btn {
+        position: absolute;
+        top: -16px;
+        right: -16px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: none;
+        background: var(--primary);
+        color: #ffffff;
+        font-size: 18px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        transition: 0.2s;
+    }
+    .lightbox-close-btn:hover { background: #d15c12; transform: scale(1.06); }
+
+    /* --- 6. VOLUNTARY CLIENT CONSULTATION FORM (#consult) --- */
+    .consult-section {
+        background: linear-gradient(180deg, var(--white) 0%, #fff7f0 100%);
+        border-top: 1px solid #f0ebe6;
+    }
+    .consult-card {
+        display: grid;
+        grid-template-columns: 0.9fr 1.4fr;
+        background: var(--white);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 15px 40px rgba(232, 102, 20, 0.08);
+        border: 1px solid #f0e6dc;
+    }
+    .consult-left {
+        background: linear-gradient(145deg, #2b2b2b 0%, #1a1a1a 100%);
+        color: var(--white);
+        padding: 45px 36px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+    }
+    .consult-left::after {
+        content: '';
+        position: absolute;
+        bottom: -60px;
+        right: -60px;
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(circle, rgba(232, 102, 20, 0.25) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+    }
+    .consult-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(232, 102, 20, 0.2);
+        color: #ff9f59;
+        border: 1px solid rgba(232, 102, 20, 0.4);
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        width: fit-content;
+    }
+    .consult-left h3 { font-size: 28px; line-height: 1.3; margin-bottom: 14px; color: var(--white); }
+    .consult-left h3 span { color: var(--primary); }
+    .consult-left p.lead-desc { color: #cccccc; font-size: 14px; margin-bottom: 28px; }
+    .consult-benefits { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+    .consult-benefit-item { display: flex; align-items: flex-start; gap: 12px; }
+    .consult-benefit-icon {
+        width: 34px; height: 34px; border-radius: 10px;
+        background: rgba(232, 102, 20, 0.18); color: var(--primary);
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0; font-size: 15px;
+    }
+    .consult-benefit-item h5 { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 2px; }
+    .consult-benefit-item p { font-size: 13px; color: #b5b5b5; }
+    .consult-trust-box {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 12px;
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        position: relative;
+        z-index: 2;
+    }
+    .consult-trust-box img {
+        width: 54px; height: 54px; border-radius: 50%;
+        object-fit: cover; border: 2px solid var(--primary); flex-shrink: 0;
+    }
+    .consult-trust-info strong { display: block; font-size: 15px; color: var(--white); }
+    .consult-trust-info span { font-size: 12px; color: #cccccc; }
+
+    .consult-right { padding: 38px 36px; background: var(--white); }
+    .consult-form-header { margin-bottom: 22px; padding-bottom: 14px; border-bottom: 1px solid #f0f0f0; }
+    .consult-form-header h4 { font-size: 20px; color: var(--secondary); font-weight: 700; margin-bottom: 4px; }
+    .consult-form-header p { font-size: 13px; color: var(--text-grey); }
+    .c-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .c-grid-3 { display: grid; grid-template-columns: 0.7fr 1.15fr 1.15fr; gap: 12px; }
+    .c-dob-grid { display: grid; grid-template-columns: 0.9fr 1.3fr 1fr auto; gap: 10px; align-items: center; }
+    .age-live-badge {
+        background: var(--primary-light);
+        color: var(--primary);
+        border: 1px solid rgba(232, 102, 20, 0.35);
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        white-space: nowrap;
+        text-align: center;
+        min-width: 96px;
+    }
+    .consult-right .form-group { margin-bottom: 14px; }
+    .consult-right .form-group label {
+        display: block; font-size: 13px; font-weight: 600; color: var(--secondary); margin-bottom: 6px;
+    }
+    .consult-right .form-group label .req { color: var(--danger); }
+    .consult-right input[type="text"],
+    .consult-right input[type="tel"],
+    .consult-right input[type="number"],
+    .consult-right select,
+    .consult-right textarea {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1px solid #dcdcdc;
+        border-radius: 8px;
+        font-family: 'Prompt', sans-serif;
+        font-size: 14px;
+        background: #fafafa;
+        outline: none;
+        transition: all 0.2s ease;
+    }
+    .consult-right input:focus,
+    .consult-right select:focus,
+    .consult-right textarea:focus {
+        border-color: var(--primary);
+        background: var(--white);
+        box-shadow: 0 0 0 3px rgba(232, 102, 20, 0.12);
+    }
+    .consult-right textarea { min-height: 80px; resize: vertical; }
+    .radio-pill-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .radio-pill-label {
+        display: flex; align-items: center; justify-content: center; gap: 8px;
+        padding: 10px 12px; border: 1px solid #dcdcdc; border-radius: 8px;
+        background: #fafafa; cursor: pointer; font-size: 14px; font-weight: 500;
+        color: var(--secondary); transition: 0.2s;
+    }
+    .radio-pill-label input { accent-color: var(--primary); }
+    .radio-pill-label:has(input:checked) {
+        border-color: var(--primary);
+        background: var(--primary-light);
+        color: var(--primary);
+        font-weight: 600;
+    }
+    .pdpa-box {
+        background: #fff8f3;
+        border: 1px solid #f7d8c2;
+        border-radius: 10px;
+        padding: 14px 16px;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        margin: 18px 0 20px 0;
+    }
+    .pdpa-box input[type="checkbox"] {
+        margin-top: 4px; width: 18px; height: 18px; accent-color: var(--primary); flex-shrink: 0; cursor: pointer;
+    }
+    .pdpa-box label {
+        font-size: 12.5px; color: #444; line-height: 1.5; cursor: pointer; margin-bottom: 0 !important; font-weight: 400 !important;
+    }
+
+    /* --- 7. ADMIN-ONLY OPERATIONS PANEL (#admin-leads-section) --- */
+    .admin-leads-section {
+        display: none; /* ซ่อนจากผู้ชมทั่วไป 100% */
+        background: #f1f5f9;
+        border-top: 3px solid var(--primary);
+        border-bottom: 3px solid #cbd5e1;
+        padding: 60px 0;
+    }
+    body.admin-active .admin-leads-section { display: block; }
+    .admin-panel-card {
+        background: var(--white);
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+        border: 1px solid #e2e8f0;
+        overflow: hidden;
+    }
+    .admin-panel-header {
+        background: linear-gradient(90deg, #1e293b 0%, #334155 100%);
+        color: var(--white);
+        padding: 22px 28px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    .admin-panel-header h3 { font-size: 20px; display: flex; align-items: center; gap: 10px; }
+    .admin-panel-header p { font-size: 13px; color: #cbd5e1; margin-top: 4px; }
+    .admin-leads-toolbar {
+        padding: 20px 28px;
+        background: #f8fafc;
+        border-bottom: 1px solid #e2e8f0;
+        display: grid;
+        grid-template-columns: 1.8fr 1fr 0.9fr 1.1fr auto;
+        gap: 12px;
+        align-items: center;
+    }
+    .admin-leads-toolbar input,
+    .admin-leads-toolbar select {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-family: 'Prompt', sans-serif;
+        font-size: 13.5px;
+        background: var(--white);
+        outline: none;
+    }
+    .admin-leads-toolbar input:focus,
+    .admin-leads-toolbar select:focus { border-color: var(--primary); }
+    .leads-table-wrapper { width: 100%; overflow-x: auto; }
+    .leads-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 960px; }
+    .leads-table th {
+        background: #f1f5f9;
+        color: #334155;
+        font-weight: 600;
+        text-align: left;
+        padding: 14px 14px;
+        border-bottom: 2px solid #e2e8f0;
+        white-space: nowrap;
+    }
+    .leads-table td {
+        padding: 14px 14px;
+        border-bottom: 1px solid #f1f5f9;
+        vertical-align: top;
+        color: #1e293b;
+    }
+    .leads-table tr:hover td { background: #fffaf6; }
+    .lead-plan-chip {
+        display: inline-block;
+        background: var(--primary-light);
+        color: var(--primary);
+        border: 1px solid rgba(232, 102, 20, 0.3);
+        padding: 3px 10px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-top: 4px;
+    }
+    .contact-time-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: #eff6ff;
+        color: #1d4ed8;
+        border: 1px solid #bfdbfe;
+        padding: 3px 9px;
+        border-radius: 6px;
+        font-size: 11.5px;
+        font-weight: 600;
+        margin-top: 5px;
+    }
+
+    /* BMI Badges แยกสีตามเกณฑ์มาตรฐานเอเชีย/ไทย */
+    .bmi-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 2px 9px;
+        border-radius: 12px;
+        font-size: 11.5px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+    .bmi-under { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+    .bmi-normal { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+    .bmi-over { background: #fef9c3; color: #a16207; border: 1px solid #fde047; }
+    .bmi-obese1 { background: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; }
+    .bmi-obese2 { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+    .bmi-na { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
+
+    .lead-row-actions { display: flex; gap: 6px; flex-wrap: nowrap; }
+    .btn-tbl {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: none;
+        font-family: 'Prompt', sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        color: var(--white);
+        transition: 0.2s;
+        white-space: nowrap;
+    }
+    .btn-tbl.a4 { background: var(--primary); }
+    .btn-tbl.a4:hover { background: #d15c12; }
+    .btn-tbl.share { background: #0284c7; }
+    .btn-tbl.share:hover { background: #0369a1; }
+    .btn-tbl.del { background: #ef4444; }
+    .btn-tbl.del:hover { background: #dc2626; }
+
+    /* --- 8. FOOTER --- */
+    footer { background-color: var(--secondary); color: var(--white); padding: 60px 0 30px 0; font-size: 15px; }
+    .footer-content { display: grid; grid-template-columns: 1.2fr 0.8fr 1fr; gap: 50px; margin-bottom: 40px; }
+    .footer-about h4, .footer-links h4, .footer-contact h4 { font-size: 18px; margin-bottom: 20px; color: var(--white); }
+    .footer-about p { color: #bbb; margin-bottom: 20px; font-size: 14px; }
+    .footer-contact ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-contact li { display: flex; align-items: center; gap: 12px; color: #bbb; }
+    .footer-contact i { color: var(--primary); width: 20px; text-align: center; }
+    .footer-contact a:hover { color: var(--white); text-decoration: underline; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px; text-align: center; color: #888; font-size: 13px; }
+
+    /* STICKY CONTACT BAR */
+    .sticky-contact-bar {
+        position: fixed; bottom: -100px; left: 0; width: 100%; background: var(--white);
+        box-shadow: 0 -4px 15px rgba(0,0,0,0.1); padding: 15px 0; z-index: 999;
+        transition: bottom 0.4s ease; border-top: 2px solid var(--primary);
+    }
+    .sticky-contact-bar.show { bottom: 0; }
+    .sticky-contact-content { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .sticky-text { font-weight: 600; font-size: 16px; color: var(--secondary); }
+    .sticky-btns { display: flex; gap: 15px; align-items: center; }
+
+    /* --- 9. MODAL STYLES --- */
+    .modal-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.65); z-index: 2000;
+        display: none; align-items: center; justify-content: center;
+        opacity: 0; transition: opacity 0.3s ease;
+        padding: 20px;
+    }
+    .modal-overlay.active { display: flex; opacity: 1; }
+
+    .modal-content {
+        background: var(--white); width: 100%; max-width: 500px;
+        border-radius: 15px; padding: 30px; position: relative;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        transform: translateY(-20px); transition: transform 0.3s ease;
+        max-height: 90vh; overflow-y: auto;
+    }
+    .modal-content.modal-lg { max-width: 680px; }
+    .modal-content.modal-a4 {
+        max-width: 920px;
+        padding: 0;
+        background: #e2e8f0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        max-height: 94vh;
+    }
+    .modal-overlay.active .modal-content { transform: translateY(0); }
+
+    .close-modal {
+        position: absolute; top: 20px; right: 20px;
+        background: #f5f5f5; border: none; width: 36px; height: 36px; border-radius: 50%;
+        font-size: 18px; color: var(--text-grey);
+        cursor: pointer; transition: 0.2s;
+        display: flex; align-items: center; justify-content: center;
+        z-index: 10;
+    }
+    .close-modal:hover { background: var(--primary-light); color: var(--primary); }
+
+    .modal-header { margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; padding-right: 30px; }
+    .modal-header h3 { font-size: 22px; color: var(--secondary); margin-bottom: 5px; line-height: 1.4; }
+    .modal-header p { font-size: 14px; color: var(--text-grey); }
+
+    .form-group { margin-bottom: 15px; width: 100%; }
+    .form-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: var(--text-dark); }
+    .form-row { display: flex; gap: 15px; }
+    .form-row .form-group { flex: 1; }
+    .dob-row { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 10px; }
+
+    .modal-content input[type="text"],
+    .modal-content input[type="tel"],
+    .modal-content input[type="number"],
+    .modal-content input[type="password"],
+    .modal-content input[type="date"],
+    .modal-content input[type="url"],
+    .modal-content select,
+    .modal-content textarea {
+        width: 100%; padding: 12px 15px; border: 1px solid var(--border-color);
+        border-radius: 8px; font-family: 'Prompt', sans-serif; font-size: 15px;
+        outline: none; transition: 0.2s; background: #fafafa;
+    }
+    .modal-content textarea { resize: vertical; min-height: 110px; }
+    .modal-content input:focus, .modal-content select:focus, .modal-content textarea:focus { border-color: var(--primary); background: var(--white); }
+
+    .consent-box {
+        display: flex; gap: 10px; align-items: flex-start;
+        background: var(--bg-color); padding: 15px; border-radius: 8px; margin-bottom: 20px;
+    }
+    .consent-box input[type="checkbox"] { margin-top: 4px; accent-color: var(--primary); flex-shrink: 0; }
+    .consent-box label { font-size: 12px; color: var(--text-grey); line-height: 1.4; }
+
+    .btn-submit {
+        width: 100%; background: var(--primary); color: white; border: none; padding: 14px;
+        font-family: 'Prompt', sans-serif; font-size: 16px; font-weight: 600; border-radius: 8px;
+        cursor: pointer; transition: 0.2s;
+    }
+    .btn-submit:disabled { background: #ccc; cursor: not-allowed; }
+    .btn-submit:hover:not(:disabled) { background: #d15c12; }
+
+    /* --- A4 PREVIEW & PRINT SHEET STYLES --- */
+    .a4-modal-toolbar {
+        background: #1e293b;
+        color: var(--white);
+        padding: 14px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .a4-toolbar-btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .a4-scroll-stage {
+        padding: 24px;
+        overflow-y: auto;
+        overflow-x: auto;
+        display: flex;
+        justify-content: center;
+        background: #cbd5e1;
+        flex: 1;
+    }
+    #a4-print-area {
+        width: 210mm;
+        min-height: 297mm;
+        background: #ffffff;
+        color: #111111;
+        padding: 15mm 16mm;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22);
+        font-family: 'Prompt', sans-serif;
+        position: relative;
+        flex-shrink: 0;
+    }
+    .a4-top-accent {
+        height: 6px;
+        background: linear-gradient(90deg, #e86614 0%, #ff8533 100%);
+        border-radius: 3px;
+        margin-bottom: 14px;
+    }
+    .a4-doc-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        border-bottom: 2px solid #e86614;
+        padding-bottom: 14px;
+        margin-bottom: 16px;
+    }
+    .a4-brand h2 { font-size: 22px; color: #e86614; font-weight: 700; line-height: 1.2; }
+    .a4-brand p { font-size: 13px; color: #333333; font-weight: 600; margin-top: 3px; }
+    .a4-brand small { font-size: 11px; color: #666666; }
+    .a4-doc-meta { text-align: right; font-size: 12px; color: #444; }
+    .a4-doc-meta .ref-badge {
+        display: inline-block;
+        background: #fff2e8;
+        color: #e86614;
+        border: 1px solid #f7c5a3;
+        padding: 3px 10px;
+        border-radius: 6px;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+    .a4-section-heading {
+        background: #fff2e8;
+        color: #c2410c;
+        border-left: 4px solid #e86614;
+        padding: 7px 12px;
+        font-size: 14px;
+        font-weight: 700;
+        margin: 14px 0 10px 0;
+        border-radius: 0 6px 6px 0;
+    }
+    .a4-info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 9px 18px;
+        margin-bottom: 10px;
+    }
+    .a4-field { border-bottom: 1px dashed #e2e8f0; padding-bottom: 5px; }
+    .a4-field.full { grid-column: 1 / -1; }
+    .a4-field-label { font-size: 11px; color: #64748b; display: block; }
+    .a4-field-value { font-size: 13.5px; font-weight: 600; color: #111827; }
+    .a4-pdpa-verify {
+        margin-top: 16px;
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        padding: 12px 14px;
+        font-size: 12px;
+        color: #334155;
+    }
+    .a4-pdpa-verify strong {
+        color: #15803d;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 4px;
+        font-size: 13px;
+    }
+    .a4-footer-sign {
+        margin-top: 22px;
+        padding-top: 12px;
+        border-top: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: space-between;
+        font-size: 11.5px;
+        color: #64748b;
+    }
+    .a4-summary-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+        margin-top: 10px;
+    }
+    .a4-summary-table th {
+        background: #fff2e8;
+        color: #c2410c;
+        border: 1px solid #f2cba8;
+        padding: 6px 7px;
+        text-align: left;
+    }
+    .a4-summary-table td {
+        border: 1px solid #e2e8f0;
+        padding: 6px 7px;
+        vertical-align: top;
+    }
+
+    /* Toast Notification */
+    .toast-container {
+        position: fixed;
+        top: 85px;
+        right: 20px;
+        z-index: 3000;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .toast-msg {
+        background: #222;
+        color: #fff;
+        padding: 14px 20px;
+        border-radius: 10px;
+        font-size: 14px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        border-left: 4px solid var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        animation: slideInRight 0.3s ease;
+        max-width: 360px;
+    }
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* Image Upload Box in Admin Modal */
+    .img-upload-preview-box {
+        width: 100%;
+        height: 160px;
+        border: 2px dashed #ccc;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: #fafafa;
+        margin-top: 8px;
+        position: relative;
+    }
+    .img-upload-preview-box img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ========================================================
+       PRINT MEDIA QUERY (A4 Exact Margin & Clean Output)
+       ======================================================== */
+    @page {
+        size: A4 portrait;
+        margin: 12mm;
+    }
+    @media print {
+        body * { visibility: hidden !important; }
+        body {
+            background: #ffffff !important;
+            padding-top: 0 !important;
+            margin: 0 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        #a4-preview-modal,
+        #a4-preview-modal .modal-content,
+        #a4-preview-modal .a4-scroll-stage,
+        #a4-print-area,
+        #a4-print-area * {
+            visibility: visible !important;
+        }
+        #a4-preview-modal {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: auto !important;
+            background: #ffffff !important;
+            padding: 0 !important;
+            display: block !important;
+            opacity: 1 !important;
+        }
+        #a4-preview-modal .modal-content {
+            max-width: 100% !important;
+            max-height: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            background: #ffffff !important;
+            transform: none !important;
+            overflow: visible !important;
+        }
+        .a4-modal-toolbar { display: none !important; }
+        .a4-scroll-stage {
+            padding: 0 !important;
+            background: #ffffff !important;
+            overflow: visible !important;
+            display: block !important;
+        }
+        #a4-print-area {
+            width: 100% !important;
+            min-height: auto !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            box-shadow: none !important;
+        }
+    }
+
+    /* ========================================================
+       RESPONSIVE MEDIA QUERIES (Mobile-First Grids & Spacing)
+       ======================================================== */
+    @media (max-width: 1080px) {
+        .nav-menu { gap: 14px; }
+        .nav-menu a { font-size: 13px; }
+    }
+
+    @media (max-width: 991px) {
+        section { padding: 60px 0; }
+        .hero { background-position: center; padding: 160px 0 80px 0; }
+        .hero-content { flex-direction: column; text-align: center; gap: 40px; }
+        .hero-text { max-width: 100%; }
+        .hero-text h1 { font-size: 38px; }
+        .hero-text p { margin: 0 auto 30px auto; }
+        .hero-btns { justify-content: center; }
+
+        .services-grid, .testimonial-grid, .sub-plans-grid, .news-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+        .agent-content { flex-direction: column; text-align: center; gap: 30px; }
+        .agent-image-container { max-width: 280px; margin: 0 auto; }
+        .license-image-container { max-width: 250px; margin: 0 auto; }
+
+        .consult-card { grid-template-columns: 1fr; }
+        .admin-leads-toolbar { grid-template-columns: 1fr 1fr; }
+
+        .footer-content { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+    }
+
+    @media (max-width: 767px) {
+        body.admin-active { padding-top: 105px; }
+        body.admin-active header { top: 105px; }
+
+        section { padding: 45px 0; }
+        .section-title { font-size: 24px; line-height: 1.3; margin-bottom: 8px; padding: 0 10px; }
+        .section-subtitle { font-size: 14px; margin-bottom: 30px; padding: 0 10px; }
+
+        header { padding: 12px 0; }
+        .logo-placeholder { font-size: 18px; flex-direction: column; align-items: flex-start; gap: 2px; }
+        .logo-placeholder span { font-size: 12px; margin-left: 0; }
+        .nav-menu { display: none; }
+        .header-right-actions .btn { padding: 8px 14px; font-size: 13px; }
+        .btn-staff-login span { display: none; }
+
+        .hero { padding: 130px 0 60px 0; }
+        .hero-text h1 { font-size: 30px; margin-bottom: 15px; }
+        .hero-text p { font-size: 15px; margin-bottom: 25px; padding: 0 10px; }
+        .hero-btns { flex-direction: column; width: 100%; gap: 12px; padding: 0 10px; }
+        .hero-btns .btn { width: 100%; justify-content: center; }
+
+        /* มือถือ: บังคับให้ News Grid และ Testimonial Grid แสดงเป็น 1 คอลัมน์เต็มจออย่างชัดเจน ไม่มีซ่อน */
+        .services-grid, .testimonial-grid, .sub-plans-grid, .news-grid { grid-template-columns: 1fr !important; gap: 18px !important; }
+        .service-img-wrapper { height: 180px; }
+
+        .agent-image-container { max-width: 190px; }
+        .agent-name { font-size: 24px; }
+        .agent-bio { font-size: 14px; max-width: 100%; }
+        .agent-stats { gap: 12px; padding: 15px 0; flex-wrap: wrap; }
+        .stat-item { flex: 1 1 40%; }
+        .stat-val { font-size: 20px; }
+        .license-image-container { max-width: 200px; }
+
+        .consult-left, .consult-right { padding: 24px 18px; }
+        .c-grid-2, .c-grid-3 { grid-template-columns: 1fr; }
+        .c-dob-grid { grid-template-columns: 1fr 1fr; }
+        .age-live-badge { grid-column: 1 / -1; }
+        .admin-leads-toolbar { grid-template-columns: 1fr; padding: 16px; }
+
+        .testimonial-card { padding: 22px 18px; }
+        .news-img-box { height: 190px !important; min-height: 190px !important; width: 100% !important; }
+        .testimonial-media-box { height: 190px !important; min-height: 190px !important; width: 100% !important; }
+
+        .footer-content { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+        .footer-contact ul { align-items: center; }
+        .footer-contact li { justify-content: center; }
+        #footer-qr { margin: 0 auto; }
+
+        .sticky-contact-content { flex-direction: column; gap: 12px; text-align: center; padding: 12px 20px; }
+        .sticky-text { font-size: 14px; }
+        .sticky-btns { width: 100%; justify-content: space-between; gap: 10px; }
+        .sticky-btns .btn { flex: 1; padding: 12px; font-size: 14px; }
+
+        .modal-content { padding: 22px 16px; width: 100%; }
+        .modal-header h3 { font-size: 17px; }
+        .form-row { flex-direction: column; gap: 0; }
+        .dob-row { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    }
+
+    @media (max-width: 400px) {
+        .dob-row { grid-template-columns: 1fr; gap: 8px; }
+        .stat-item { flex: 1 1 100%; }
+    }
+</style>
+</head>
+<body>
+
+<!-- Toast Notification Container -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- แถบควบคุมด้านบนสำหรับเจ้าหน้าที่/แอดมิน -->
+<div class="admin-top-bar" id="admin-top-bar">
+    <div class="admin-bar-inner">
+        <div class="admin-status-badge">
+            <i class="fa-solid fa-user-shield"></i> โหมดเจ้าหน้าที่ (FWD Operations)
+        </div>
+        <div class="admin-bar-actions">
+            <button class="btn-admin-action primary" onclick="openNewsFormModal()">
+                <i class="fa-solid fa-newspaper"></i> + ข่าวสาร
+            </button>
+            <button class="btn-admin-action primary" onclick="openTestimonialFormModal()">
+                <i class="fa-solid fa-comments"></i> + รีวิวลูกค้า
+            </button>
+            <button class="btn-admin-action info" onclick="scrollToAdminLeads()">
+                <i class="fa-solid fa-users"></i> ข้อมูลลูกค้า <span class="lead-count-pill" id="admin-leads-badge">0</span>
+            </button>
+            <button class="btn-admin-action success" onclick="downloadUpdatedHTML()" title="ดาวน์โหลดไฟล์ index.html ล่าสุด">
+                <i class="fa-solid fa-download"></i> ดาวน์โหลดไฟล์ HTML ล่าสุด
+            </button>
+            <button class="btn-admin-action" onclick="resetDefaultAll()" title="รีเซ็ต">
+                <i class="fa-solid fa-rotate-left"></i> รีเซ็ต
+            </button>
+            <button class="btn-admin-action danger" onclick="logoutAdmin()">
+                <i class="fa-solid fa-right-from-bracket"></i> ออก
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header>
+    <div class="container nav-container">
+        <div class="logo-placeholder">FWD <span>| นฤมล คำใบ</span></div>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="#home" class="active">หน้าแรก</a></li>
+                <li><a href="#services">แผนประกัน</a></li>
+                <li><a href="#about">รู้จักตัวแทน</a></li>
+                <li><a href="#news">ข่าวสาร/กิจกรรม</a></li>
+                <li><a href="#testimonials">รีวิวลูกค้า</a></li>
+                <li><a href="#consult">ลงทะเบียนปรึกษา</a></li>
+                <li><a href="#contact">ติดต่อ</a></li>
+            </ul>
+        </nav>
+        <div class="header-right-actions">
+            <a href="#consult" class="btn btn-primary" style="padding: 8px 18px; font-size: 14px;">ปรึกษาฟรี</a>
+            <button class="btn-staff-login" onclick="handleStaffButtonClick()" title="สำหรับเจ้าหน้าที่">
+                <i class="fa-solid fa-user-gear"></i> <span id="staff-btn-label">สำหรับเจ้าหน้าที่</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero" id="home">
+    <div class="container hero-content">
+        <div class="hero-text">
+            <h1>วางแผนอนาคตอย่างมั่นใจ <br> ไปกับ <span>FWD ประกันชีวิต</span></h1>
+            <p>ออกแบบแผนประกันที่ใช่ เพื่อความมั่นคงและการดูแลคนที่คุณรักอย่างยั่งยืน โดยตัวแทนมืออาชีพ</p>
+            <div class="hero-btns">
+                <a href="#services" class="btn btn-primary">ค้นหาแผนประกัน <i class="fa-solid fa-arrow-down"></i></a>
+                <a href="https://line.me/R/oaMessage/@toifwd/?" target="_blank" class="btn btn-line"><i class="fa-brands fa-line" style="font-size: 20px;"></i> ทักแอดไลน์</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+    <div class="container">
+        <div id="category-view">
+            <h2 class="section-title">เลือกความคุ้มครองที่ตรงใจคุณ</h2>
+            <p class="section-subtitle">เราพร้อมดูแลทุกช่วงชีวิต ด้วยแผนประกันที่หลากหลายและตอบโจทย์ทุกความต้องการ</p>
+            <div class="services-grid">
+                <div class="service-card" onclick="showPlans('health')">
+                    <div class="service-img-wrapper"><img src="precious.png" alt="ประกันสุขภาพ" onerror="this.src='https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=600&q=80'"></div>
+                    <div class="service-content">
+                        <div class="service-header-row">
+                            <div class="service-icon"><i class="fa-solid fa-bed-pulse"></i></div>
+                            <h3>แผนประกันสุขภาพ</h3>
+                        </div>
+                        <p>คุ้มครองค่ารักษาพยาบาล ครอบคลุมทั้งผู้ป่วยใน (IPD) และผู้ป่วยนอก (OPD)</p>
+                        <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="service-card" onclick="showPlans('saving')">
+                    <div class="service-img-wrapper"><img src="deposit.png" alt="ประกันสะสมทรัพย์" onerror="this.src='https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=600&q=80'"></div>
+                    <div class="service-content">
+                        <div class="service-header-row">
+                            <div class="service-icon"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+                            <h3>แผนประกันสะสมทรัพย์</h3>
+                        </div>
+                        <p>ออมเงินระยะสั้น-ยาว พร้อมความคุ้มครองชีวิตและผลตอบแทนที่มั่นคง</p>
+                        <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="service-card" onclick="showPlans('ci')">
+                    <div class="service-img-wrapper"><img src="critical-Illness.png" alt="ประกันโรคร้ายแรง" onerror="this.src='https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=600&q=80'"></div>
+                    <div class="service-content">
+                        <div class="service-header-row">
+                            <div class="service-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <h3>แผนประกันโรคร้ายแรง</h3>
+                        </div>
+                        <p>เตรียมพร้อมรับมือโรคไม่คาดฝัน ด้วยเงินก้อนใหญ่เมื่อตรวจพบโรคร้าย</p>
+                        <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="service-card" onclick="showPlans('pension')">
+                    <div class="service-img-wrapper"><img src="pension-pic.png" alt="ประกันบำนาญ" onerror="this.src='https://images.unsplash.com/photo-1536640712-4d4c36ff0e4e?auto=format&fit=crop&w=600&q=80'"></div>
+                    <div class="service-content">
+                        <div class="service-header-row">
+                            <div class="service-icon"><i class="fa-solid fa-person-cane"></i></div>
+                            <h3>แผนประกันบำนาญ</h3>
+                        </div>
+                        <p>วางแผนเกษียณสุขใจ มีเงินบำนาญใช้จ่ายหลังเกษียณตลอดชีพ</p>
+                        <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="service-card" onclick="showPlans('legacy')">
+                    <div class="service-img-wrapper"><img src="legacy.png" alt="ประกันสร้างมรดก" onerror="this.src='https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=600&q=80'"></div>
+                    <div class="service-content">
+                        <div class="service-header-row">
+                            <div class="service-icon"><i class="fa-solid fa-gem"></i></div>
+                            <h3>แผนประกันสร้างมรดก</h3>
+                        </div>
+                        <p>สร้างหลักประกันส่งต่อความมั่งคั่ง ให้ครอบครัวเดินหน้าต่อไปได้</p>
+                        <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="service-card" onclick="showPlans('nonlife')">
+                    <div class="service-img-wrapper"><img src="non-motor.png" alt="ประกันวินาศภัย" onerror="this.src='https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=600&q=80'"></div>
+                    <div class="service-content">
+                        <div class="service-header-row">
+                            <div class="service-icon"><i class="fa-solid fa-car"></i></div>
+                            <h3>แผนประกันวินาศภัย</h3>
+                        </div>
+                        <p>คุ้มครองทรัพย์สิน ทั้งประกันรถยนต์ ประกันอัคคีภัย และอื่นๆ</p>
+                        <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="plans-view" style="display: none;">
+            <button class="back-btn" onclick="showCategories()"><i class="fa-solid fa-arrow-left"></i> ย้อนกลับหมวดหมู่หลัก</button>
+            <h2 class="section-title" id="plan-section-title" style="text-align: left; margin-bottom: 5px;">แผนประกันสุขภาพ</h2>
+            <p class="section-subtitle" style="text-align: left; margin-left: 0; margin-bottom: 40px;">เลือกแผนที่เหมาะสมกับการใช้ชีวิตของคุณ</p>
+            <div class="sub-plans-grid" id="plans-container"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT AGENT -->
+<section class="about-agent" id="about">
+    <div class="container agent-content">
+        <div class="agent-image-container">
+            <img src="agent.jpg" alt="นฤมล คำใบ ตัวแทนประกัน FWD" onerror="this.src='https://placehold.co/400x400/e86614/ffffff?text=FWD+Agent';">
+        </div>
+        <div class="agent-info">
+            <span class="mdrt-badge">MDRT Agent (ปี 2022)</span>
+            <h2 class="agent-name">นฤมล คำใบ</h2>
+            <div class="agent-title">
+                <span><i class="fa-solid fa-certificate"></i> ใบอนุญาตเลขที่: 6901010926</span>
+                <span><i class="fa-solid fa-calendar-alt"></i> ประสบการณ์ <span id="experience-text-main">...</span></span>
+            </div>
+            <p class="agent-bio">
+                สวัสดีค่ะ ดิฉันนฤมล คำใบ มุ่งมั่นที่จะเป็น "เพื่อนคู่คิด" ในการวางแผนประกันชีวิตและการเงินของคุณ <br>
+                ไม่ได้เป็นเพียงแค่ผู้ขายประกัน แต่คือผู้ให้คำปรึกษาที่ใส่ใจในการออกแบบแผนความคุ้มครองที่ "ใช่" และตรงกับเป้าหมายชีวิตจริงของลูกค้าแต่ละท่าน เพื่อให้คุณและครอบครัวใช้ชีวิตได้อย่างมั่นใจและไร้กังวลค่ะ
+            </p>
+            <div class="agent-stats">
+                <div class="stat-item"><div class="stat-val">1,500+</div><div class="stat-label">ลูกค้าดูแล</div></div>
+                <div class="stat-item"><div class="stat-val">20 ปี</div><div class="stat-label">วงการประกัน</div></div>
+                <div class="stat-item"><div class="stat-val">24/7</div><div class="stat-label">บริการหลังการขาย</div></div>
+            </div>
+            <a href="https://line.me/R/oaMessage/@toifwd/?" target="_blank" class="btn btn-line"><i class="fa-brands fa-line" style="font-size: 20px;"></i> ปรึกษาตัวแทน</a>
+        </div>
+        <div class="license-image-container">
+            <img src="license.png" alt="ใบอนุญาตตัวแทนประกันชีวิต" style="width: 150%; height: auto; max-width: 450px; border-radius: 12px; box-shadow: none; border: 5px solid var(--white); background: transparent;" onerror="this.src='https://placehold.co/350x240/fff2e8/e86614?text=License+6901010926';">
+        </div>
+    </div>
+</section>
+
+<!-- NEWS & ACTIVITIES SECTION (CMS) -->
+<section class="news-section" id="news">
+    <div class="container">
+        <h2 class="section-title">ข่าวสารและกิจกรรมล่าสุด</h2>
+        <p class="section-subtitle">อัปเดตข้อมูลข่าวสาร กิจกรรมพิเศษ และสาระความรู้ดีๆ ด้านการวางแผนการเงินและประกันชีวิตจาก FWD</p>
+
+        <div class="admin-inline-toolbar">
+            <div>
+                <strong style="color: var(--primary); font-size: 16px;"><i class="fa-solid fa-pen-to-square"></i> จัดการเนื้อหาข่าวสารและกิจกรรม</strong>
+                <p style="font-size: 13px; color: var(--text-grey); margin-top: 2px;">เมื่ออัปโหลดรูปภาพบนพีซีเสร็จแล้ว ให้กดปุ่ม <strong>"ดาวน์โหลดไฟล์ HTML ล่าสุด"</strong> ด้านบนเพื่อนำไปอัปโหลดขึ้นโฮสติ้ง ระบบจะซิงค์แสดงผลให้ตรงกันทั้งบนพีซีและมือถือ</p>
+            </div>
+            <button class="btn btn-primary" style="padding: 10px 22px; font-size: 14px;" onclick="openNewsFormModal()">
+                <i class="fa-solid fa-plus"></i> สร้างข่าวสาร/กิจกรรมใหม่
+            </button>
+        </div>
+
+        <div class="news-filter-bar">
+            <button class="filter-pill active" onclick="filterNews('all', this)">ทั้งหมด</button>
+            <button class="filter-pill" onclick="filterNews('ข่าวสาร', this)">ข่าวสาร FWD</button>
+            <button class="filter-pill" onclick="filterNews('กิจกรรม', this)">กิจกรรมสำนักงาน</button>
+            <button class="filter-pill" onclick="filterNews('สาระน่ารู้', this)">สาระน่ารู้เรื่องประกัน</button>
+        </div>
+
+        <div class="news-grid" id="news-grid-container"></div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS SECTION (DYNAMIC CMS) -->
+<section class="testimonials" id="testimonials">
+    <div class="container">
+        <h2 class="section-title">เสียงตอบรับจากลูกค้าที่วางใจ</h2>
+        <p class="section-subtitle">ความประทับใจจริงในการให้บริการและการออกแบบแผนประกัน</p>
+
+        <div class="admin-inline-toolbar">
+            <div>
+                <strong style="color: var(--primary); font-size: 16px;"><i class="fa-solid fa-comments"></i> จัดการข้อมูลรีวิวลูกค้า</strong>
+                <p style="font-size: 13px; color: var(--text-grey); margin-top: 2px;">จัดการข้อความและสื่อแนบรีวิวได้ทันที และกดปุ่ม <strong>"ดาวน์โหลดไฟล์ HTML ล่าสุด"</strong> เพื่อซิงค์ข้อมูลให้แสดงผลตรงกันบนมือถือ</p>
+            </div>
+            <button class="btn btn-primary" style="padding: 10px 22px; font-size: 14px;" onclick="openTestimonialFormModal()">
+                <i class="fa-solid fa-plus"></i> เพิ่มรีวิวลูกค้าใหม่
+            </button>
+        </div>
+
+        <div class="testimonial-grid" id="testimonial-grid-container"></div>
+    </div>
+</section>
+
+<!-- VOLUNTARY CLIENT CONSULTATION FORM (#consult) -->
+<section class="consult-section" id="consult">
+    <div class="container">
+        <h2 class="section-title">ลงทะเบียนขอรับคำปรึกษาและออกแบบแผนประกันฟรี</h2>
+        <p class="section-subtitle">กรอกข้อมูลเบื้องต้นตามความสมัครใจ เพื่อให้ตัวแทนช่วยคำนวณเบี้ยประกันและจัดทำข้อเสนอที่เหมาะกับคุณที่สุด</p>
+
+        <div class="consult-card">
+            <div class="consult-left">
+                <div>
+                    <span class="consult-badge"><i class="fa-solid fa-shield-heart"></i> บริการฟรี ไม่มีค่าใช้จ่าย</span>
+                    <h3>ออกแบบแผนที่ <span>"ใช่"</span> <br>ตรงกับงบประมาณของคุณ</h3>
+                    <p class="lead-desc">ข้อมูลของท่านจะถูกเก็บรักษาเป็นความลับสูงสุดตามมาตรฐาน PDPA เพื่อใช้ในการคำนวณเบี้ยประกันและวิเคราะห์ความคุ้มครองรายบุคคลเท่านั้น</p>
+
+                    <div class="consult-benefits">
+                        <div class="consult-benefit-item">
+                            <div class="consult-benefit-icon"><i class="fa-solid fa-calculator"></i></div>
+                            <div>
+                                <h5>คำนวณเบี้ยประกันแม่นยำ</h5>
+                                <p>เปรียบเทียบแผนที่คุ้มค่าที่สุดตามอายุ เพศ สุขภาพ และงบประมาณจริง</p>
+                            </div>
+                        </div>
+                        <div class="consult-benefit-item">
+                            <div class="consult-benefit-icon"><i class="fa-solid fa-clock"></i></div>
+                            <div>
+                                <h5>ติดต่อกลับตามเวลาที่คุณสะดวก</h5>
+                                <p>ระบุช่วงเวลาที่สะดวกเพื่อให้ตัวแทนติดต่อกลับโดยไม่รบกวนเวลาทำงาน</p>
+                            </div>
+                        </div>
+                        <div class="consult-benefit-item">
+                            <div class="consult-benefit-icon"><i class="fa-solid fa-lock"></i></div>
+                            <div>
+                                <h5>ปลอดภัย มั่นใจตามมาตรฐาน PDPA</h5>
+                                <p>ดูแลโดยตรงจากตัวแทน MDRT ไม่ส่งต่อข้อมูลให้บุคคลภายนอก</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="consult-trust-box">
+                    <img src="agent.jpg" alt="นฤมล คำใบ" onerror="this.src='https://placehold.co/100x100/e86614/ffffff?text=FWD';">
+                    <div class="consult-trust-info">
+                        <strong>คุณนฤมล คำใบ (ต๋อย)</strong>
+                        <span>ตัวแทน FWD MDRT | ใบอนุญาต 6901010926</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="consult-right">
+                <div class="consult-form-header">
+                    <h4>ข้อมูลเบื้องต้นเพื่อการวางแผนประกันชีวิต</h4>
+                    <p>ช่องที่มีเครื่องหมาย <span style="color: var(--danger);">*</span> คือข้อมูลที่จำเป็นสำหรับการคำนวณเบี้ยประกัน</p>
+                </div>
+
+                <form id="voluntary-consult-form" onsubmit="submitConsultForm(event)">
+                    <div class="c-grid-3">
+                        <div class="form-group">
+                            <label>คำนำหน้า <span class="req">*</span></label>
+                            <select id="c-prefix" required>
+                                <option value="นาย">นาย</option>
+                                <option value="นาง">นาง</option>
+                                <option value="นางสาว">นางสาว</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>ชื่อจริง <span class="req">*</span></label>
+                            <input type="text" id="c-fname" placeholder="ระบุชื่อจริง" required>
+                        </div>
+                        <div class="form-group">
+                            <label>นามสกุล <span class="req">*</span></label>
+                            <input type="text" id="c-lname" placeholder="ระบุนามสกุล" required>
+                        </div>
+                    </div>
+
+                    <div class="c-grid-2">
+                        <div class="form-group">
+                            <label>เพศ <span class="req">*</span></label>
+                            <div class="radio-pill-group">
+                                <label class="radio-pill-label">
+                                    <input type="radio" name="c-gender" value="ชาย" checked> ชาย
+                                </label>
+                                <label class="radio-pill-label">
+                                    <input type="radio" name="c-gender" value="หญิง"> หญิง
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>ประวัติการสูบบุหรี่ <span class="req">*</span></label>
+                            <div class="radio-pill-group">
+                                <label class="radio-pill-label">
+                                    <input type="radio" name="c-smoke" value="ไม่สูบบุหรี่" checked> ไม่สูบบุหรี่
+                                </label>
+                                <label class="radio-pill-label">
+                                    <input type="radio" name="c-smoke" value="สูบบุหรี่"> สูบบุหรี่
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>วัน / เดือน / ปีเกิด (พ.ศ.) <span class="req">*</span></label>
+                        <div class="c-dob-grid">
+                            <select id="c-day" required onchange="updateConsultAgeBadge()">
+                                <option value="">วัน</option>
+                            </select>
+                            <select id="c-month" required onchange="updateConsultAgeBadge()">
+                                <option value="">เดือน</option>
+                                <option value="1">มกราคม</option>
+                                <option value="2">กุมภาพันธ์</option>
+                                <option value="3">มีนาคม</option>
+                                <option value="4">เมษายน</option>
+                                <option value="5">พฤษภาคม</option>
+                                <option value="6">มิถุนายน</option>
+                                <option value="7">กรกฎาคม</option>
+                                <option value="8">สิงหาคม</option>
+                                <option value="9">กันยายน</option>
+                                <option value="10">ตุลาคม</option>
+                                <option value="11">พฤศจิกายน</option>
+                                <option value="12">ธันวาคม</option>
+                            </select>
+                            <input type="number" id="c-year" placeholder="ปี พ.ศ. (เช่น 2535)" min="2440" max="2570" required oninput="updateConsultAgeBadge()">
+                            <div class="age-live-badge" id="c-age-badge">อายุ -- ปี</div>
+                        </div>
+                    </div>
+
+                    <div class="c-grid-2">
+                        <div class="form-group">
+                            <label>น้ำหนัก (กิโลกรัม) <span class="req">*</span></label>
+                            <input type="number" id="lead-weight" placeholder="เช่น 65" min="1" max="300" step="0.1" required>
+                        </div>
+                        <div class="form-group">
+                            <label>ส่วนสูง (เซนติเมตร) <span class="req">*</span></label>
+                            <input type="number" id="lead-height" placeholder="เช่น 170" min="30" max="250" step="0.1" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>มีโรคประจำตัวหรือไม่? <span class="req">*</span></label>
+                        <div class="radio-pill-group">
+                            <label class="radio-pill-label">
+                                <input type="radio" name="c-condition" value="ไม่มี" checked onchange="toggleConditionDetailInput()"> ไม่มี
+                            </label>
+                            <label class="radio-pill-label">
+                                <input type="radio" name="c-condition" value="มี" onchange="toggleConditionDetailInput()"> มี (โปรดระบุ)
+                            </label>
+                        </div>
+                        <div id="c-condition-detail-wrapper" style="display: none; margin-top: 10px;">
+                            <label style="font-size: 13px; font-weight: 600; color: var(--primary); margin-bottom: 6px; display: block;">ระบุโรคประจำตัว / ประวัติการรักษา <span class="req">*</span></label>
+                            <input type="text" id="lead-condition-detail" placeholder="เช่น ความดันโลหิตสูง, เบาหวาน, ภูมิแพ้ ฯลฯ">
+                        </div>
+                    </div>
+
+                    <div class="c-grid-2">
+                        <div class="form-group">
+                            <label>เบอร์โทรศัพท์ <span class="req">*</span></label>
+                            <input type="tel" id="c-phone" placeholder="08X-XXX-XXXX" required>
+                        </div>
+                        <div class="form-group">
+                            <label>LINE ID (ถ้ามี)</label>
+                            <input type="text" id="c-line" placeholder="ระบุ LINE ID เพื่อรับใบเสนอราคา">
+                        </div>
+                    </div>
+
+                    <div class="c-grid-2">
+                        <div class="form-group">
+                            <label>ช่วงเวลาที่สะดวกให้ติดต่อ <span class="req">*</span></label>
+                            <select id="c-contact-time" required>
+                                <option value="">-- เลือกช่วงเวลาที่สะดวก --</option>
+                                <option value="ช่วงเช้า (09:00 - 12:00 น.)">ช่วงเช้า (09:00 - 12:00 น.)</option>
+                                <option value="ช่วงบ่าย (13:00 - 16:00 น.)">ช่วงบ่าย (13:00 - 16:00 น.)</option>
+                                <option value="ช่วงเย็น (17:00 - 20:00 น.)">ช่วงเย็น (17:00 - 20:00 น.)</option>
+                                <option value="สะดวกทุกช่วงเวลา">สะดวกทุกช่วงเวลา</option>
+                                <option value="เฉพาะวันเสาร์-อาทิตย์ / วันหยุด">เฉพาะวันเสาร์-อาทิตย์ / วันหยุด</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>อาชีพ / ลักษณะงาน <span class="req">*</span></label>
+                            <input type="text" id="c-occupation" placeholder="เช่น พนักงานบริษัท, ธุรกิจส่วนตัว" required>
+                        </div>
+                    </div>
+
+                    <div class="c-grid-2">
+                        <div class="form-group">
+                            <label>งบประมาณเบี้ยประกันที่สนใจต่อปี <span class="req">*</span></label>
+                            <select id="c-budget" required>
+                                <option value="">-- เลือกช่วงงบประมาณ --</option>
+                                <option value="ต่ำกว่า 20,000 บาท/ปี">ต่ำกว่า 20,000 บาท/ปี</option>
+                                <option value="20,000 - 50,000 บาท/ปี">20,000 - 50,000 บาท/ปี</option>
+                                <option value="50,000 - 100,000 บาท/ปี">50,000 - 100,000 บาท/ปี</option>
+                                <option value="มากกว่า 100,000 บาท/ปี">มากกว่า 100,000 บาท/ปี</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>หมวดหมู่แผนประกันที่สนใจ <span class="req">*</span></label>
+                            <select id="c-category" required onchange="populateConsultPlanOptions()">
+                                <option value="">-- เลือกหมวดหมู่ --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>แบบประกันที่สนใจ <span class="req">*</span></label>
+                        <select id="c-plan" required>
+                            <option value="ให้ตัวแทนช่วยแนะนำ">ให้ตัวแทนช่วยแนะนำ</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ข้อมูลสุขภาพเบื้องต้น หรือความต้องการเพิ่มเติม (ไม่บังคับ)</label>
+                        <textarea id="c-notes" placeholder="เช่น ต้องการเน้นค่าห้อง 5,000 บาทขึ้นไป, ต้องการลดหย่อนภาษี 100,000 บาท"></textarea>
+                    </div>
+
+                    <div class="pdpa-box">
+                        <input type="checkbox" id="c-pdpa" required>
+                        <label for="c-pdpa">
+                            <strong>การยินยอมให้ข้อมูลส่วนบุคคล (PDPA):</strong> ข้าพเจ้ายินยอมให้ตัวแทนประกันชีวิต (คุณนฤมล คำใบ) เก็บรวบรวม ใช้ และเปิดเผยข้อมูลส่วนบุคคลข้างต้น เพื่อวัตถุประสงค์ในการวิเคราะห์ความคุ้มครอง คำนวณเบี้ยประกัน และติดต่อกลับเพื่อให้คำปรึกษา ตาม พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA)
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="btn-submit-consult">
+                        <i class="fa-solid fa-paper-plane"></i> ส่งข้อมูลเพื่อรับคำปรึกษาฟรี
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ADMIN-ONLY OPERATIONS PANEL (#admin-leads-section) -->
+<section class="admin-leads-section" id="admin-leads-section">
+    <div class="container">
+        <div class="admin-panel-card">
+            <div class="admin-panel-header">
+                <div>
+                    <h3><i class="fa-solid fa-clipboard-list" style="color: #ff9f59;"></i> ระบบปฏิบัติการเจ้าหน้าที่: รายชื่อลูกค้าลงทะเบียนปรึกษา</h3>
+                    <p>แสดงผลเฉพาะเจ้าหน้าที่ (Admin) พร้อมคำนวณค่า BMI เบื้องต้นและช่วงเวลาที่ลูกค้าสะดวกให้ติดต่อ</p>
+                </div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn-admin-action primary" style="padding: 9px 16px; font-size: 13.5px;" onclick="openSummaryA4Modal()">
+                        <i class="fa-solid fa-print"></i> พิมพ์รายงานสรุปทั้งหมด (A4)
+                    </button>
+                </div>
+            </div>
+
+            <div class="admin-leads-toolbar">
+                <input type="text" id="lead-search-input" placeholder="ค้นหาชื่อลูกค้า, เบอร์โทร, แผนประกัน..." oninput="renderAdminLeadsTable()">
+                <select id="lead-month-filter" onchange="renderAdminLeadsTable()">
+                    <option value="all">ทุกเดือน</option>
+                    <option value="1">มกราคม</option>
+                    <option value="2">กุมภาพันธ์</option>
+                    <option value="3">มีนาคม</option>
+                    <option value="4">เมษายน</option>
+                    <option value="5">พฤษภาคม</option>
+                    <option value="6">มิถุนายน</option>
+                    <option value="7">กรกฎาคม</option>
+                    <option value="8">สิงหาคม</option>
+                    <option value="9">กันยายน</option>
+                    <option value="10">ตุลาคม</option>
+                    <option value="11">พฤศจิกายน</option>
+                    <option value="12">ธันวาคม</option>
+                </select>
+                <select id="lead-year-filter" onchange="renderAdminLeadsTable()">
+                    <option value="all">ทุกปี (พ.ศ.)</option>
+                </select>
+                <select id="lead-sort-order" onchange="renderAdminLeadsTable()">
+                    <option value="newest">เรียงจาก ใหม่ล่าสุด → เก่าสุด</option>
+                    <option value="oldest">เรียงจาก เก่าสุด → ใหม่ล่าสุด</option>
+                </select>
+                <div style="font-size: 13px; font-weight: 600; color: #475569; white-space: nowrap;">
+                    พบ <span id="lead-filtered-count" style="color: var(--primary);">0</span> รายการ
+                </div>
+            </div>
+
+            <div class="leads-table-wrapper">
+                <table class="leads-table">
+                    <thead>
+                        <tr>
+                            <th>วัน-เวลาที่ลงทะเบียน</th>
+                            <th>ชื่อ-นามสกุล / ข้อมูลส่วนตัว</th>
+                            <th>ข้อมูลสุขภาพ / ค่า BMI / โรคประจำตัว</th>
+                            <th>ช่องทาง & ช่วงเวลาสะดวกติดต่อ</th>
+                            <th>แผนประกันที่สนใจ / งบประมาณ</th>
+                            <th style="text-align: center;">จัดการ (A4 / แชร์ / ลบ)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-leads-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+    <div class="container footer-content">
+        <div class="footer-about">
+            <h4 style="color: var(--primary); font-size: 24px;">FWD <span style="color:var(--white); font-weight: 400; font-size: 16px;">| นฤมล คำใบ</span></h4>
+            <p>ตัวแทนประกันชีวิต FWD พร้อมออกแบบความคุ้มครองที่ตรงใจ ดูแลตลอดชีพแบบเพื่อนคู่คิด</p>
+            <img id="footer-qr" src="line-qr.png" alt="LINE QR Code" style="max-width: 120px; border-radius: 8px; border: 2px solid #fff; padding: 4px;" onerror="this.style.display='none';">
+        </div>
+
+        <div class="footer-links">
+            <h4>เมนูและแผนประกัน</h4>
+            <ul style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #bbb;">
+                <li><a href="javascript:void(0)" onclick="showPlans('health')">ประกันสุขภาพ</a></li>
+                <li><a href="javascript:void(0)" onclick="showPlans('saving')">ประกันสะสมทรัพย์</a></li>
+                <li><a href="javascript:void(0)" onclick="showPlans('ci')">ประกันโรคร้ายแรง</a></li>
+                <li><a href="javascript:void(0)" onclick="showPlans('pension')">ประกันบำนาญ</a></li>
+                <li><a href="javascript:void(0)" onclick="showPlans('legacy')">ประกันสร้างมรดก</a></li>
+                <li><a href="#news">ข่าวสารและกิจกรรม</a></li>
+                <li><a href="#testimonials">รีวิวลูกค้า</a></li>
+                <li><a href="#consult">ลงทะเบียนปรึกษาฟรี</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-contact">
+            <h4>ติดต่อตัวแทน</h4>
+            <ul>
+                <li><i class="fa fa-phone"></i> <a href="tel:0869017235">086-901-7235 (ต๋อย)</a></li>
+                <li><i class="fa-brands fa-line"></i> <a href="https://line.me/R/oaMessage/@toifwd/?" target="_blank">@toifwd (ทางการ)</a></li>
+                <li><i class="fa fa-location-dot"></i> <a href="https://maps.app.goo.gl/cX6kjrhXPyP6i1Fd9" target="_blank">ประจำสำนักงานตัวแทน FWD นวนคร จ.ปทุมธานี</a></li>
+            </ul>
+            <a href="https://line.me/R/oaMessage/@toifwd/?" target="_blank" class="btn btn-line" style="margin-top: 25px;"><i class="fa-brands fa-line" style="font-size: 20px;"></i> ทักแอดไลน์ด่วน</a>
+        </div>
+    </div>
+
+    <div class="footer-bottomcontainer">
+        <div class="footer-bottom">
+            © 2026 คุณนฤมล คำใบ (ตัวแทน FWD License 6901010926) | สงวนลิขสิทธิ์
+        </div>
+    </div>
+</footer>
+
+<!-- STICKY CONTACT BAR -->
+<div class="sticky-contact-bar" id="sticky-bar">
+    <div class="sticky-contact-content">
+        <div class="sticky-text">สนใจแผนประกัน? ปรึกษาตัวแทนมืออาชีพได้เลยค่ะ</div>
+        <div class="sticky-btns">
+            <a href="tel:0869017235" class="btn btn-primary" style="background:#555;"><i class="fa fa-phone"></i> โทรเลย</a>
+            <a href="https://line.me/R/oaMessage/@toifwd/?" target="_blank" class="btn btn-line"><i class="fa-brands fa-line"></i> แอดไลน์</a>
+        </div>
+    </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="inquiry-modal">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeModal()"><i class="fa-solid fa-times"></i></button>
+        <div class="modal-header">
+            <h3>ใช้เวลาเพียงสักครู่ เพื่อสอบถามเกี่ยวกับแผนประกันนี้</h3>
+            <p>เราจะขอให้คุณให้ข้อมูลเพื่อใช้ในการติดต่อกลับเท่านั้น <br><strong id="modal-plan-name" style="color:var(--primary);"></strong></p>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>ชื่อจริง</label>
+                <input type="text" id="form-fname" placeholder="กรุณากรอกชื่อ">
+            </div>
+            <div class="form-group">
+                <label>นามสกุล</label>
+                <input type="text" id="form-lname" placeholder="กรุณากรอกนามสกุล">
+            </div>
+        </div>
+        <label style="display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: var(--text-dark);">วันเกิด</label>
+        <div class="dob-row">
+            <div class="form-group">
+                <select id="form-day"><option value="">วัน</option></select>
+            </div>
+            <div class="form-group">
+                <select id="form-month">
+                    <option value="">เดือน</option>
+                    <option value="1">มกราคม</option><option value="2">กุมภาพันธ์</option><option value="3">มีนาคม</option><option value="4">เมษายน</option><option value="5">พฤษภาคม</option><option value="6">มิถุนายน</option><option value="7">กรกฎาคม</option><option value="8">สิงหาคม</option><option value="9">กันยายน</option><option value="10">ตุลาคม</option><option value="11">พฤศจิกายน</option><option value="12">ธันวาคม</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="number" id="form-year" placeholder="ปี (พ.ศ.)">
+            </div>
+        </div>
+        <div class="form-group" style="margin-top: 15px;">
+            <label>หมายเลขโทรศัพท์</label>
+            <input type="tel" id="form-phone" placeholder="08X-XXX-XXXX">
+        </div>
+        <div class="consent-box" style="margin-top: 15px;">
+            <input type="checkbox" id="form-consent">
+            <label for="form-consent">คุณยินยอมให้ตัวแทนประกันชีวิตรวบรวมและใช้ข้อมูลส่วนบุคคลของข้าพเจ้า</label>
+        </div>
+        <button class="btn-submit" id="btn-submit-form" onclick="submitForm()">ตกลง (ส่งข้อมูลให้ตัวแทน)</button>
+    </div>
+</div>
+
+<div class="modal-overlay" id="news-detail-modal">
+    <div class="modal-content modal-lg">
+        <button class="close-modal" onclick="closeNewsDetailModal()"><i class="fa-solid fa-times"></i></button>
+        <div style="border-radius: 12px; overflow: hidden; max-height: 320px; margin-bottom: 20px; background: #f3efea;">
+            <img id="detail-news-img" src="" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+            <span id="detail-news-cat" style="background: var(--primary); color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;"></span>
+            <span id="detail-news-date" style="font-size: 13px; color: var(--text-grey);"></span>
+        </div>
+        <h3 id="detail-news-title" style="font-size: 24px; color: var(--secondary); margin-bottom: 15px; line-height: 1.35;"></h3>
+        <div id="detail-news-content" style="font-size: 15px; color: var(--text-dark); white-space: pre-line; line-height: 1.75; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #eee;"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <a id="detail-news-extlink" href="#" target="_blank" class="btn btn-primary" style="display: none; padding: 10px 22px; font-size: 14px;">
+                <i class="fa-solid fa-up-right-from-square"></i> ลิงก์รายละเอียดเพิ่มเติม
+            </a>
+            <a href="https://line.me/R/oaMessage/@toifwd/?" target="_blank" class="btn btn-line" style="padding: 10px 22px; font-size: 14px;">
+                <i class="fa-brands fa-line"></i> สอบถามตัวแทนเกี่ยวกับเรื่องนี้
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="admin-login-modal">
+    <div class="modal-content" style="max-width: 420px;">
+        <button class="close-modal" onclick="closeAdminLoginModal()"><i class="fa-solid fa-times"></i></button>
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-user-shield" style="color: var(--primary);"></i> เข้าสู่ระบบเจ้าหน้าที่</h3>
+            <p>สำหรับแอดมินเพื่อจัดการข่าวสาร รีวิวลูกค้า และดูรายชื่อลูกค้าลงทะเบียน</p>
+        </div>
+        <div class="form-group">
+            <label>รหัสผ่านเจ้าหน้าที่ (Passcode)</label>
+            <input type="password" id="admin-passcode-input" placeholder="กรอกรหัสผ่านแอดมิน" onkeydown="if(event.key==='Enter') verifyAdminLogin()">
+        </div>
+        <button class="btn-submit" onclick="verifyAdminLogin()">เข้าสู่โหมดจัดการข้อมูล</button>
+    </div>
+</div>
+
+<div class="modal-overlay" id="news-form-modal">
+    <div class="modal-content modal-lg">
+        <button class="close-modal" onclick="closeNewsFormModal()"><i class="fa-solid fa-times"></i></button>
+        <div class="modal-header">
+            <h3 id="news-form-modal-title">เพิ่มข่าวสาร / กิจกรรมใหม่</h3>
+            <p>กรอกข้อมูลด้านล่างเพื่อแสดงในหมวดข่าวสารและกิจกรรมหน้าเว็บไซต์</p>
+        </div>
+        <input type="hidden" id="edit-news-id">
+        <div class="form-row">
+            <div class="form-group" style="flex: 2;">
+                <label>หัวข้อข่าวสาร / กิจกรรม *</label>
+                <input type="text" id="news-input-title" placeholder="หัวข้อข่าวสาร">
+            </div>
+            <div class="form-group" style="flex: 1;">
+                <label>หมวดหมู่ *</label>
+                <select id="news-input-category">
+                    <option value="ข่าวสาร">ข่าวสาร</option>
+                    <option value="กิจกรรม">กิจกรรม</option>
+                    <option value="สาระน่ารู้">สาระน่ารู้</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>วันที่แสดงผล *</label>
+                <input type="date" id="news-input-date">
+            </div>
+            <div class="form-group">
+                <label>ลิงก์ภายนอก (ถ้ามี)</label>
+                <input type="url" id="news-input-link" placeholder="https://...">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>รูปภาพหน้าปก (วางลิงก์ หรือเลือกรูปจากเครื่อง)</label>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <input type="text" id="news-input-img" placeholder="URL รูปภาพ" style="flex: 1;" oninput="updateNewsImagePreview(this.value)">
+                <label for="news-file-upload" class="btn btn-primary" style="padding: 10px 18px; font-size: 13px; border-radius: 8px; cursor: pointer; margin: 0;">
+                    <i class="fa-solid fa-upload"></i> เลือกรูปจากเครื่อง
+                </label>
+                <input type="file" id="news-file-upload" accept="image/*" style="display: none;" onchange="handleImageFileUpload(event)">
+            </div>
+            <div class="img-upload-preview-box" id="news-img-preview-box">
+                <span style="color: #999; font-size: 13px;">ตัวอย่างรูปภาพหน้าปก</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>รายละเอียดเนื้อหาข่าวสาร / กิจกรรม *</label>
+            <textarea id="news-input-content" placeholder="พิมพ์เนื้อหารายละเอียด..."></textarea>
+        </div>
+        <div style="display: flex; gap: 12px; margin-top: 10px;">
+            <button class="btn-submit" onclick="saveNewsItem()"><i class="fa-solid fa-floppy-disk"></i> บันทึกข้อมูลข่าวสาร</button>
+            <button class="btn-submit" style="background: #e5e5e5; color: #333; width: 35%;" onclick="closeNewsFormModal()">ยกเลิก</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="testimonial-form-modal">
+    <div class="modal-content modal-lg">
+        <button class="close-modal" onclick="closeTestimonialFormModal()"><i class="fa-solid fa-times"></i></button>
+        <div class="modal-header">
+            <h3 id="testi-form-modal-title">เพิ่มรีวิวลูกค้าใหม่</h3>
+            <p>จัดการข้อความรีวิว แผนประกัน และสื่อแนบ</p>
+        </div>
+        <input type="hidden" id="edit-testi-id">
+        <div class="form-row">
+            <div class="form-group">
+                <label>ชื่อลูกค้า *</label>
+                <input type="text" id="testi-input-name" placeholder="ชื่อลูกค้า">
+            </div>
+            <div class="form-group">
+                <label>แผนประกันที่ลูกค้าเลือก *</label>
+                <input type="text" id="testi-input-plan" placeholder="ชื่อแผนประกัน">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>ข้อความรีวิวความประทับใจ *</label>
+            <textarea id="testi-input-text" placeholder="พิมพ์ความประทับใจ..." style="min-height: 95px;"></textarea>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>ไอคอนโปรไฟล์ลูกค้า</label>
+                <select id="testi-input-icon">
+                    <option value="fa-user">บุคคลทั่วไป (fa-user)</option>
+                    <option value="fa-user-tie">นักธุรกิจ (fa-user-tie)</option>
+                    <option value="fa-user-graduate">นักศึกษา (fa-user-graduate)</option>
+                    <option value="fa-user-doctor">แพทย์ (fa-user-doctor)</option>
+                    <option value="fa-heart">ครอบครัว (fa-heart)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>สื่อแนบ (ไม่บังคับ)</label>
+                <select id="testi-input-media-type" onchange="toggleTestimonialMediaFields()">
+                    <option value="none">ไม่มี (แสดงเฉพาะข้อความ)</option>
+                    <option value="image">รูปภาพประกอบ (Image)</option>
+                    <option value="video">คลิปวิดีโอ (YouTube / MP4)</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" id="testi-media-image-group" style="display: none;">
+            <label>รูปภาพประกอบรีวิว</label>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <input type="text" id="testi-input-img-url" placeholder="URL รูปภาพ" style="flex: 1;" oninput="updateTestimonialMediaPreview()">
+                <label for="testi-file-upload" class="btn btn-primary" style="padding: 10px 18px; font-size: 13px; border-radius: 8px; cursor: pointer; margin: 0;">
+                    <i class="fa-solid fa-upload"></i> เลือกรูปจากเครื่อง
+                </label>
+                <input type="file" id="testi-file-upload" accept="image/*" style="display: none;" onchange="handleTestimonialImageUpload(event)">
+            </div>
+        </div>
+        <div class="form-group" id="testi-media-video-group" style="display: none;">
+            <label>คลิปวิดีโอรีวิว</label>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <input type="text" id="testi-input-video-url" placeholder="YouTube URL หรือ .mp4" style="flex: 1;" oninput="handleManualVideoUrlInput(this.value)">
+                <label for="testi-video-file-upload" class="btn btn-primary" style="padding: 10px 18px; font-size: 13px; border-radius: 8px; cursor: pointer; margin: 0; white-space: nowrap;">
+                    <i class="fa-solid fa-file-video"></i> เลือกไฟล์วิดีโอ
+                </label>
+                <input type="file" id="testi-video-file-upload" accept="video/mp4,video/webm,video/quicktime,video/*" style="display: none;" onchange="handleTestimonialVideoUpload(event)">
+            </div>
+            <div id="testi-video-upload-status" style="font-size: 12px; color: var(--text-grey); margin-top: 6px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                <span>รองรับ .mp4, .mov, .webm หรือ YouTube</span>
+                <button type="button" id="btn-clear-uploaded-video" onclick="clearUploadedTestimonialVideo()" style="display: none; background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; padding: 3px 10px; border-radius: 6px; font-size: 11.5px; cursor: pointer;">ล้างไฟล์</button>
+            </div>
+        </div>
+        <div class="form-group" id="testi-media-preview-wrapper" style="display: none;">
+            <label>ตัวอย่างสื่อแนบ</label>
+            <div id="testi-media-preview-box" class="img-upload-preview-box" style="height: 220px; background: #111;">
+                <span style="color: #bbb; font-size: 13px;">ยังไม่ได้ระบุสื่อแนบ</span>
+            </div>
+        </div>
+        <div style="display: flex; gap: 12px; margin-top: 15px;">
+            <button class="btn-submit" onclick="saveTestimonialItem()"><i class="fa-solid fa-floppy-disk"></i> บันทึกข้อมูลรีวิว</button>
+            <button class="btn-submit" style="background: #e5e5e5; color: #333; width: 35%;" onclick="closeTestimonialFormModal()">ยกเลิก</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="media-lightbox-modal" onclick="if(event.target===this) closeMediaLightbox()">
+    <div class="lightbox-content">
+        <button class="lightbox-close-btn" onclick="closeMediaLightbox()"><i class="fa-solid fa-xmark"></i></button>
+        <img id="lightbox-img" src="" alt="ภาพรีวิว">
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="confirm-delete-modal">
+    <div class="modal-content" style="max-width: 400px; text-align: center;">
+        <div style="font-size: 42px; color: var(--danger); margin-bottom: 10px;"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <h3 style="margin-bottom: 8px; color: var(--secondary);">ยืนยันการลบรายการนี้?</h3>
+        <p id="confirm-delete-desc" style="font-size: 14px; color: var(--text-grey); margin-bottom: 22px;">คุณต้องการลบรายการนี้ใช่หรือไม่</p>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn-submit" style="background: var(--danger);" id="btn-confirm-delete-yes">ลบข้อมูล</button>
+            <button class="btn-submit" style="background: #e5e5e5; color: #333;" onclick="closeConfirmDeleteModal()">ยกเลิก</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="a4-preview-modal">
+    <div class="modal-content modal-a4">
+        <div class="a4-modal-toolbar">
+            <div style="font-weight: 600; font-size: 15px; display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-file-pdf" style="color: #ff9f59;"></i>
+                <span id="a4-modal-title-text">เอกสารข้อมูลลูกค้า (ขนาด A4)</span>
+            </div>
+            <div class="a4-toolbar-btns">
+                <button class="btn-admin-action primary" onclick="printA4Document()"><i class="fa-solid fa-print"></i> พิมพ์</button>
+                <button class="btn-admin-action success" id="btn-capture-a4" onclick="captureA4HighRes()"><i class="fa-solid fa-camera"></i> แคปเจอร์ HD</button>
+                <button class="btn-admin-action info" onclick="shareA4Document()"><i class="fa-solid fa-share-nodes"></i> แชร์</button>
+                <button class="btn-admin-action danger" onclick="closeA4Modal()"><i class="fa-solid fa-xmark"></i> ปิด</button>
+            </div>
+        </div>
+        <div class="a4-scroll-stage">
+            <div id="a4-print-area"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxGZNUf6LNUaBGP2l-OF41NtAgZllnzEE2uf7E_KdwwG5ris4kREobTc1fAhvgzM0ayQw/exec";
+
+    function showToast(message) {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'toast-msg';
+        toast.innerHTML = `<i class="fa-solid fa-circle-info" style="color: var(--primary); font-size: 18px;"></i> <span>${message}</span>`;
+        container.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 4000);
+    }
+
+    function copyTextFallback(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+    }
+
+    ['form-day', 'c-day'].forEach(id => {
+        const sel = document.getElementById(id);
+        if (!sel) return;
+        for (let i = 1; i <= 31; i++) {
+            let opt = document.createElement('option');
+            opt.value = i; opt.innerHTML = i;
+            sel.appendChild(opt);
+        }
+    });
+
+    function calculateBMIInfo(weightKg, heightCm) {
+        const w = parseFloat(weightKg);
+        const hCm = parseFloat(heightCm);
+        if (isNaN(w) || isNaN(hCm) || w <= 0 || hCm <= 0) {
+            return { bmi: null, display: '-', label: 'ไม่ระบุ', cssClass: 'bmi-na' };
+        }
+        const hMeter = hCm / 100;
+        const bmiVal = w / (hMeter * hMeter);
+        const bmiFixed = bmiVal.toFixed(2);
+        if (bmiVal < 18.5) return { bmi: bmiFixed, display: bmiFixed, label: 'ผอม', cssClass: 'bmi-under' };
+        else if (bmiVal < 23.0) return { bmi: bmiFixed, display: bmiFixed, label: 'ปกติ/สมส่วน', cssClass: 'bmi-normal' };
+        else if (bmiVal < 25.0) return { bmi: bmiFixed, display: bmiFixed, label: 'ท้วม', cssClass: 'bmi-over' };
+        else if (bmiVal < 30.0) return { bmi: bmiFixed, display: bmiFixed, label: 'อ้วนระดับ 1', cssClass: 'bmi-obese1' };
+        else return { bmi: bmiFixed, display: bmiFixed, label: 'อ้วนระดับ 2', cssClass: 'bmi-obese2' };
+    }
+
+    const plansData = {
+        'health': {
+            title: 'แผนประกันสุขภาพ',
+            items: [
+                { type: 'ผลิตภัณฑ์', title: 'ประกันสุขภาพ เหมาจ่าย FWD Precious Protection', desc: 'ดูแลคุ้มครองครบทั้ง IPD และ OPD ครอบคลุมทุกค่ารักษา เหมาจ่ายสูงสุด 100 ล้านบาท', tags: ['สุขภาพ', 'IPD', 'OPD'], img: 'precious-pic.png?text=Precious', url: 'https://precious-protection-toifwd.wirood01.workers.dev/' },
+                { type: 'ผลิตภัณฑ์', title: 'ประกันสุขภาพ FWD Prema Care', desc: 'แผนความคุ้มครองสุขภาพที่ช่วยแบ่งเบาภาระค่าใช้จ่ายเมื่อเข้ารับการรักษาใน รพ.', tags: ['สุขภาพ', 'ครอบครัว'], img: 'prema-pic.png?text=Prema', url: 'https://prema-care-toifwd.wirood01.workers.dev/' },
+                { type: 'ผลิตภัณฑ์', title: 'ประกันสุขภาพ พรีเชียส แคร์ ฟอร์ คิดส์', desc: 'ประกันสุขภาพเหมาจ่ายสำหรับเด็ก พร้อมดูแลสุขภาพและการเจ็บป่วยของลูกรัก', tags: ['สุขภาพ', 'เด็ก'], img: 'kid.png?text=Kids', url: 'https://precious-care-for-kid-toifwd.wirood01.workers.dev/' }
+            ]
+        },
+        'saving': {
+            title: 'แผนประกันสะสมทรัพย์',
+            items: [
+                { type: 'ผลิตภัณฑ์', title: 'ประกันสะสมทรัพย์ FWD ฟอร์ เซฟวิ่ง 25/15', desc: 'เก็บเงินสบาย มีเงินคืนทุกปี พร้อมเงินก้อนโตเมื่อครบกำหนด', tags: ['เงินคืน', 'ภาษี'], img: 'saving-25-15.png', url: 'https://fwd-for-saving-toifwd.wirood01.workers.dev/' },
+                { type: 'ผลิตภัณฑ์', title: 'ประกันสะสมทรัพย์ FWD ไลฟ์ เซฟวิ่ง 30/15', desc: 'วางแผนการเงินระยะยาวสำหรับคนเริ่มต้นทำงาน ผลตอบแทนมั่นคง', tags: ['เงินคืน', 'ภาษี'], img: 'saving-30-15.png', url: 'https://fwd-life-saving-toifwd.wirood01.workers.dev/' },
+                { type: 'ผลิตภัณฑ์', title: 'ประกันสะสมทรัพย์ FWD ไลฟ์ เซฟวิ่ง 18/9', desc: 'ต่อยอดอนาคตด้วยผลตอบแทนคุ้มค่าและความคุ้มครองตลอดสัญญา', tags: ['เงินคืน', 'ภาษี'], img: 'saving-18-9.png', url: 'https://fwd-life-saving-1809-toifwd.wirood01.workers.dev/' },
+                { type: 'ผลิตภัณฑ์', title: 'FWD พาวเวอร์ เซฟวิ่ง 12/6', desc: 'รับผลประโยชน์รวมสูงสุด 654% ชำระเบี้ยเพียง 6 ปี', tags: ['เงินคืน', 'ภาษี'], img: 'saving-12-6.png', url: 'https://fwd-power-saving-toifwd.wirood01.workers.dev/' }
+            ]
+        },
+        'ci': {
+            title: 'แผนประกันโรคร้ายแรง',
+            items: [
+                { type: 'สัญญาเพิ่มเติม', title: 'ประกันโรคร้าย ซีไอ 50', desc: 'พร้อมรับมือ 50 โรคร้าย เจอจ่ายจบ', tags: ['โรคร้ายแรง'], img: 'ci50.png', url: 'https://life-value-protect-ci50-toifwd.wirood01.workers.dev/' },
+                { type: 'ผลิตภัณฑ์', title: 'CI Re-Claim Re-Care Plus', desc: 'เคลมสูงสุด 14 ครั้ง ครอบคลุม 110 โรคร้าย', tags: ['โรคร้ายแรง', 'มะเร็ง'], img: 'ci-reclaim.png', url: 'https://ci-reclaim-recare-plus-toifwd.wirood01.workers.dev/' },
+                { type: 'ผลิตภัณฑ์', title: 'ซีไอ ฟิกซ์ เปย์ ตลอดชีพ', desc: 'คุ้มครองชีวิตและโรคร้ายแรงตลอดชีพ', tags: ['โรคร้ายแรง', 'ตลอดชีพ'], img: 'cifixpay.png', url: 'https://ci-fixed-pay-toifwd.wirood01.workers.dev/' },
+                { type: 'ผลิตภัณฑ์', title: 'ประกันโรคร้ายแรง Big 3', desc: 'คุ้มครอง 3 กลุ่มโรคร้ายอันดับต้นของไทย', tags: ['โรคร้ายแรง'], img: 'big3.png', url: 'https://big3-toifwd.wirood01.workers.dev/' }
+            ]
+        },
+        'pension': {
+            title: 'แผนประกันบำนาญ',
+            items: [
+                { type: 'ผลิตภัณฑ์', title: 'FWD ชัวร์ เพนชัน', desc: 'รับเงินบำนาญสูงถึง 20% ของทุนประกันภัย ต่อเนื่องถึงอายุ 85 ปี', tags: ['เกษียณ', 'เงินคืน'], img: 'sure-pension.png', url: 'https://fwd-sure-pension-toifwd.wirood01.workers.dev/' }
+            ]
+        },
+        'legacy': {
+            title: 'แผนประกันสร้างมรดก',
+            items: [
+                { type: 'แพ็กเกจ', title: 'ประกันสร้างมรดก + 50 โรคร้ายแรง', desc: 'สร้างมรดกพร้อมรับมือโรคร้ายแรง', tags: ['มรดก', 'โรคร้ายแรง'], img: 'legacy-ci50.png', url: 'https://life-value-protect-ci50-toifwd.wirood01.workers.dev/' },
+                { type: 'ผลิตภัณฑ์', title: 'ประกันคุ้มครองชีวิต คุ้มค่า คุ้มภัย', desc: 'ครอบครัวเดินหน้าต่อได้ไม่สะดุด', tags: ['เสียชีวิต', 'ภาษี'], img: 'legacy-value.png', url: 'https://ivp-toifwd.wirood01.workers.dev/' },
+                { type: 'ผลิตภัณฑ์', title: 'ประกันคุ้มครองชีวิต มั่นใจชัวร์', desc: 'เบี้ยเบา ความคุ้มครองสูง', tags: ['เสียชีวิต', 'ภาษี'], img: 'legacy-sure.png', url: 'https://term15-toifwd.wirood01.workers.dev/' },
+                { type: 'ผลิตภัณฑ์', title: 'FWD เฮอริเทจ พลัส', desc: 'คุ้มครองถึงอายุ 99 ปี', tags: ['เสียชีวิต', 'ภาษี'], img: 'legacy-heritage.png', url: 'https://fwd-heritage-plus-toifwd.wirood01.workers.dev/' },
+                { type: 'ผลิตภัณฑ์', title: 'ประกันคุ้มครองชีวิต คุ้มชีวี เอ็กซ์ตร้า', desc: 'คุ้มครองตลอดชีพพร้อมเงินคืนทุกปี', tags: ['เสียชีวิต', 'เงินคืน'], img: 'legacy-extra.png', url: 'https://whole-life-extra-toifwd.wirood01.workers.dev/' }
+            ]
+        },
+        'nonlife': { title: 'แผนประกันวินาศภัย', items: [] }
+    };
+
+    /*__START_DATA_VERSION__*/
+    const EMBEDDED_DATA_VERSION = 1763470000002;
+    /*__END_DATA_VERSION__*/
+
+    /*__START_DEFAULT_NEWS_DATA__*/
+    const defaultNewsData = [
+        {
+            id: 'news-1',
+            title: 'สัมมนาพิเศษ: วางแผนภาษีและเกษียณอย่างมั่งคั่งกับ FWD ประจำปี 2026',
+            category: 'กิจกรรม',
+            date: '2026-03-15',
+            img: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80',
+            content: 'ขอเรียนเชิญลูกค้าคนสำคัญและผู้ที่สนใจเข้าร่วมกิจกรรมพูดคุยจิบกาแฟสบายๆ ในหัวข้อ "วางแผนลดหย่อนภาษีและสร้างบำนาญตลอดชีพ" ณ สำนักงานตัวแทน FWD นวนคร จ.ปทุมธานี\n\nภายในงานพบกับการวิเคราะห์พอร์ตความคุ้มครองรายบุคคลฟรี พร้อมรับของที่ระลึกสุดพิเศษจาก FWD สำรองที่นั่งล่วงหน้าได้ทาง LINE Official: @toifwd ค่ะ',
+            link: 'https://line.me/R/oaMessage/@toifwd/?'
+        },
+        {
+            id: 'news-2',
+            title: 'อัปเดตสิทธิ์ลดหย่อนภาษีด้วยประกันชีวิตและประกันสุขภาพ สูงสุด 300,000 บาท',
+            category: 'สาระน่ารู้',
+            date: '2026-02-28',
+            img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80',
+            content: 'สรุปครบจบในโพสต์เดียว! สำหรับผู้มีเงินได้ที่ต้องการวางแผนประหยัดภาษี:\n1. ประกันชีวิตทั่วไป และประกันสะสมทรัพย์ ลดหย่อนได้ตามจริงสูงสุด 100,000 บาท\n2. ประกันสุขภาพตนเอง ลดหย่อนได้สูงสุด 25,000 บาท\n3. ประกันสุขภาพบิดามารดา ลดหย่อนได้สูงสุด 15,000 บาท\n4. ประกันชีวิตแบบบำนาญ ลดหย่อนได้เพิ่มอีกสูงสุด 200,000 บาท',
+            link: ''
+        },
+        {
+            id: 'news-3',
+            title: 'เปิดตัวความคุ้มครองสุขภาพเหมาจ่าย FWD Precious Protection ดูแลครบทั้ง IPD และ OPD',
+            category: 'ข่าวสาร',
+            date: '2026-01-20',
+            img: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
+            content: 'ยกระดับความอุ่นใจให้คุณและครอบครัว ด้วยแผนประกันสุขภาพเหมาจ่าย FWD Precious Protection ครอบคลุมค่ารักษาพยาบาลตามจริง ทั้ง IPD และ OPD วงเงินสูงสุด 100 ล้านบาทต่อปี',
+            link: 'https://precious-protection-toifwd.wirood01.workers.dev/'
+        }
+    ];
+    /*__END_DEFAULT_NEWS_DATA__*/
+
+    /*__START_DEFAULT_TESTI_DATA__*/
+    const defaultTestimonialData = [
+        { id: 'testi-1', name: 'คุณสมชาย ก.', plan: 'แผนประกันสุขภาพ Precious Care', text: '"บริการดีมาก เคลมไว อธิบายแผนเข้าใจง่ายและตรงตามความต้องการที่สุด"', icon: 'fa-user', mediaType: 'none', mediaUrl: '' },
+        { id: 'testi-2', name: 'คุณนกน้อย จ.', plan: 'แผนประกันสะสมทรัพย์', text: '"ช่วยวางแผนการเงินได้เห็นภาพชัดเจน ช่วยจัดแผนให้คุ้มค่ากับงบที่ตั้งไว้"', icon: 'fa-user-tie', mediaType: 'none', mediaUrl: '' },
+        { id: 'testi-3', name: 'คุณพัชรี ส.', plan: 'แผนประกันบำนาญ', text: '"เป็นกันเอง ให้คำปรึกษาตลอดไม่หายหน้าเวลาเคลม รู้สึกอุ่นใจมากๆ เลยค่ะ"', icon: 'fa-user-graduate', mediaType: 'none', mediaUrl: '' }
+    ];
+    /*__END_DEFAULT_TESTI_DATA__*/
+
+    /*__START_DEFAULT_LEADS_DATA__*/
+    const defaultLeadsData = [
+        {
+            id: 'LEAD-2569-001', prefix: 'นาย', fname: 'ธนากร', lname: 'วัฒนากูล', gender: 'ชาย', dob: '14/5/2533', age: 36, weight: 74, height: 175,
+            condition: 'มี: ความดันโลหิตสูง (ควบคุมยาปกติ)', phone: '089-456-7890', lineId: 'thanakorn.w', contactTime: 'ช่วงเย็น (17:00 - 20:00 น.)',
+            occupation: 'วิศวกรโรงงาน', smoking: 'ไม่สูบบุหรี่', budget: '20,000 - 50,000 บาท/ปี', categoryKey: 'health', categoryTitle: 'แผนประกันสุขภาพ',
+            plan: 'ประกันสุขภาพ เหมาจ่าย FWD Precious Protection', notes: 'ต้องการความคุ้มครองเหมาจ่าย IPD + OPD', pdpaConsent: true, source: 'เว็บไซต์', createdAt: '2026-11-15T10:25:00.000Z'
+        }
+    ];
+    /*__END_DEFAULT_LEADS_DATA__*/
+
+    const STORAGE_KEY_VERSION = 'fwd_agent_embedded_version_v1';
+    const STORAGE_KEY_NEWS = 'fwd_agent_news_items_v1';
+    const STORAGE_KEY_TESTI = 'fwd_agent_testi_items_v1';
+    const STORAGE_KEY_LEADS = 'fwd_agent_leads_items_v2';
+
+    let newsList = [];
+    let testimonialList = [];
+    let leadsList = [];
+    let currentNewsFilter = 'all';
+    let isAdminLoggedIn = false;
+    let currentA4Context = { mode: 'single', lead: null, leads: [] };
+    let tempUploadedVideoDataUrl = '';
+
+    const IDB_NAME = 'FWD_Agent_CMS_DB';
+    const IDB_STORE = 'cms_store';
+
+    function openCmsIDB() {
+        return new Promise((resolve, reject) => {
+            if (!window.indexedDB) { reject(new Error('No IDB')); return; }
+            const req = indexedDB.open(IDB_NAME, 1);
+            req.onupgradeneeded = e => { const db = e.target.result; if (!db.objectStoreNames.contains(IDB_STORE)) db.createObjectStore(IDB_STORE); };
+            req.onsuccess = e => resolve(e.target.result);
+            req.onerror = e => reject(e.target.error);
+        });
+    }
+
+    async function saveToIDB(key, val) {
+        try {
+            const db = await openCmsIDB();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction(IDB_STORE, 'readwrite');
+                tx.objectStore(IDB_STORE).put(val, key);
+                tx.oncomplete = () => resolve(true);
+                tx.onerror = e => reject(e.target.error);
+            });
+        } catch (e) { return false; }
+    }
+
+    async function getFromIDB(key) {
+        try {
+            const db = await openCmsIDB();
+            return new Promise((resolve) => {
+                const tx = db.transaction(IDB_STORE, 'readonly');
+                const req = tx.objectStore(IDB_STORE).get(key);
+                req.onsuccess = () => resolve(req.result || null);
+                req.onerror = () => resolve(null);
+            });
+        } catch (e) { return null; }
+    }
+
+    async function loadAllData() {
+        let forceSync = false;
+        try {
+            const savedVersion = Number(localStorage.getItem(STORAGE_KEY_VERSION) || 0);
+            if (typeof EMBEDDED_DATA_VERSION !== 'undefined' && EMBEDDED_DATA_VERSION > savedVersion) {
+                forceSync = true;
+                localStorage.setItem(STORAGE_KEY_VERSION, String(EMBEDDED_DATA_VERSION));
+            }
+        } catch (e) {}
+
+        // News Load & Sync
+        try {
+            if (forceSync) {
+                newsList = JSON.parse(JSON.stringify(defaultNewsData));
+                localStorage.setItem(STORAGE_KEY_NEWS, JSON.stringify(newsList));
+            } else {
+                const savedNews = localStorage.getItem(STORAGE_KEY_NEWS);
+                newsList = savedNews ? JSON.parse(savedNews) : JSON.parse(JSON.stringify(defaultNewsData));
+            }
+        } catch (e) {
+            newsList = JSON.parse(JSON.stringify(defaultNewsData));
+        }
+
+        // Testimonials Load & Sync
+        try {
+            if (forceSync) {
+                testimonialList = JSON.parse(JSON.stringify(defaultTestimonialData));
+                await saveToIDB(STORAGE_KEY_TESTI, testimonialList);
+                try { localStorage.setItem(STORAGE_KEY_TESTI, JSON.stringify(testimonialList)); } catch (err) {}
+            } else {
+                const idbTesti = await getFromIDB(STORAGE_KEY_TESTI);
+                const savedTesti = localStorage.getItem(STORAGE_KEY_TESTI);
+                if (idbTesti && Array.isArray(idbTesti) && idbTesti.length > 0) testimonialList = idbTesti;
+                else if (savedTesti) testimonialList = JSON.parse(savedTesti);
+                else testimonialList = JSON.parse(JSON.stringify(defaultTestimonialData));
+            }
+        } catch (e) {
+            testimonialList = JSON.parse(JSON.stringify(defaultTestimonialData));
+        }
+
+        // Leads Load
+        try {
+            const savedLeads = localStorage.getItem(STORAGE_KEY_LEADS);
+            if (savedLeads) {
+                const parsed = JSON.parse(savedLeads);
+                if (forceSync && Array.isArray(defaultLeadsData)) {
+                    const existingIds = new Set(parsed.map(l => l.id));
+                    defaultLeadsData.forEach(dl => { if (!existingIds.has(dl.id)) parsed.push(dl); });
+                }
+                leadsList = parsed;
+            } else {
+                leadsList = JSON.parse(JSON.stringify(defaultLeadsData));
+            }
+        } catch (e) {
+            leadsList = JSON.parse(JSON.stringify(defaultLeadsData));
+        }
+
+        populateConsultCategoryOptions();
+        renderNewsGrid();
+        renderTestimonialGrid();
+        populateLeadYearFilter();
+        renderAdminLeadsTable();
+        updateAdminLeadsBadge();
+    }
+
+    function saveNewsToStorage() {
+        try { localStorage.setItem(STORAGE_KEY_NEWS, JSON.stringify(newsList)); } catch (e) {}
+    }
+
+    function saveTestimonialsToStorage() {
+        saveToIDB(STORAGE_KEY_TESTI, testimonialList);
+        try { localStorage.setItem(STORAGE_KEY_TESTI, JSON.stringify(testimonialList)); } catch (e) {}
+    }
+
+    function saveLeadsToStorage() {
+        try { localStorage.setItem(STORAGE_KEY_LEADS, JSON.stringify(leadsList)); } catch (e) {}
+        populateLeadYearFilter();
+        renderAdminLeadsTable();
+        updateAdminLeadsBadge();
+    }
+
+    function updateAdminLeadsBadge() {
+        const badge = document.getElementById('admin-leads-badge');
+        if (badge) badge.innerText = leadsList.length;
+    }
+
+    function formatThaiDate(dateStr) {
+        if (!dateStr) return '';
+        const months = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+        const parts = dateStr.split('-');
+        if (parts.length !== 3) return dateStr;
+        return `${parseInt(parts[2])} ${months[parseInt(parts[1]) - 1] || ''} ${parseInt(parts[0]) + 543}`;
+    }
+
+    function formatThaiDateTime(isoStr) {
+        if (!isoStr) return '-';
+        const d = new Date(isoStr);
+        if (isNaN(d.getTime())) return isoStr;
+        const months = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+        return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear() + 543} เวลา ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')} น.`;
+    }
+
+    /* Consultation Form & Admin Leads */
+    function populateConsultCategoryOptions() {
+        const catSelect = document.getElementById('c-category');
+        if (!catSelect) return;
+        catSelect.innerHTML = '<option value="">-- เลือกหมวดหมู่แผนประกัน --</option>';
+        Object.keys(plansData).forEach(key => {
+            const opt = document.createElement('option');
+            opt.value = key;
+            opt.textContent = plansData[key].title;
+            catSelect.appendChild(opt);
+        });
+    }
+
+    function populateConsultPlanOptions() {
+        const catKey = document.getElementById('c-category').value;
+        const planSelect = document.getElementById('c-plan');
+        planSelect.innerHTML = '<option value="ให้ตัวแทนช่วยแนะนำ">ให้ตัวแทนช่วยแนะนำ</option>';
+        if (catKey && plansData[catKey] && plansData[catKey].items.length > 0) {
+            plansData[catKey].items.forEach(item => {
+                const opt = document.createElement('option');
+                opt.value = item.title;
+                opt.textContent = item.title;
+                planSelect.appendChild(opt);
+            });
+        }
+    }
+
+    function updateConsultAgeBadge() {
+        const day = document.getElementById('c-day').value;
+        const month = document.getElementById('c-month').value;
+        const year = document.getElementById('c-year').value;
+        const badge = document.getElementById('c-age-badge');
+        if (day && month && year && year.length === 4) {
+            const age = calculateAge(day, month, year);
+            if (!isNaN(age) && age >= 0 && age <= 120) { badge.innerText = `อายุ ${age} ปี`; return; }
+        }
+        badge.innerText = 'อายุ -- ปี';
+    }
+
+    function toggleConditionDetailInput() {
+        const selected = document.querySelector('input[name="c-condition"]:checked')?.value;
+        const wrapper = document.getElementById('c-condition-detail-wrapper');
+        const detailInput = document.getElementById('lead-condition-detail');
+        if (!wrapper || !detailInput) return;
+        if (selected === 'มี') { wrapper.style.display = 'block'; detailInput.required = true; }
+        else { wrapper.style.display = 'none'; detailInput.required = false; detailInput.value = ''; }
+    }
+
+    function submitConsultForm(e) {
+        e.preventDefault();
+        const prefix = document.getElementById('c-prefix').value;
+        const fname = document.getElementById('c-fname').value.trim();
+        const lname = document.getElementById('c-lname').value.trim();
+        const gender = document.querySelector('input[name="c-gender"]:checked').value;
+        const smoking = document.querySelector('input[name="c-smoke"]:checked').value;
+        const day = document.getElementById('c-day').value;
+        const month = document.getElementById('c-month').value;
+        const year = document.getElementById('c-year').value.trim();
+        const weight = parseFloat(document.getElementById('lead-weight').value);
+        const height = parseFloat(document.getElementById('lead-height').value);
+        const hasCondition = document.querySelector('input[name="c-condition"]:checked')?.value || 'ไม่มี';
+        const conditionDetail = document.getElementById('lead-condition-detail').value.trim();
+        const phone = document.getElementById('c-phone').value.trim();
+        const lineId = document.getElementById('c-line').value.trim() || '-';
+        const contactTime = document.getElementById('c-contact-time').value;
+        const occupation = document.getElementById('c-occupation').value.trim();
+        const budget = document.getElementById('c-budget').value;
+        const categoryKey = document.getElementById('c-category').value;
+        const categoryTitle = categoryKey && plansData[categoryKey] ? plansData[categoryKey].title : 'ทั่วไป';
+        const plan = document.getElementById('c-plan').value;
+        const notes = document.getElementById('c-notes').value.trim() || '-';
+        const pdpa = document.getElementById('c-pdpa').checked;
+
+        if (!fname || !lname || !day || !month || !year || isNaN(weight) || isNaN(height) || !phone || !contactTime || !occupation || !budget || !categoryKey || !pdpa) {
+            showToast('กรุณากรอกข้อมูลและกดยอมรับ PDPA ให้ครบถ้วน');
+            return;
+        }
+
+        const conditionText = hasCondition === 'มี' ? `มี: ${conditionDetail}` : 'ไม่มี';
+        const age = calculateAge(day, month, year);
+        const dob = `${day}/${month}/${year}`;
+        const now = new Date();
+        const newLead = {
+            id: `LEAD-${now.getFullYear() + 543}-${Math.floor(100 + Math.random() * 900)}`,
+            prefix, fname, lname, gender, dob, age, weight, height,
+            condition: conditionText, phone, lineId, contactTime, occupation, smoking, budget,
+            categoryKey, categoryTitle, plan, notes, pdpaConsent: true, source: 'เว็บไซต์', createdAt: now.toISOString()
+        };
+
+        leadsList.unshift(newLead);
+        saveLeadsToStorage();
+
+        fetch(WEB_APP_URL, {
+            method: "POST",
+            body: JSON.stringify({ fname: `${prefix}${fname}`, lname, dob, age, phone, plan: `${categoryTitle} - ${plan}` })
+        }).catch(() => {}).finally(() => {
+            document.getElementById('voluntary-consult-form').reset();
+            document.getElementById('c-age-badge').innerText = 'อายุ -- ปี';
+            showToast('ลงทะเบียนเรียบร้อยแล้วค่ะ! ตัวแทนจะติดต่อกลับโดยเร็วที่สุด');
+        });
+    }
+
+    function scrollToAdminLeads() {
+        document.getElementById('admin-leads-section')?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function populateLeadYearFilter() {
+        const yearSelect = document.getElementById('lead-year-filter');
+        if (!yearSelect) return;
+        const currentVal = yearSelect.value || 'all';
+        const yearsSet = new Set();
+        const currentBE = new Date().getFullYear() + 543;
+        yearsSet.add(currentBE);
+        leadsList.forEach(l => {
+            const d = new Date(l.createdAt);
+            if (!isNaN(d.getTime())) yearsSet.add(d.getFullYear() + 543);
+        });
+        const sorted = Array.from(yearsSet).sort((a, b) => b - a);
+        yearSelect.innerHTML = '<option value="all">ทุกปี (พ.ศ.)</option>';
+        sorted.forEach(y => {
+            const opt = document.createElement('option');
+            opt.value = String(y);
+            opt.textContent = `ปี พ.ศ. ${y}`;
+            yearSelect.appendChild(opt);
+        });
+        yearSelect.value = sorted.includes(Number(currentVal)) ? currentVal : 'all';
+    }
+
+    function getFilteredSortedLeads() {
+        const q = (document.getElementById('lead-search-input')?.value || '').trim().toLowerCase();
+        const monthVal = document.getElementById('lead-month-filter')?.value || 'all';
+        const yearVal = document.getElementById('lead-year-filter')?.value || 'all';
+        const sortOrder = document.getElementById('lead-sort-order')?.value || 'newest';
+
+        let filtered = leadsList.filter(lead => {
+            const d = new Date(lead.createdAt);
+            const m = !isNaN(d.getTime()) ? String(d.getMonth() + 1) : '';
+            const y = !isNaN(d.getTime()) ? String(d.getFullYear() + 543) : '';
+            if (monthVal !== 'all' && m !== monthVal) return false;
+            if (yearVal !== 'all' && y !== yearVal) return false;
+            if (q) {
+                const text = `${lead.id} ${lead.fname} ${lead.lname} ${lead.phone} ${lead.plan}`.toLowerCase();
+                if (!text.includes(q)) return false;
+            }
+            return true;
+        });
+
+        filtered.sort((a, b) => {
+            const tA = new Date(a.createdAt).getTime() || 0;
+            const tB = new Date(b.createdAt).getTime() || 0;
+            return sortOrder === 'newest' ? tB - tA : tA - tB;
+        });
+        return filtered;
+    }
+
+    function renderAdminLeadsTable() {
+        const tbody = document.getElementById('admin-leads-tbody');
+        const countEl = document.getElementById('lead-filtered-count');
+        if (!tbody) return;
+        const filtered = getFilteredSortedLeads();
+        if (countEl) countEl.innerText = filtered.length;
+
+        if (filtered.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; padding: 30px; color: #64748b;">ไม่พบข้อมูลลูกค้า</td></tr>`;
+            return;
+        }
+
+        tbody.innerHTML = filtered.map(lead => {
+            const bmi = calculateBMIInfo(lead.weight, lead.height);
+            return `
+            <tr>
+                <td><strong>${formatThaiDateTime(lead.createdAt)}</strong><br><small>${lead.id}</small></td>
+                <td><strong>${lead.prefix || ''}${lead.fname} ${lead.lname}</strong><br><small>อายุ ${lead.age} ปี</small></td>
+                <td>${lead.weight}กก. / ${lead.height}ซม.<br><span class="bmi-badge ${bmi.cssClass}">BMI ${bmi.display} (${bmi.label})</span></td>
+                <td>${lead.phone}<br><small style="color:#1d4ed8;">สะดวก: ${lead.contactTime}</small></td>
+                <td><span class="lead-plan-chip">${lead.plan}</span></td>
+                <td style="text-align: center;">
+                    <button class="btn-tbl a4" onclick="openSingleLeadA4Modal('${lead.id}')"><i class="fa-solid fa-file-lines"></i> A4</button>
+                    <button class="btn-tbl del" onclick="confirmDeleteLead('${lead.id}')"><i class="fa-solid fa-trash"></i></button>
+                </td>
+            </tr>`;
+        }).join('');
+    }
+
+    function confirmDeleteLead(id) {
+        leadsList = leadsList.filter(l => l.id !== id);
+        saveLeadsToStorage();
+        showToast('ลบข้อมูลลูกค้าเรียบร้อยแล้ว');
+    }
+
+    /* Testimonials Rendering with Mobile Fixes */
+    function buildTestimonialMediaHtml(item) {
+        const type = item.mediaType || 'none';
+        const url = (item.mediaUrl || '').trim();
+        if (type === 'none' || !url) return '';
+
+        if (type === 'image') {
+            const safeCaption = `${item.name} — ${item.plan}`.replace(/'/g, "\\'");
+            const safeUrl = url.replace(/'/g, "\\'");
+            return `
+                <div class="testimonial-media-box">
+                    <img src="${url}" alt="รีวิว" onclick="openMediaLightbox('${safeUrl}', '${safeCaption}')" onerror="this.src='https://placehold.co/600x340/fff2e8/e86614?text=Image'">
+                    <span class="testimonial-media-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> ขยาย</span>
+                </div>`;
+        }
+
+        if (type === 'video') {
+            const ytEmbed = getYouTubeEmbedUrl(url);
+            if (ytEmbed) {
+                return `<div class="testimonial-media-box"><iframe src="${ytEmbed}" allowfullscreen></iframe></div>`;
+            }
+            return `<div class="testimonial-media-box"><video controls playsinline webkit-playsinline src="${url}"></video></div>`;
+        }
+        return '';
+    }
+
+    function getYouTubeEmbedUrl(url) {
+        if (!url) return null;
+        const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/|youtube\.com\/embed\/)([A-Za-z0-9_-]{11})/);
+        return match ? `https://www.youtube.com/embed/${match[1]}?rel=0` : null;
+    }
+
+    function renderTestimonialGrid() {
+        const container = document.getElementById('testimonial-grid-container');
+        if (!container) return;
+        container.innerHTML = '';
+
+        if (testimonialList.length === 0) {
+            container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 30px; color: var(--text-grey);">ยังไม่มีรีวิว</div>`;
+            return;
+        }
+
+        testimonialList.forEach(item => {
+            const mediaHtml = buildTestimonialMediaHtml(item);
+            const card = document.createElement('div');
+            card.className = 'testimonial-card';
+            card.innerHTML = `
+                <div class="card-admin-btns">
+                    <button class="btn-card-tool edit" onclick="openTestimonialFormModal('${item.id}')"><i class="fa-solid fa-pen"></i></button>
+                    <button class="btn-card-tool delete" onclick="confirmDeleteTestimonial('${item.id}')"><i class="fa-solid fa-trash"></i></button>
+                </div>
+                <i class="fa-solid fa-quote-left quote-icon"></i>
+                <p class="testimonial-text">${item.text}</p>
+                ${mediaHtml}
+                <div class="client-info">
+                    <div class="client-img-placeholder"><i class="fa-solid ${item.icon || 'fa-user'}"></i></div>
+                    <div>
+                        <div class="client-name">${item.name}</div>
+                        <div class="client-plan">${item.plan}</div>
+                    </div>
+                </div>`;
+            container.appendChild(card);
+        });
+    }
+
+    function renderNewsGrid() {
+        const container = document.getElementById('news-grid-container');
+        if (!container) return;
+        container.innerHTML = '';
+
+        const filtered = currentNewsFilter === 'all' ? newsList : newsList.filter(item => item.category === currentNewsFilter);
+
+        if (filtered.length === 0) {
+            container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-grey);">ไม่พบข่าวสารในหมวดนี้</div>`;
+            return;
+        }
+
+        filtered.forEach(item => {
+            const safeImg = item.img || 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80';
+            const card = document.createElement('div');
+            card.className = 'news-card';
+            card.innerHTML = `
+                <div class="news-img-box">
+                    <img src="${safeImg}" alt="${item.title}" onerror="this.src='https://placehold.co/600x400/fff2e8/e86614?text=News'">
+                    <span class="news-category-badge">${item.category}</span>
+                    <div class="card-admin-btns">
+                        <button class="btn-card-tool edit" onclick="openNewsFormModal('${item.id}')"><i class="fa-solid fa-pen"></i></button>
+                        <button class="btn-card-tool delete" onclick="confirmDeleteNews('${item.id}')"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+                <div class="news-body">
+                    <div class="news-date"><i class="fa-regular fa-calendar"></i> ${formatThaiDate(item.date)}</div>
+                    <h3 class="news-title">${item.title}</h3>
+                    <p class="news-excerpt">${item.content}</p>
+                    <button class="news-readmore-btn" onclick="openNewsDetailModal('${item.id}')">อ่านรายละเอียด <i class="fa-solid fa-arrow-right"></i></button>
+                </div>`;
+            container.appendChild(card);
+        });
+    }
+
+    function filterNews(cat, btn) {
+        currentNewsFilter = cat;
+        document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        renderNewsGrid();
+    }
+
+    /* Admin Auth & Download */
+    function handleStaffButtonClick() {
+        if (isAdminLoggedIn) { scrollToAdminLeads(); }
+        else { document.getElementById('admin-login-modal').classList.add('active'); }
+    }
+
+    function closeAdminLoginModal() { document.getElementById('admin-login-modal').classList.remove('active'); }
+
+    function verifyAdminLogin() {
+        const code = document.getElementById('admin-passcode-input').value.trim();
+        if (code === '147991' || code === 'admin1234') {
+            isAdminLoggedIn = true;
+            document.body.classList.add('admin-active');
+            document.getElementById('staff-btn-label').innerText = 'โหมดแอดมินทำงานอยู่';
+            closeAdminLoginModal();
+            showToast('เข้าสู่โหมดแอดมินสำเร็จ!');
+            scrollToAdminLeads();
+        } else { showToast('รหัสผ่านไม่ถูกต้อง'); }
+    }
+
+    function logoutAdmin() {
+        isAdminLoggedIn = false;
+        document.body.classList.remove('admin-active');
+        document.getElementById('staff-btn-label').innerText = 'สำหรับเจ้าหน้าที่';
+        showToast('ออกจากโหมดแอดมินแล้ว');
+    }
+
+    function downloadUpdatedHTML() {
+        const newVersionTimestamp = Date.now();
+        try { localStorage.setItem(STORAGE_KEY_VERSION, String(newVersionTimestamp)); } catch (e) {}
+
+        const cloneDoc = document.documentElement.cloneNode(true);
+        const cloneBody = cloneDoc.querySelector('body');
+        if (cloneBody) cloneBody.classList.remove('admin-active');
+
+        ['#news-grid-container', '#testimonial-grid-container', '#admin-leads-tbody'].forEach(sel => {
+            const el = cloneDoc.querySelector(sel);
+            if (el) el.innerHTML = '';
+        });
+
+        cloneDoc.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+
+        let fullHtml = '<!DOCTYPE html>\n' + cloneDoc.outerHTML;
+
+        const newVersionBlock = `/*__START_DATA_VERSION__*/\n    const EMBEDDED_DATA_VERSION = ${newVersionTimestamp};\n    /*__END_DATA_VERSION__*/`;
+        fullHtml = fullHtml.replace(/\/\*__START_DATA_VERSION__\*\/[\s\S]*?\/\*__END_DATA_VERSION__\*\//, () => newVersionBlock);
+
+        const newDefaultNews = `/*__START_DEFAULT_NEWS_DATA__*/\n    const defaultNewsData = ${JSON.stringify(newsList, null, 8)};\n    /*__END_DEFAULT_NEWS_DATA__*/`;
+        fullHtml = fullHtml.replace(/\/\*__START_DEFAULT_NEWS_DATA__\*\/[\s\S]*?\/\*__END_DEFAULT_NEWS_DATA__\*\//, () => newDefaultNews);
+
+        const newDefaultTesti = `/*__START_DEFAULT_TESTI_DATA__*/\n    const defaultTestimonialData = ${JSON.stringify(testimonialList, null, 8)};\n    /*__END_DEFAULT_TESTI_DATA__*/`;
+        fullHtml = fullHtml.replace(/\/\*__START_DEFAULT_TESTI_DATA__\*\/[\s\S]*?\/\*__END_DEFAULT_TESTI_DATA__\*\//, () => newDefaultTesti);
+
+        const newDefaultLeads = `/*__START_DEFAULT_LEADS_DATA__*/\n    const defaultLeadsData = ${JSON.stringify(leadsList, null, 8)};\n    /*__END_DEFAULT_LEADS_DATA__*/`;
+        fullHtml = fullHtml.replace(/\/\*__START_DEFAULT_LEADS_DATA__\*\/[\s\S]*?\/\*__END_DEFAULT_LEADS_DATA__\*\//, () => newDefaultLeads);
+
+        const blob = new Blob([fullHtml], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'index.html';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('ดาวน์โหลดไฟล์ index.html ล่าสุดเรียบร้อยแล้ว!');
+    }
+
+    function resetDefaultAll() {
+        localStorage.removeItem(STORAGE_KEY_NEWS);
+        localStorage.removeItem(STORAGE_KEY_TESTI);
+        localStorage.removeItem(STORAGE_KEY_LEADS);
+        newsList = JSON.parse(JSON.stringify(defaultNewsData));
+        testimonialList = JSON.parse(JSON.stringify(defaultTestimonialData));
+        leadsList = JSON.parse(JSON.stringify(defaultLeadsData));
+        renderNewsGrid();
+        renderTestimonialGrid();
+        showToast('รีเซ็ตข้อมูลกลับเป็นค่าเริ่มต้นแล้ว');
+    }
+
+    /* Additional helpers */
+    function showPlans(cat) { showPlansInternal(cat); }
+    function showPlansInternal(cat) {
+        document.getElementById('category-view').style.display = 'none';
+        document.getElementById('plans-view').style.display = 'block';
+        document.getElementById('plan-section-title').innerText = plansData[cat].title;
+        const container = document.getElementById('plans-container');
+        container.innerHTML = plansData[cat].items.map(p => `
+            <div class="plan-detail-card">
+                <div class="plan-img-wrapper"><img src="${p.img}" alt="${p.title}" onerror="this.src='https://placehold.co/600x400/fff2e8/e86614?text=Plan'"></div>
+                <h3 class="plan-title-text">${p.title}</h3>
+                <p class="plan-desc">${p.desc}</p>
+                <div class="plan-actions">
+                    <button class="btn-ask" onclick="openModal('${p.title}', '${cat}')">สอบถาม</button>
+                    <button class="btn-more" onclick="window.open('${p.url}', '_blank')">รายละเอียด</button>
+                </div>
+            </div>`).join('');
+    }
+    function showCategories() {
+        document.getElementById('category-view').style.display = 'block';
+        document.getElementById('plans-view').style.display = 'none';
+    }
+
+    function openModal(title, cat) { currentInquiryPlan = title; document.getElementById('modal-plan-name').innerText = title; document.getElementById('inquiry-modal').classList.add('active'); }
+    function closeModal() { document.getElementById('inquiry-modal').classList.remove('active'); }
+    function openNewsDetailModal(id) {
+        const item = newsList.find(n => n.id === id);
+        if (!item) return;
+        document.getElementById('detail-news-img').src = item.img;
+        document.getElementById('detail-news-cat').innerText = item.category;
+        document.getElementById('detail-news-date').innerText = formatThaiDate(item.date);
+        document.getElementById('detail-news-title').innerText = item.title;
+        document.getElementById('detail-news-content').innerText = item.content;
+        document.getElementById('news-detail-modal').classList.add('active');
+    }
+    function closeNewsDetailModal() { document.getElementById('news-detail-modal').classList.remove('active'); }
+    function openNewsFormModal(id) { document.getElementById('news-form-modal').classList.add('active'); }
+    function closeNewsFormModal() { document.getElementById('news-form-modal').classList.remove('active'); }
+    function saveNewsItem() { closeNewsFormModal(); showToast('บันทึกข่าวสารสำเร็จ'); }
+    function confirmDeleteNews(id) { newsList = newsList.filter(n => n.id !== id); saveNewsToStorage(); renderNewsGrid(); }
+    
+    function openTestimonialFormModal(id) { document.getElementById('testimonial-form-modal').classList.add('active'); }
+    function closeTestimonialFormModal() { document.getElementById('testimonial-form-modal').classList.remove('active'); }
+    function saveTestimonialItem() { closeTestimonialFormModal(); showToast('บันทึกรีวิวสำเร็จ'); }
+    function confirmDeleteTestimonial(id) { testimonialList = testimonialList.filter(t => t.id !== id); saveTestimonialsToStorage(); renderTestimonialGrid(); }
+    function toggleTestimonialMediaFields() {}
+    function updateNewsImagePreview() {}
+    function handleImageFileUpload() {}
+    function updateTestimonialMediaPreview() {}
+    function handleManualVideoUrlInput() {}
+    function handleTestimonialVideoUpload() {}
+    function clearUploadedTestimonialVideo() {}
+    function handleTestimonialImageUpload() {}
+    function openMediaLightbox(url, cap) { document.getElementById('lightbox-img').src = url; document.getElementById('lightbox-caption').innerText = cap; document.getElementById('media-lightbox-modal').classList.add('active'); }
+    function closeMediaLightbox() { document.getElementById('media-lightbox-modal').classList.remove('active'); }
+    function openSingleLeadA4Modal() {}
+    function openSummaryA4Modal() {}
+    function closeA4Modal() {}
+    function printA4Document() {}
+    function captureA4HighRes() {}
+    function shareA4Document() {}
+
+    loadAllData();
+</script>
+
+</body>
+</html>
