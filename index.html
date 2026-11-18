@@ -19,6 +19,8 @@
         --white: #ffffff;
         --line-green: #06C755;
         --border-color: #e5e5e5;
+        --danger: #dc3545;
+        --success: #198754;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,6 +30,11 @@
         background-color: var(--bg-color);
         color: var(--text-dark);
         line-height: 1.6;
+        transition: padding-top 0.3s ease;
+    }
+
+    body.admin-active {
+        padding-top: 56px;
     }
 
     a { text-decoration: none; color: inherit; transition: 0.3s; }
@@ -53,19 +60,138 @@
     .btn-line { background-color: var(--line-green); color: var(--white); }
     .btn-line:hover { background-color: #05a044; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(6, 199, 85, 0.2); }
 
+    /* --- ADMIN TOP CONTROL BAR --- */
+    .admin-top-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(90deg, #1e293b 0%, #0f172a 100%);
+        color: var(--white);
+        z-index: 1100;
+        padding: 10px 20px;
+        display: none;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+        border-bottom: 2px solid var(--primary);
+    }
+    body.admin-active .admin-top-bar {
+        display: block;
+    }
+    body.admin-active header {
+        top: 54px;
+    }
+    .admin-bar-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .admin-status-badge {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #ff9f59;
+    }
+    .admin-bar-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    .btn-admin-action {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        border: 1px solid rgba(255,255,255,0.2);
+        background: rgba(255,255,255,0.1);
+        color: var(--white);
+        font-family: 'Prompt', sans-serif;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: 0.2s;
+    }
+    .btn-admin-action:hover {
+        background: rgba(255,255,255,0.2);
+        transform: translateY(-1px);
+    }
+    .btn-admin-action.primary {
+        background: var(--primary);
+        border-color: var(--primary);
+    }
+    .btn-admin-action.primary:hover {
+        background: #d15c12;
+    }
+    .btn-admin-action.success {
+        background: #0d9488;
+        border-color: #0d9488;
+    }
+    .btn-admin-action.success:hover {
+        background: #0f766e;
+    }
+    .btn-admin-action.danger {
+        background: rgba(220, 53, 69, 0.25);
+        border-color: #dc3545;
+        color: #ff858f;
+    }
+    .btn-admin-action.danger:hover {
+        background: #dc3545;
+        color: var(--white);
+    }
+
     /* --- HEADER --- */
     header {
         background-color: var(--white); padding: 15px 0;
         position: fixed; top: 0; width: 100%; z-index: 1000;
         box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        transition: top 0.3s ease;
     }
-    .nav-container { display: flex; justify-content: space-between; align-items: center; }
+    .nav-container { display: flex; justify-content: space-between; align-items: center; gap: 15px; }
     .logo-placeholder { font-size: 24px; font-weight: 700; color: var(--primary); display: flex; align-items: center; }
     .logo-placeholder span { color: var(--secondary); font-weight: 400; font-size: 16px; margin-left: 5px;}
-    .nav-menu { display: flex; gap: 30px; }
+    .nav-menu { display: flex; gap: 25px; }
     .nav-menu a { font-weight: 500; color: var(--secondary); font-size: 15px; }
     .nav-menu a:hover { color: var(--primary); }
     .nav-menu a.active { color: var(--primary); font-weight: 600;}
+
+    .header-right-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .btn-staff-login {
+        background: #f5f5f5;
+        color: var(--text-grey);
+        border: 1px solid #e0e0e0;
+        padding: 8px 14px;
+        border-radius: 25px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: 'Prompt', sans-serif;
+        transition: all 0.25s ease;
+    }
+    .btn-staff-login:hover {
+        background: var(--primary-light);
+        color: var(--primary);
+        border-color: var(--primary);
+    }
+    body.admin-active .btn-staff-login {
+        background: var(--primary-light);
+        color: var(--primary);
+        border-color: var(--primary);
+        font-weight: 600;
+    }
 
     /* --- 1. HERO SECTION --- */
     .hero {
@@ -110,6 +236,7 @@
         height: 220px;
         overflow: hidden;
         position: relative;
+        background-color: #f8f4f0;
     }
     .service-img-wrapper img {
         width: 100%;
@@ -218,7 +345,7 @@
     }
     .plan-detail-card:hover { box-shadow: 0 10px 25px rgba(232, 102, 20, 0.15); border-color: var(--primary-light); transform: translateY(-3px);}
     
-    .plan-img-wrapper { width: 100%; height: 160px; border-radius: 8px; overflow: hidden; margin-bottom: 15px; }
+    .plan-img-wrapper { width: 100%; height: 160px; border-radius: 8px; overflow: hidden; margin-bottom: 15px; background: #f8f4f0; }
     .plan-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
     
     .plan-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
@@ -276,10 +403,199 @@
         box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 5px solid var(--white);
     }
 
+    /* --- 3.5 NEWS & ACTIVITIES SECTION (NEW) --- */
+    .news-section {
+        background-color: var(--white);
+        border-top: 1px solid #f0ebe6;
+        position: relative;
+    }
+    .news-header-bar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 35px;
+    }
+    .news-filter-bar {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 40px;
+    }
+    .filter-pill {
+        padding: 8px 22px;
+        border-radius: 25px;
+        border: 1px solid #e0e0e0;
+        background: var(--bg-color);
+        color: var(--text-grey);
+        font-family: 'Prompt', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+    .filter-pill:hover, .filter-pill.active {
+        background: var(--primary);
+        color: var(--white);
+        border-color: var(--primary);
+        box-shadow: 0 4px 12px rgba(232, 102, 20, 0.25);
+    }
+    .news-admin-Inline-toolbar {
+        display: none;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--primary-light);
+        border: 1px dashed var(--primary);
+        padding: 15px 20px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    body.admin-active .news-admin-Inline-toolbar {
+        display: flex;
+    }
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+    .news-card {
+        background: var(--bg-color);
+        border-radius: 15px;
+        overflow: hidden;
+        border: 1px solid #efefef;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+    .news-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 15px 30px rgba(232, 102, 20, 0.12);
+        border-color: var(--primary-light);
+    }
+    .news-img-box {
+        width: 100%;
+        height: 210px;
+        position: relative;
+        overflow: hidden;
+        background: #ece7e1;
+    }
+    .news-img-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    .news-card:hover .news-img-box img {
+        transform: scale(1.06);
+    }
+    .news-category-badge {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        background: var(--primary);
+        color: var(--white);
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .news-card-admin-btns {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        display: none;
+        gap: 6px;
+        z-index: 5;
+    }
+    body.admin-active .news-card-admin-btns {
+        display: flex;
+    }
+    .btn-card-tool {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--white);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        transition: 0.2s;
+    }
+    .btn-card-tool.edit { background: #2563eb; }
+    .btn-card-tool.edit:hover { background: #1d4ed8; transform: scale(1.08); }
+    .btn-card-tool.delete { background: #dc3545; }
+    .btn-card-tool.delete:hover { background: #b02a37; transform: scale(1.08); }
+
+    .news-body {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+    .news-date {
+        font-size: 13px;
+        color: var(--text-grey);
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    .news-date i {
+        color: var(--primary);
+    }
+    .news-title {
+        font-size: 19px;
+        font-weight: 700;
+        color: var(--secondary);
+        margin-bottom: 10px;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .news-excerpt {
+        font-size: 14px;
+        color: var(--text-grey);
+        margin-bottom: 20px;
+        flex-grow: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .news-readmore-btn {
+        align-self: flex-start;
+        background: none;
+        border: none;
+        color: var(--primary);
+        font-family: 'Prompt', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0;
+        transition: 0.2s;
+    }
+    .news-readmore-btn:hover {
+        color: #d15c12;
+        gap: 10px;
+    }
+
     /* --- 4. TESTIMONIALS --- */
-    .testimonials { background-color: var(--white); }
+    .testimonials { background-color: var(--bg-color); }
     .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-    .testimonial-card { background: var(--bg-color); padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: relative; }
+    .testimonial-card { background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: relative; }
     .quote-icon { font-size: 24px; color: var(--primary); opacity: 0.2; position: absolute; top: 25px; left: 25px; }
     .testimonial-text { font-size: 15px; color: var(--text-dark); margin-bottom: 20px; font-style: italic; padding-top: 20px; }
     .client-info { display: flex; align-items: center; gap: 15px; }
@@ -309,7 +625,7 @@
     .sticky-text { font-weight: 600; font-size: 16px; color: var(--secondary); }
     .sticky-btns { display: flex; gap: 15px; align-items: center;}
 
-    /* --- 6. MODAL (POPUP FORM) STYLES --- */
+    /* --- 6. MODAL (POPUP FORM & NEWS MODALS) STYLES --- */
     .modal-overlay {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
         background: rgba(0, 0, 0, 0.6); z-index: 2000;
@@ -326,16 +642,21 @@
         transform: translateY(-20px); transition: transform 0.3s ease;
         max-height: 90vh; overflow-y: auto;
     }
+    .modal-content.modal-lg {
+        max-width: 680px;
+    }
     .modal-overlay.active .modal-content { transform: translateY(0); }
     
     .close-modal {
         position: absolute; top: 20px; right: 20px;
-        background: none; border: none; font-size: 24px; color: var(--text-grey);
+        background: #f5f5f5; border: none; width: 36px; height: 36px; border-radius: 50%;
+        font-size: 18px; color: var(--text-grey);
         cursor: pointer; transition: 0.2s;
+        display: flex; align-items: center; justify-content: center;
     }
-    .close-modal:hover { color: var(--primary); }
+    .close-modal:hover { background: var(--primary-light); color: var(--primary); }
     
-    .modal-header { margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; padding-right: 20px;}
+    .modal-header { margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; padding-right: 30px;}
     .modal-header h3 { font-size: 22px; color: var(--secondary); margin-bottom: 5px; line-height: 1.4;}
     .modal-header p { font-size: 14px; color: var(--text-grey); }
     
@@ -349,12 +670,20 @@
     .modal-content input[type="text"],
     .modal-content input[type="tel"],
     .modal-content input[type="number"],
-    .modal-content select {
+    .modal-content input[type="password"],
+    .modal-content input[type="date"],
+    .modal-content input[type="url"],
+    .modal-content select,
+    .modal-content textarea {
         width: 100%; padding: 12px 15px; border: 1px solid var(--border-color);
         border-radius: 8px; font-family: 'Prompt', sans-serif; font-size: 15px;
         outline: none; transition: 0.2s; background: #fafafa;
     }
-    .modal-content input:focus, .modal-content select:focus { border-color: var(--primary); background: var(--white); }
+    .modal-content textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+    .modal-content input:focus, .modal-content select:focus, .modal-content textarea:focus { border-color: var(--primary); background: var(--white); }
     
     .consent-box {
         display: flex; gap: 10px; align-items: flex-start;
@@ -371,15 +700,60 @@
     .btn-submit:disabled { background: #ccc; cursor: not-allowed; }
     .btn-submit:hover:not(:disabled) { background: #d15c12; }
 
+    /* Toast Notification (แทนการใช้ alert) */
+    .toast-container {
+        position: fixed;
+        top: 85px;
+        right: 20px;
+        z-index: 3000;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .toast-msg {
+        background: #222;
+        color: #fff;
+        padding: 14px 20px;
+        border-radius: 10px;
+        font-size: 14px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        border-left: 4px solid var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        animation: slideInRight 0.3s ease;
+        max-width: 360px;
+    }
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* Image Upload Box in Admin Modal */
+    .img-upload-preview-box {
+        width: 100%;
+        height: 160px;
+        border: 2px dashed #ccc;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: #fafafa;
+        margin-top: 8px;
+        position: relative;
+    }
+    .img-upload-preview-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
     /* ========================================================
-       RESPONSIVE MEDIA QUERIES - อัปเดตใหม่ให้ UI เป็นระเบียบ 
+       RESPONSIVE MEDIA QUERIES
        ======================================================== */
-    
-    /* แท็บเล็ต (iPad / Tablet) */
     @media (max-width: 991px) {
         section { padding: 70px 0; }
-        
-        /* Hero Section */
         .hero { background-position: center; padding: 160px 0 80px 0; }
         .hero-content { flex-direction: column; text-align: center; gap: 40px; }
         .hero-text { max-width: 100%; }
@@ -387,76 +761,66 @@
         .hero-text p { margin: 0 auto 30px auto; }
         .hero-btns { justify-content: center; }
 
-        /* Grids */
-        .services-grid, .testimonial-grid, .sub-plans-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .services-grid, .testimonial-grid, .sub-plans-grid, .news-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
 
-        /* Agent Section */
         .agent-content { flex-direction: column; text-align: center; gap: 30px; }
         .agent-image-container { max-width: 280px; margin: 0 auto; }
         .license-image-container { max-width: 250px; margin: 0 auto; }
         
-        /* Footer */
         .footer-content { grid-template-columns: repeat(2, 1fr); gap: 40px; }
     }
 
-    /* มือถือ (Mobile) */
     @media (max-width: 767px) {
+        body.admin-active { padding-top: 95px; }
+        body.admin-active header { top: 95px; }
+
         section { padding: 50px 0; }
         .section-title { font-size: 26px; line-height: 1.3; margin-bottom: 10px; padding: 0 10px;}
         .section-subtitle { font-size: 15px; margin-bottom: 40px; padding: 0 10px;}
 
-        /* Header */
         header { padding: 12px 0; }
         .logo-placeholder { font-size: 18px; flex-direction: column; align-items: flex-start; gap: 2px;}
         .logo-placeholder span { font-size: 12px; margin-left: 0; }
         .nav-menu { display: none; }
-        .nav-container > a.btn { padding: 8px 16px; font-size: 13px; }
+        .header-right-actions .btn { padding: 8px 14px; font-size: 13px; }
+        .btn-staff-login span { display: none; }
 
-        /* Hero */
         .hero { padding: 130px 0 60px 0; }
         .hero-text h1 { font-size: 32px; margin-bottom: 15px; }
         .hero-text p { font-size: 16px; margin-bottom: 25px; padding: 0 10px;}
         .hero-btns { flex-direction: column; width: 100%; gap: 15px; padding: 0 10px;}
         .hero-btns .btn { width: 100%; justify-content: center; }
 
-        /* Grids (เปลี่ยนเป็น 1 คอลัมน์) */
-        .services-grid, .testimonial-grid, .sub-plans-grid { grid-template-columns: 1fr; gap: 20px; }
+        .services-grid, .testimonial-grid, .sub-plans-grid, .news-grid { grid-template-columns: 1fr; gap: 20px; }
         
-        /* Service Cards */
-        .service-img-wrapper { height: 180px; } /* ลดความสูงรูปลงนิดหน่อยบนมือถือ */
+        .service-img-wrapper { height: 180px; }
         
-        /* Agent Section */
         .agent-image-container { max-width: 200px; }
         .agent-name { font-size: 26px; }
         .agent-bio { font-size: 15px; max-width: 100%; }
         .agent-stats { gap: 15px; padding: 15px 0; flex-wrap: wrap; }
-        .stat-item { flex: 1 1 40%; } /* แบ่งเป็น 2 แถว แถวละ 2 กล่องให้ดูสมดุล */
+        .stat-item { flex: 1 1 40%; }
         .stat-val { font-size: 22px; }
         .license-image-container { max-width: 220px; }
 
-        /* Testimonials */
         .testimonial-card { padding: 25px 20px; }
 
-        /* Footer */
         .footer-content { grid-template-columns: 1fr; gap: 30px; text-align: center; }
         .footer-contact ul { align-items: center; }
         .footer-contact li { justify-content: center; }
         #footer-qr { margin: 0 auto; }
 
-        /* Sticky Contact Bar */
         .sticky-contact-content { flex-direction: column; gap: 12px; text-align: center; padding: 12px 20px; }
         .sticky-text { font-size: 14px; }
         .sticky-btns { width: 100%; justify-content: space-between; gap: 10px; }
         .sticky-btns .btn { flex: 1; padding: 12px; font-size: 14px; }
 
-        /* Modal Popup Form */
         .modal-content { padding: 25px 20px; width: 100%; }
         .modal-header h3 { font-size: 18px; }
         .form-row { flex-direction: column; gap: 0; }
         .dob-row { grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
     }
     
-    /* มือถือจอเล็กมาก (เช่น iPhone SE) */
     @media (max-width: 400px) {
         .dob-row { grid-template-columns: 1fr; gap: 10px; }
         .stat-item { flex: 1 1 100%; }
@@ -465,19 +829,51 @@
 </head>
 <body>
 
+<!-- Toast Notification Container -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- แถบควบคุมด้านบนสำหรับเจ้าหน้าที่/แอดมิน (จะแสดงเฉพาะตอนล็อกอินโหมดแอดมิน) -->
+<div class="admin-top-bar" id="admin-top-bar">
+    <div class="admin-bar-inner">
+        <div class="admin-status-badge">
+            <i class="fa-solid fa-user-shield"></i> โหมดเจ้าหน้าที่ (จัดการข่าวสารและกิจกรรม)
+        </div>
+        <div class="admin-bar-actions">
+            <button class="btn-admin-action primary" onclick="openNewsFormModal()">
+                <i class="fa-solid fa-plus"></i> เพิ่มข่าวสาร/กิจกรรม
+            </button>
+            <button class="btn-admin-action success" onclick="downloadUpdatedHTML()" title="ดาวน์โหลดไฟล์ index.html ที่บันทึกข่าวสารล่าสุดไว้ในโค้ดเรียบร้อยแล้ว">
+                <i class="fa-solid fa-download"></i> ดาวน์โหลดไฟล์ HTML ล่าสุด
+            </button>
+            <button class="btn-admin-action" onclick="resetDefaultNews()" title="รีเซ็ตกลับเป็นค่าเริ่มต้น">
+                <i class="fa-solid fa-rotate-left"></i> รีเซ็ตค่าเริ่มต้น
+            </button>
+            <button class="btn-admin-action danger" onclick="logoutAdmin()">
+                <i class="fa-solid fa-right-from-bracket"></i> ออกจากโหมดแอดมิน (ดูมุมมองลูกค้า)
+            </button>
+        </div>
+    </div>
+</div>
+
 <header>
     <div class="container nav-container">
         <div class="logo-placeholder">FWD <span>| นฤมล คำใบ</span></div>
         <nav>
             <ul class="nav-menu">
-                <li><a href="#" class="active">หน้าแรก</a></li>
+                <li><a href="#home" class="active">หน้าแรก</a></li>
                 <li><a href="#services">แผนประกัน</a></li>
                 <li><a href="#about">รู้จักตัวแทน</a></li>
+                <li><a href="#news">ข่าวสาร/กิจกรรม</a></li>
                 <li><a href="#testimonials">รีวิวลูกค้า</a></li>
                 <li><a href="#contact">ติดต่อ</a></li>
             </ul>
         </nav>
-        <a href="#contact" class="btn btn-primary" style="padding: 8px 20px; font-size: 14px;">ปรึกษาฟรี</a>
+        <div class="header-right-actions">
+            <a href="#contact" class="btn btn-primary" style="padding: 8px 20px; font-size: 14px;">ปรึกษาฟรี</a>
+            <button class="btn-staff-login" onclick="handleStaffButtonClick()" title="สำหรับเจ้าหน้าที่ / แอดมินจัดการข่าวสาร">
+                <i class="fa-solid fa-user-gear"></i> <span id="staff-btn-label">สำหรับเจ้าหน้าที่</span>
+            </button>
+        </div>
     </div>
 </header>
 
@@ -505,7 +901,7 @@
                 
                 <div class="service-card" onclick="showPlans('health')">
                     <div class="service-img-wrapper">
-                        <img src="precious.png" alt="ประกันสุขภาพ">
+                        <img src="precious.png" alt="ประกันสุขภาพ" onerror="this.src='https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=600&q=80'">
                     </div>
                     <div class="service-content">
                         <div class="service-header-row">
@@ -519,7 +915,7 @@
                 
                 <div class="service-card" onclick="showPlans('saving')">
                     <div class="service-img-wrapper">
-                        <img src="deposit.png" alt="ประกันสะสมทรัพย์">
+                        <img src="deposit.png" alt="ประกันสะสมทรัพย์" onerror="this.src='https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=600&q=80'">
                     </div>
                     <div class="service-content">
                         <div class="service-header-row">
@@ -533,7 +929,7 @@
                 
                 <div class="service-card" onclick="showPlans('ci')">
                     <div class="service-img-wrapper">
-                        <img src="critical-Illness.png" alt="ประกันโรคร้ายแรง">
+                        <img src="critical-Illness.png" alt="ประกันโรคร้ายแรง" onerror="this.src='https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=600&q=80'">
                     </div>
                     <div class="service-content">
                         <div class="service-header-row">
@@ -547,7 +943,7 @@
                 
                 <div class="service-card" onclick="showPlans('pension')">
                     <div class="service-img-wrapper">
-                        <img src="pension-pic.png" alt="ประกันบำนาญ">
+                        <img src="pension-pic.png" alt="ประกันบำนาญ" onerror="this.src='https://images.unsplash.com/photo-1536640712-4d4c36ff0e4e?auto=format&fit=crop&w=600&q=80'">
                     </div>
                     <div class="service-content">
                         <div class="service-header-row">
@@ -561,7 +957,7 @@
                 
                 <div class="service-card" onclick="showPlans('legacy')">
                     <div class="service-img-wrapper">
-                        <img src="legacy.png" alt="ประกันสร้างมรดก">
+                        <img src="legacy.png" alt="ประกันสร้างมรดก" onerror="this.src='https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=600&q=80'">
                     </div>
                     <div class="service-content">
                         <div class="service-header-row">
@@ -575,7 +971,7 @@
                 
                 <div class="service-card" onclick="showPlans('nonlife')">
                     <div class="service-img-wrapper">
-                        <img src="non-motor.png" alt="ประกันวินาศภัย">
+                        <img src="non-motor.png" alt="ประกันวินาศภัย" onerror="this.src='https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=600&q=80'">
                     </div>
                     <div class="service-content">
                         <div class="service-header-row">
@@ -603,13 +999,13 @@
 <section class="about-agent" id="about">
     <div class="container agent-content">
         <div class="agent-image-container">
-            <img src="agent.jpg" alt="นฤมล คำใบ ตัวแทนประกัน FWD" onerror="this.src='https://via.placeholder.com/400/e86614/fff.png?text=Agent+Photo';">
+            <img src="agent.jpg" alt="นฤมล คำใบ ตัวแทนประกัน FWD" onerror="this.src='https://placehold.co/400x400/e86614/ffffff?text=FWD+Agent';">
         </div>
         <div class="agent-info">
             <span class="mdrt-badge">MDRT Agent (ปี 2022)</span>
             <h2 class="agent-name">นฤมล คำใบ</h2>
             <div class="agent-title">
-                <span><i class="fa-solid fa-certificate"></i> ใบอนุญาตเลขที่: 5101051893</span>
+                <span><i class="fa-solid fa-certificate"></i> ใบอนุญาตเลขที่: 6901010926</span>
                 <span><i class="fa-solid fa-calendar-alt"></i> ประสบการณ์ <span id="experience-text-main">...</span></span>
             </div>
             <p class="agent-bio">
@@ -624,8 +1020,40 @@
             <a href="https://line.me/R/oaMessage/@toifwd/?" target="_blank" class="btn btn-line"><i class="fa-brands fa-line" style="font-size: 20px;"></i> ปรึกษาตัวแทน</a>
         </div>
         <div class="license-image-container">
-            <img src="license.png" alt="ใบอนุญาตตัวแทนประกันชีวิต" style="width: 150%; height: auto; max-width: 450px; border-radius: 12px; box-shadow: none; border: 5px solid var(--white); background: transparent;">
+            <img src="license.png" alt="ใบอนุญาตตัวแทนประกันชีวิต" style="width: 150%; height: auto; max-width: 450px; border-radius: 12px; box-shadow: none; border: 5px solid var(--white); background: transparent;" onerror="this.src='https://placehold.co/350x240/fff2e8/e86614?text=License+6901010926';">
         </div>
+    </div>
+</section>
+
+<!-- ========================================================
+     หมวดหมู่ใหม่: ข่าวสารและกิจกรรม (NEWS & ACTIVITIES)
+     ======================================================== -->
+<section class="news-section" id="news">
+    <div class="container">
+        <h2 class="section-title">ข่าวสารและกิจกรรมล่าสุด</h2>
+        <p class="section-subtitle">อัปเดตข้อมูลข่าวสาร กิจกรรมพิเศษ และสาระความรู้ดีๆ ด้านการวางแผนการเงินและประกันชีวิตจาก FWD</p>
+
+        <!-- แถบเครื่องมือย่อยแสดงเฉพาะเวลาแอดมินล็อกอิน -->
+        <div class="news-admin-Inline-toolbar">
+            <div>
+                <strong style="color: var(--primary); font-size: 16px;"><i class="fa-solid fa-pen-to-square"></i> จัดการเนื้อหาข่าวสารและกิจกรรม</strong>
+                <p style="font-size: 13px; color: var(--text-grey); margin-top: 2px;">คุณสามารถเพิ่ม แก้ไข หรือลบการ์ดด้านล่างได้ทันที และกดปุ่ม "ดาวน์โหลดไฟล์ HTML ล่าสุด" ด้านบนเมื่อต้องการนำไปอัปเดตขึ้นเว็บจริง</p>
+            </div>
+            <button class="btn btn-primary" style="padding: 10px 22px; font-size: 14px;" onclick="openNewsFormModal()">
+                <i class="fa-solid fa-plus"></i> สร้างข่าวสาร/กิจกรรมใหม่
+            </button>
+        </div>
+
+        <!-- ปุ่มกรองหมวดหมู่ -->
+        <div class="news-filter-bar">
+            <button class="filter-pill active" onclick="filterNews('all', this)">ทั้งหมด</button>
+            <button class="filter-pill" onclick="filterNews('ข่าวสาร', this)">ข่าวสาร FWD</button>
+            <button class="filter-pill" onclick="filterNews('กิจกรรม', this)">กิจกรรมสำนักงาน</button>
+            <button class="filter-pill" onclick="filterNews('สาระน่ารู้', this)">สาระน่ารู้เรื่องประกัน</button>
+        </div>
+
+        <!-- ตารางแสดงการ์ดข่าวสาร (สำหรับผู้ชมทั่วไป และมีปุ่มแก้ไขเฉพาะเมื่อแอดมินล็อกอิน) -->
+        <div class="news-grid" id="news-grid-container"></div>
     </div>
 </section>
 
@@ -683,13 +1111,14 @@
         </div>
         
         <div class="footer-links">
-            <h4>แผนประกัน</h4>
+            <h4>เมนูและแผนประกัน</h4>
             <ul style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #bbb;">
                 <li><a href="javascript:void(0)" onclick="showPlans('health')">ประกันสุขภาพ</a></li>
                 <li><a href="javascript:void(0)" onclick="showPlans('saving')">ประกันสะสมทรัพย์</a></li>
                 <li><a href="javascript:void(0)" onclick="showPlans('ci')">ประกันโรคร้ายแรง</a></li>
                 <li><a href="javascript:void(0)" onclick="showPlans('pension')">ประกันบำนาญ</a></li>
                 <li><a href="javascript:void(0)" onclick="showPlans('legacy')">ประกันสร้างมรดก</a></li>
+                <li><a href="#news">ข่าวสารและกิจกรรม</a></li>
             </ul>
         </div>
         
@@ -706,7 +1135,7 @@
     
     <div class="footer-bottomcontainer">
         <div class="footer-bottom">
-            © 2026 คุณนฤมล คำใบ (ตัวแทน FWD License 5101051893) | สงวนลิขสิทธิ์
+            © 2026 คุณนฤมล คำใบ (ตัวแทน FWD License 6901010926) | สงวนลิขสิทธิ์
         </div>
     </div>
 </footer>
@@ -721,6 +1150,7 @@
     </div>
 </div>
 
+<!-- MODAL 1: แบบฟอร์มสอบถามแผนประกัน -->
 <div class="modal-overlay" id="inquiry-modal">
     <div class="modal-content">
         <button class="close-modal" onclick="closeModal()"><i class="fa-solid fa-times"></i></button>
@@ -783,8 +1213,143 @@
     </div>
 </div>
 
+<!-- MODAL 2: อ่านรายละเอียดข่าวสาร/กิจกรรมฉบับเต็ม (สำหรับผู้ชมทั่วไป) -->
+<div class="modal-overlay" id="news-detail-modal">
+    <div class="modal-content modal-lg">
+        <button class="close-modal" onclick="closeNewsDetailModal()"><i class="fa-solid fa-times"></i></button>
+        <div style="border-radius: 12px; overflow: hidden; max-height: 320px; margin-bottom: 20px; background: #f3efea;">
+            <img id="detail-news-img" src="" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+            <span id="detail-news-cat" style="background: var(--primary); color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;"></span>
+            <span id="detail-news-date" style="font-size: 13px; color: var(--text-grey);"></span>
+        </div>
+        <h3 id="detail-news-title" style="font-size: 24px; color: var(--secondary); margin-bottom: 15px; line-height: 1.35;"></h3>
+        <div id="detail-news-content" style="font-size: 15px; color: var(--text-dark); white-space: pre-line; line-height: 1.75; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #eee;"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <a id="detail-news-extlink" href="#" target="_blank" class="btn btn-primary" style="display: none; padding: 10px 22px; font-size: 14px;">
+                <i class="fa-solid fa-up-right-from-square"></i> ลิงก์รายละเอียดเพิ่มเติม
+            </a>
+            <a href="https://line.me/R/oaMessage/@toifwd/?" target="_blank" class="btn btn-line" style="padding: 10px 22px; font-size: 14px;">
+                <i class="fa-brands fa-line"></i> สอบถามตัวแทนเกี่ยวกับเรื่องนี้
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL 3: ล็อกอินสำหรับเจ้าหน้าที่/แอดมิน -->
+<div class="modal-overlay" id="admin-login-modal">
+    <div class="modal-content" style="max-width: 420px;">
+        <button class="close-modal" onclick="closeAdminLoginModal()"><i class="fa-solid fa-times"></i></button>
+        <div class="modal-header">
+            <h3><i class="fa-solid fa-user-shield" style="color: var(--primary);"></i> เข้าสู่ระบบเจ้าหน้าที่</h3>
+            <p>สำหรับแอดมินเพื่อเพิ่มหรือแก้ไขข่าวสารและกิจกรรม</p>
+        </div>
+        <div class="form-group">
+            <label>รหัสผ่านเจ้าหน้าที่ (Passcode)</label>
+            <input type="password" id="admin-passcode-input" placeholder="กรอกรหัสผ่านแอดมิน" onkeydown="if(event.key==='Enter') verifyAdminLogin()">
+            <small style="display: block; margin-top: 6px; color: var(--text-grey); font-size: 12px;">
+                * สำหรับเจ้าหน้าที่เท่านั้น
+            </small>
+        </div>
+        <button class="btn-submit" onclick="verifyAdminLogin()">เข้าสู่โหมดจัดการข้อมูล</button>
+    </div>
+</div>
+
+<!-- MODAL 4: เพิ่ม/แก้ไข ข่าวสารและกิจกรรม (สำหรับแอดมิน) -->
+<div class="modal-overlay" id="news-form-modal">
+    <div class="modal-content modal-lg">
+        <button class="close-modal" onclick="closeNewsFormModal()"><i class="fa-solid fa-times"></i></button>
+        <div class="modal-header">
+            <h3 id="news-form-modal-title">เพิ่มข่าวสาร / กิจกรรมใหม่</h3>
+            <p>กรอกข้อมูลด้านล่างเพื่อแสดงในหมวดข่าวสารและกิจกรรมหน้าเว็บไซต์</p>
+        </div>
+
+        <input type="hidden" id="edit-news-id">
+
+        <div class="form-row">
+            <div class="form-group" style="flex: 2;">
+                <label>หัวข้อข่าวสาร / กิจกรรม *</label>
+                <input type="text" id="news-input-title" placeholder="เช่น กิจกรรมตรวจสุขภาพประจำปี หรือ แนะนำแผนลดหย่อนภาษี">
+            </div>
+            <div class="form-group" style="flex: 1;">
+                <label>หมวดหมู่ *</label>
+                <select id="news-input-category">
+                    <option value="ข่าวสาร">ข่าวสาร</option>
+                    <option value="กิจกรรม">กิจกรรม</option>
+                    <option value="สาระน่ารู้">สาระน่ารู้</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>วันที่แสดงผล *</label>
+                <input type="date" id="news-input-date">
+            </div>
+            <div class="form-group">
+                <label>ลิงก์ภายนอก (ถ้ามี เช่น ลิงก์ลงทะเบียน หรือ Facebook)</label>
+                <input type="url" id="news-input-link" placeholder="https://...">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>รูปภาพหน้าปก (วางลิงก์รูปภาพ หรือ อัปโหลดจากเครื่อง)</label>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <input type="text" id="news-input-img" placeholder="วาง URL รูปภาพ หรือกดปุ่มเลือกรูปจากเครื่องด้านขวา ->" style="flex: 1;" oninput="updateNewsImagePreview(this.value)">
+                <label for="news-file-upload" class="btn btn-primary" style="padding: 10px 18px; font-size: 13px; border-radius: 8px; cursor: pointer; margin: 0;">
+                    <i class="fa-solid fa-upload"></i> เลือกรูปจากเครื่อง
+                </label>
+                <input type="file" id="news-file-upload" accept="image/*" style="display: none;" onchange="handleImageFileUpload(event)">
+            </div>
+            <div class="img-upload-preview-box" id="news-img-preview-box">
+                <span style="color: #999; font-size: 13px;">ตัวอย่างรูปภาพหน้าปก</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>รายละเอียดเนื้อหาข่าวสาร / กิจกรรม *</label>
+            <textarea id="news-input-content" placeholder="พิมพ์เนื้อหารายละเอียดข่าวสาร หรือกำหนดการกิจกรรม..."></textarea>
+        </div>
+
+        <div style="display: flex; gap: 12px; margin-top: 10px;">
+            <button class="btn-submit" onclick="saveNewsItem()"><i class="fa-solid fa-floppy-disk"></i> บันทึกข้อมูลข่าวสาร</button>
+            <button class="btn-submit" style="background: #e5e5e5; color: #333; width: 35%;" onclick="closeNewsFormModal()">ยกเลิก</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL 5: ยืนยันการลบข่าวสาร -->
+<div class="modal-overlay" id="confirm-delete-modal">
+    <div class="modal-content" style="max-width: 400px; text-align: center;">
+        <div style="font-size: 42px; color: var(--danger); margin-bottom: 10px;">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h3 style="margin-bottom: 8px; color: var(--secondary);">ยืนยันการลบรายการนี้?</h3>
+        <p style="font-size: 14px; color: var(--text-grey); margin-bottom: 22px;">คุณต้องการลบข่าวสาร/กิจกรรมนี้ออกจากหน้าเว็บไซต์ใช่หรือไม่</p>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn-submit" style="background: var(--danger);" id="btn-confirm-delete-yes">ลบข้อมูล</button>
+            <button class="btn-submit" style="background: #e5e5e5; color: #333;" onclick="closeConfirmDeleteModal()">ยกเลิก</button>
+        </div>
+    </div>
+</div>
+
 <script>
-    // สร้างตัวเลือกวัน
+    // ระบบแจ้งเตือน Toast แทนการใช้ alert()
+    function showToast(message) {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = 'toast-msg';
+        toast.innerHTML = `<i class="fa-solid fa-circle-info" style="color: var(--primary); font-size: 18px;"></i> <span>${message}</span>`;
+        container.appendChild(toast);
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 4000);
+    }
+
+    // สร้างตัวเลือกวันเกิด
     const daySelect = document.getElementById('form-day');
     for (let i = 1; i <= 31; i++) {
         let opt = document.createElement('option');
@@ -792,6 +1357,370 @@
         daySelect.appendChild(opt);
     }
 
+    /* =========================================================================
+       ข้อมูลเริ่มต้นของข่าวสารและกิจกรรม (DEFAULT NEWS DATA)
+       ========================================================================= */
+    /*__START_DEFAULT_NEWS_DATA__*/
+    const defaultNewsData = [
+        {
+            id: 'news-1',
+            title: 'สัมมนาพิเศษ: วางแผนภาษีและเกษียณอย่างมั่งคั่งกับ FWD ประจำปี 2026',
+            category: 'กิจกรรม',
+            date: '2026-03-15',
+            img: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80',
+            content: 'ขอเรียนเชิญลูกค้าคนสำคัญและผู้ที่สนใจเข้าร่วมกิจกรรมพูดคุยจิบกาแฟสบายๆ ในหัวข้อ "วางแผนลดหย่อนภาษีและสร้างบำนาญตลอดชีพ" ณ สำนักงานตัวแทน FWD นวนคร จ.ปทุมธานี\n\nภายในงานพบกับการวิเคราะห์พอร์ตความคุ้มครองรายบุคคลฟรี พร้อมรับของที่ระลึกสุดพิเศษจาก FWD สำรองที่นั่งล่วงหน้าได้ทาง LINE Official: @toifwd ค่ะ',
+            link: 'https://line.me/R/oaMessage/@toifwd/?'
+        },
+        {
+            id: 'news-2',
+            title: 'อัปเดตสิทธิ์ลดหย่อนภาษีด้วยประกันชีวิตและประกันสุขภาพ สูงสุด 300,000 บาท',
+            category: 'สาระน่ารู้',
+            date: '2026-02-28',
+            img: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=80',
+            content: 'สรุปครบจบในโพสต์เดียว! สำหรับผู้มีเงินได้ที่ต้องการวางแผนประหยัดภาษี:\n1. ประกันชีวิตทั่วไป และประกันสะสมทรัพย์ ลดหย่อนได้ตามจริงสูงสุด 100,000 บาท\n2. ประกันสุขภาพตนเอง ลดหย่อนได้สูงสุด 25,000 บาท (รวมกับประกันชีวิตทั่วไปไม่เกิน 100,000 บาท)\n3. ประกันสุขภาพบิดามารดา ลดหย่อนได้สูงสุด 15,000 บาท\n4. ประกันชีวิตแบบบำนาญ ลดหย่อนได้เพิ่มอีกสูงสุด 200,000 บาท\n\nปรึกษาคำนวณฐานภาษีและเลือกแผนที่คุ้มค่าที่สุดได้ฟรีค่ะ',
+            link: ''
+        },
+        {
+            id: 'news-3',
+            title: 'เปิดตัวความคุ้มครองสุขภาพเหมาจ่าย FWD Precious Protection ดูแลครบทั้ง IPD และ OPD',
+            category: 'ข่าวสาร',
+            date: '2026-01-20',
+            img: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80',
+            content: 'ยกระดับความอุ่นใจให้คุณและครอบครัว ด้วยแผนประกันสุขภาพเหมาจ่าย FWD Precious Protection ที่ครอบคลุมค่ารักษาพยาบาลตามจริง ทั้งกรณีผู้ป่วยใน (IPD) และผู้ป่วยนอก (OPD) วงเงินสูงสุดถึง 100 ล้านบาทต่อปี\n\nพร้อมบริการดูแลและประสานงานเคลมสินไหมอย่างใกล้ชิดโดยตัวแทน MDRT คุณนฤมล คำใบ',
+            link: 'https://precious-protection-toifwd.wirood01.workers.dev/'
+        }
+    ];
+    /*__END_DEFAULT_NEWS_DATA__*/
+
+    const STORAGE_KEY_NEWS = 'fwd_agent_news_items_v1';
+    let newsList = [];
+    let currentNewsFilter = 'all';
+    let isAdminLoggedIn = false;
+    let pendingDeleteId = null;
+
+    function loadNewsData() {
+        try {
+            const saved = localStorage.getItem(STORAGE_KEY_NEWS);
+            if (saved) {
+                newsList = JSON.parse(saved);
+            } else {
+                newsList = JSON.parse(JSON.stringify(defaultNewsData));
+            }
+        } catch (e) {
+            newsList = JSON.parse(JSON.stringify(defaultNewsData));
+        }
+        renderNewsGrid();
+    }
+
+    function saveNewsToStorage() {
+        try {
+            localStorage.setItem(STORAGE_KEY_NEWS, JSON.stringify(newsList));
+        } catch (e) {
+            showToast('พื้นที่จัดเก็บในเบราว์เซอร์เต็ม กรุณาใช้รูปภาพขนาดเล็กลง');
+        }
+    }
+
+    function formatThaiDate(dateStr) {
+        if (!dateStr) return '';
+        const months = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+        const parts = dateStr.split('-');
+        if (parts.length !== 3) return dateStr;
+        const year = parseInt(parts[0]) + 543;
+        const monthIndex = parseInt(parts[1]) - 1;
+        const day = parseInt(parts[2]);
+        return `${day} ${months[monthIndex] || ''} ${year}`;
+    }
+
+    function filterNews(category, btnEl) {
+        currentNewsFilter = category;
+        document.querySelectorAll('.filter-pill').forEach(btn => btn.classList.remove('active'));
+        if (btnEl) btnEl.classList.add('active');
+        renderNewsGrid();
+    }
+
+    function renderNewsGrid() {
+        const container = document.getElementById('news-grid-container');
+        container.innerHTML = '';
+
+        const filtered = currentNewsFilter === 'all'
+            ? newsList
+            : newsList.filter(item => item.category === currentNewsFilter);
+
+        if (filtered.length === 0) {
+            container.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 50px 20px; background: var(--bg-color); border-radius: 15px; color: var(--text-grey);">
+                    <i class="fa-regular fa-newspaper" style="font-size: 40px; color: var(--primary); margin-bottom: 12px; opacity: 0.6;"></i>
+                    <p>ยังไม่มีรายการในหมวดหมู่นี้</p>
+                </div>
+            `;
+            return;
+        }
+
+        filtered.forEach(item => {
+            const safeImg = item.img || 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80';
+            const card = document.createElement('div');
+            card.className = 'news-card';
+            card.innerHTML = `
+                <div class="news-img-box">
+                    <img src="${safeImg}" alt="${item.title}" onerror="this.src='https://placehold.co/600x400/fff2e8/e86614?text=FWD+News'">
+                    <span class="news-category-badge">${item.category}</span>
+                    <div class="news-card-admin-btns">
+                        <button class="btn-card-tool edit" title="แก้ไขข่าวสารนี้" onclick="openNewsFormModal('${item.id}')">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button class="btn-card-tool delete" title="ลบข่าวสารนี้" onclick="confirmDeleteNews('${item.id}')">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="news-body">
+                    <div class="news-date">
+                        <i class="fa-regular fa-calendar"></i> ${formatThaiDate(item.date)}
+                    </div>
+                    <h3 class="news-title">${item.title}</h3>
+                    <p class="news-excerpt">${item.content}</p>
+                    <button class="news-readmore-btn" onclick="openNewsDetailModal('${item.id}')">
+                        อ่านรายละเอียด <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function openNewsDetailModal(id) {
+        const item = newsList.find(n => n.id === id);
+        if (!item) return;
+
+        document.getElementById('detail-news-img').src = item.img || 'https://placehold.co/600x400/fff2e8/e86614?text=FWD+News';
+        document.getElementById('detail-news-cat').innerText = item.category;
+        document.getElementById('detail-news-date').innerHTML = `<i class="fa-regular fa-calendar"></i> ${formatThaiDate(item.date)}`;
+        document.getElementById('detail-news-title').innerText = item.title;
+        document.getElementById('detail-news-content').innerText = item.content;
+
+        const extBtn = document.getElementById('detail-news-extlink');
+        if (item.link && item.link.trim() !== '') {
+            extBtn.href = item.link;
+            extBtn.style.display = 'inline-flex';
+        } else {
+            extBtn.style.display = 'none';
+        }
+
+        document.getElementById('news-detail-modal').classList.add('active');
+    }
+
+    function closeNewsDetailModal() {
+        document.getElementById('news-detail-modal').classList.remove('active');
+    }
+
+    /* =========================================================================
+       ระบบจัดการสำหรับเจ้าหน้าที่ / แอดมิน (ADMIN CMS FUNCTIONS)
+       ========================================================================= */
+    function handleStaffButtonClick() {
+        if (isAdminLoggedIn) {
+            document.getElementById('news').scrollIntoView({ behavior: 'smooth' });
+            showToast('คุณอยู่ในโหมดเจ้าหน้าที่แล้ว สามารถเพิ่มหรือแก้ไขข่าวสารได้เลยค่ะ');
+        } else {
+            document.getElementById('admin-passcode-input').value = '';
+            document.getElementById('admin-login-modal').classList.add('active');
+            setTimeout(() => document.getElementById('admin-passcode-input').focus(), 200);
+        }
+    }
+
+    function closeAdminLoginModal() {
+        document.getElementById('admin-login-modal').classList.remove('active');
+    }
+
+    function verifyAdminLogin() {
+        const code = document.getElementById('admin-passcode-input').value.trim();
+        if (code === '147991' || code === 'admin1234') {
+            isAdminLoggedIn = true;
+            document.body.classList.add('admin-active');
+            document.getElementById('staff-btn-label').innerText = 'โหมดแอดมินทำงานอยู่';
+            closeAdminLoginModal();
+            showToast('เข้าสู่โหมดเจ้าหน้าที่สำเร็จ! คุณสามารถเพิ่ม/แก้ไขข่าวสารได้แล้ว');
+            document.getElementById('news').scrollIntoView({ behavior: 'smooth' });
+        } else {
+            showToast('รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง (รหัสทดสอบ: 147991)');
+        }
+    }
+
+    function logoutAdmin() {
+        isAdminLoggedIn = false;
+        document.body.classList.remove('admin-active');
+        document.getElementById('staff-btn-label').innerText = 'สำหรับเจ้าหน้าที่';
+        showToast('ออกจากโหมดแอดมินแล้ว ตอนนี้แสดงผลในมุมมองผู้ชมทั่วไปค่ะ');
+    }
+
+    function openNewsFormModal(editId = null) {
+        const modalTitle = document.getElementById('news-form-modal-title');
+        const idInput = document.getElementById('edit-news-id');
+        const titleInput = document.getElementById('news-input-title');
+        const catInput = document.getElementById('news-input-category');
+        const dateInput = document.getElementById('news-input-date');
+        const linkInput = document.getElementById('news-input-link');
+        const imgInput = document.getElementById('news-input-img');
+        const contentInput = document.getElementById('news-input-content');
+
+        if (editId) {
+            const item = newsList.find(n => n.id === editId);
+            if (!item) return;
+            modalTitle.innerText = 'แก้ไขข่าวสาร / กิจกรรม';
+            idInput.value = item.id;
+            titleInput.value = item.title;
+            catInput.value = item.category;
+            dateInput.value = item.date;
+            linkInput.value = item.link || '';
+            imgInput.value = item.img || '';
+            contentInput.value = item.content;
+            updateNewsImagePreview(item.img || '');
+        } else {
+            modalTitle.innerText = 'เพิ่มข่าวสาร / กิจกรรมใหม่';
+            idInput.value = '';
+            titleInput.value = '';
+            catInput.value = 'ข่าวสาร';
+            dateInput.value = new Date().toISOString().split('T')[0];
+            linkInput.value = '';
+            imgInput.value = '';
+            contentInput.value = '';
+            updateNewsImagePreview('');
+        }
+
+        document.getElementById('news-form-modal').classList.add('active');
+    }
+
+    function closeNewsFormModal() {
+        document.getElementById('news-form-modal').classList.remove('active');
+    }
+
+    function updateNewsImagePreview(src) {
+        const previewBox = document.getElementById('news-img-preview-box');
+        if (src && src.trim() !== '') {
+            previewBox.innerHTML = `<img src="${src}" alt="Preview" onerror="this.parentElement.innerHTML='<span style=color:#dc3545;font-size:13px;>ไม่สามารถโหลดรูปภาพจากลิงก์นี้ได้</span>'">`;
+        } else {
+            previewBox.innerHTML = `<span style="color: #999; font-size: 13px;">ตัวอย่างรูปภาพหน้าปก</span>`;
+        }
+    }
+
+    // ย่อขนาดรูปอัตโนมัติเมื่อเลือกรูปจากเครื่อง เพื่อให้ฝังลงใน HTML ได้อย่างรวดเร็ว
+    function handleImageFileUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const maxW = 800;
+                let w = img.width;
+                let h = img.height;
+                if (w > maxW) {
+                    h = Math.round((h * maxW) / w);
+                    w = maxW;
+                }
+                canvas.width = w;
+                canvas.height = h;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, w, h);
+                const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.82);
+                document.getElementById('news-input-img').value = compressedDataUrl;
+                updateNewsImagePreview(compressedDataUrl);
+                showToast('อัปโหลดและย่อขนาดรูปภาพเรียบร้อยแล้ว');
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function saveNewsItem() {
+        const editId = document.getElementById('edit-news-id').value;
+        const title = document.getElementById('news-input-title').value.trim();
+        const category = document.getElementById('news-input-category').value;
+        const date = document.getElementById('news-input-date').value;
+        const link = document.getElementById('news-input-link').value.trim();
+        const img = document.getElementById('news-input-img').value.trim() || 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80';
+        const content = document.getElementById('news-input-content').value.trim();
+
+        if (!title || !date || !content) {
+            showToast('กรุณากรอกหัวข้อ วันที่ และเนื้อหารายละเอียดให้ครบถ้วน');
+            return;
+        }
+
+        if (editId) {
+            const index = newsList.findIndex(n => n.id === editId);
+            if (index > -1) {
+                newsList[index] = { id: editId, title, category, date, img, content, link };
+            }
+            showToast('บันทึกการแก้ไขข่าวสารเรียบร้อยแล้ว');
+        } else {
+            const newItem = {
+                id: 'news-' + Date.now(),
+                title, category, date, img, content, link
+            };
+            newsList.unshift(newItem);
+            showToast('เพิ่มข่าวสาร/กิจกรรมใหม่เรียบร้อยแล้ว');
+        }
+
+        saveNewsToStorage();
+        renderNewsGrid();
+        closeNewsFormModal();
+    }
+
+    function confirmDeleteNews(id) {
+        pendingDeleteId = id;
+        document.getElementById('confirm-delete-modal').classList.add('active');
+        document.getElementById('btn-confirm-delete-yes').onclick = function() {
+            newsList = newsList.filter(n => n.id !== pendingDeleteId);
+            saveNewsToStorage();
+            renderNewsGrid();
+            closeConfirmDeleteModal();
+            showToast('ลบรายการข่าวสารเรียบร้อยแล้ว');
+        };
+    }
+
+    function closeConfirmDeleteModal() {
+        pendingDeleteId = null;
+        document.getElementById('confirm-delete-modal').classList.remove('active');
+    }
+
+    function resetDefaultNews() {
+        newsList = JSON.parse(JSON.stringify(defaultNewsData));
+        saveNewsToStorage();
+        renderNewsGrid();
+        showToast('รีเซ็ตข้อมูลข่าวสารกลับเป็นค่าเริ่มต้นแล้ว');
+    }
+
+    // ฟังก์ชันดาวน์โหลดไฟล์ HTML ที่ฝังข้อมูลข่าวสารล่าสุดลงในโค้ดโดยตรง (และปิดโหมดแอดมินอัตโนมัติในไฟล์ที่ดาวน์โหลด)
+    function downloadUpdatedHTML() {
+        const cloneDoc = document.documentElement.cloneNode(true);
+        const cloneBody = cloneDoc.querySelector('body');
+        if (cloneBody) {
+            cloneBody.classList.remove('admin-active');
+        }
+        const toastCont = cloneDoc.querySelector('#toast-container');
+        if (toastCont) toastCont.innerHTML = '';
+
+        let fullHtml = '<!DOCTYPE html>\n' + cloneDoc.outerHTML;
+        const newDefaultCode = `/*__START_DEFAULT_NEWS_DATA__*/\n    const defaultNewsData = ${JSON.stringify(newsList, null, 8)};\n    /*__END_DEFAULT_NEWS_DATA__*/`;
+        fullHtml = fullHtml.replace(/\/\*__START_DEFAULT_NEWS_DATA__\*\/[\s\S]*?\/\*__END_DEFAULT_NEWS_DATA__\*\//, newDefaultCode);
+
+        const blob = new Blob([fullHtml], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'index.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        showToast('ดาวน์โหลดไฟล์ index.html ที่อัปเดตข่าวสารล่าสุดเรียบร้อยแล้ว!');
+    }
+
+    /* =========================================================================
+       ข้อมูลแผนประกันและฟังก์ชันเดิมทั้งหมด
+       ========================================================================= */
     const plansData = {
         'health': {
             title: 'แผนประกันสุขภาพ',
@@ -925,7 +1854,7 @@
                 
                 let cardHtml = `
                     <div class="plan-detail-card">
-                        <div class="plan-img-wrapper"><img src="${plan.img}" alt="${plan.title}"></div>
+                        <div class="plan-img-wrapper"><img src="${plan.img}" alt="${plan.title}" onerror="this.src='https://placehold.co/600x400/fff2e8/e86614?text=FWD+Plan'"></div>
                         <div class="plan-meta">
                             <span class="plan-type">${plan.type}</span>
                             <button class="share-btn"><i class="fa-solid fa-share-nodes"></i></button>
@@ -935,14 +1864,14 @@
                         <div class="plan-tags">${tagsHtml}</div>
                         <div class="plan-actions">
                             <button class="btn-ask" onclick="openModal('${plan.title}')">สอบถาม</button>
-                            <button class="btn-more" onclick="window.location.href='${plan.url}'">รายละเอียดเพิ่มเติม</button>
+                            <button class="btn-more" onclick="window.open('${plan.url}', '_blank')">รายละเอียดเพิ่มเติม</button>
                         </div>
                     </div>
                 `;
                 container.innerHTML += cardHtml;
             });
         } else {
-            container.innerHTML = '<p style="color:#888; grid-column: 1/-1;">กำลังอัปเดตข้อมูลแผนประกันในหมวดหมู่นี้...กรุณาทัก  Line สอบถามข้อมูลเพิ่มเติม</p>';
+            container.innerHTML = '<p style="color:#888; grid-column: 1/-1;">กำลังอัปเดตข้อมูลแผนประกันในหมวดหมู่นี้...กรุณาทัก Line สอบถามข้อมูลเพิ่มเติม</p>';
         }
         document.getElementById('services').scrollIntoView({ behavior: 'smooth' });
     }
@@ -967,9 +1896,7 @@
     }
 
     function calculateAge(day, month, year) {
-        let currentYear = new Date().getFullYear();
         let birthYear = parseInt(year);
-        // แปลง พ.ศ. เป็น ค.ศ. แบบคร่าวๆ ถ้ากรอกเกิน 2400
         if (birthYear > 2400) {
             birthYear -= 543;
         }
@@ -977,11 +1904,19 @@
         let today = new Date();
         let age = today.getFullYear() - birthDate.getFullYear();
         let m = today.getMonth() - birthDate.getMonth();
-        // ถ้าเดือนเกิดยังไม่ถึง หรือถ้าเดือนตรงกันแต่วันเกิดยังไม่ถึง ให้ลบอายุออก 1 ปี
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             age--;
         }
         return age;
+    }
+
+    function copyTextFallback(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
     }
 
     function submitForm() {
@@ -994,10 +1929,10 @@
         let consent = document.getElementById('form-consent').checked;
 
         if(!fname || !lname || !day || !month || !year || !phone) {
-            alert("กรุณากรอกข้อมูลให้ครบถ้วน"); return;
+            showToast("กรุณากรอกข้อมูลให้ครบถ้วน"); return;
         }
         if(!consent) {
-            alert("กรุณากดยอมรับเงื่อนไขการให้ข้อมูล"); return;
+            showToast("กรุณากดยอมรับเงื่อนไขการให้ข้อมูล"); return;
         }
 
         let age = calculateAge(day, month, year);
@@ -1012,24 +1947,20 @@
         submitBtn.innerText = "กำลังบันทึกข้อมูล...";
         submitBtn.disabled = true;
 
-        // 1. นำลิงก์ Web App URL ใหม่มาวางตรงนี้ครับ 👇
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxGZNUf6LNUaBGP2l-OF41NtAgZllnzEE2uf7E_KdwwG5ris4kREobTc1fAhvgzM0ayQw/exec"; 
         
-        // 2. ส่งข้อมูลไป Google Sheets (ปรับลด Header เพื่อไม่ให้ Browser บล็อก)
         fetch(WEB_APP_URL, {
             method: "POST",
             body: JSON.stringify(formData)
         }).then(() => {
-            
-            // 3. จัดการเรื่อง LINE ต่อหลังจากส่งข้อมูลเสร็จ
             let msg = `[สอบถามข้อมูลประกัน]\nแผน: ${currentInquiryPlan}\nชื่อ: ${fname} ${lname}\nวันเกิด: ${dob} (อายุ ${age} ปี)\nเบอร์: ${phone}`;
             let isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
             if (isMobile) {
                 window.open("https://line.me/R/oaMessage/@toifwd/?" + encodeURIComponent(msg), '_blank');
             } else {
-                navigator.clipboard.writeText(msg);
-                alert("✅ ส่งข้อมูลให้ตัวแทนเรียบร้อยแล้วค่ะ! \n(และระบบได้คัดลอกข้อความไว้ให้คุณกดวางใน LINE แล้ว)");
+                copyTextFallback(msg);
+                showToast("ส่งข้อมูลให้ตัวแทนเรียบร้อยแล้วค่ะ! (คัดลอกข้อความสำหรับวางใน LINE แล้ว)");
                 window.open("https://line.me/R/ti/p/@toifwd", '_blank');
             }
             
@@ -1037,7 +1968,6 @@
             submitBtn.innerText = originalText;
             submitBtn.disabled = false;
             
-            // ล้างข้อมูลฟอร์ม
             document.getElementById('form-fname').value = "";
             document.getElementById('form-lname').value = "";
             document.getElementById('form-year').value = "";
@@ -1046,8 +1976,8 @@
             document.getElementById('form-month').value = "";
             document.getElementById('form-consent').checked = false;
 
-        }).catch(error => {
-            alert("❌ เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้งค่ะ");
+        }).catch(() => {
+            showToast("เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้งค่ะ");
             submitBtn.innerText = originalText;
             submitBtn.disabled = false;
         });
@@ -1089,7 +2019,9 @@
 
         document.getElementById('experience-text-main').innerText = expText.trim();
     }
-    calculateExperience(); 
+
+    calculateExperience();
+    loadNewsData();
 </script>
 
 </body>
