@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- html2canvas สำหรับแคปเจอร์เอกสาร A4 ความละเอียดสูง -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
     :root {
@@ -76,12 +77,8 @@
         box-shadow: 0 4px 15px rgba(0,0,0,0.25);
         border-bottom: 2px solid var(--primary);
     }
-    body.admin-active .admin-top-bar {
-        display: block;
-    }
-    body.admin-active header {
-        top: 54px;
-    }
+    body.admin-active .admin-top-bar { display: block; }
+    body.admin-active header { top: 54px; }
     .admin-bar-inner {
         max-width: 1200px;
         margin: 0 auto;
@@ -120,40 +117,15 @@
         gap: 6px;
         transition: 0.2s;
     }
-    .btn-admin-action:hover {
-        background: rgba(255,255,255,0.2);
-        transform: translateY(-1px);
-    }
-    .btn-admin-action.primary {
-        background: var(--primary);
-        border-color: var(--primary);
-    }
-    .btn-admin-action.primary:hover {
-        background: #d15c12;
-    }
-    .btn-admin-action.info {
-        background: #0284c7;
-        border-color: #0284c7;
-    }
-    .btn-admin-action.info:hover {
-        background: #0369a1;
-    }
-    .btn-admin-action.success {
-        background: #0d9488;
-        border-color: #0d9488;
-    }
-    .btn-admin-action.success:hover {
-        background: #0f766e;
-    }
-    .btn-admin-action.danger {
-        background: rgba(220, 53, 69, 0.25);
-        border-color: #dc3545;
-        color: #ff858f;
-    }
-    .btn-admin-action.danger:hover {
-        background: #dc3545;
-        color: var(--white);
-    }
+    .btn-admin-action:hover { background: rgba(255,255,255,0.2); transform: translateY(-1px); }
+    .btn-admin-action.primary { background: var(--primary); border-color: var(--primary); }
+    .btn-admin-action.primary:hover { background: #d15c12; }
+    .btn-admin-action.info { background: #0284c7; border-color: #0284c7; }
+    .btn-admin-action.info:hover { background: #0369a1; }
+    .btn-admin-action.success { background: #0d9488; border-color: #0d9488; }
+    .btn-admin-action.success:hover { background: #0f766e; }
+    .btn-admin-action.danger { background: rgba(220, 53, 69, 0.25); border-color: #dc3545; color: #ff858f; }
+    .btn-admin-action.danger:hover { background: #dc3545; color: var(--white); }
     .lead-count-pill {
         background: var(--white);
         color: #0284c7;
@@ -163,6 +135,50 @@
         border-radius: 12px;
         margin-left: 2px;
     }
+
+    /* Admin Inline Toolbar (ใช้ร่วมกันในหมวดข่าวสารและรีวิว) */
+    .admin-inline-toolbar {
+        display: none;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--primary-light);
+        border: 1px dashed var(--primary);
+        padding: 15px 20px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    body.admin-active .admin-inline-toolbar { display: flex; }
+
+    /* Admin Card Floating Buttons */
+    .card-admin-btns {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        display: none;
+        gap: 6px;
+        z-index: 5;
+    }
+    body.admin-active .card-admin-btns { display: flex; }
+    .btn-card-tool {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--white);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+        transition: 0.2s;
+    }
+    .btn-card-tool.edit { background: #2563eb; }
+    .btn-card-tool.edit:hover { background: #1d4ed8; transform: scale(1.08); }
+    .btn-card-tool.delete { background: #dc3545; }
+    .btn-card-tool.delete:hover { background: #b02a37; transform: scale(1.08); }
 
     /* --- HEADER --- */
     header {
@@ -201,11 +217,7 @@
         transition: all 0.25s ease;
         white-space: nowrap;
     }
-    .btn-staff-login:hover {
-        background: var(--primary-light);
-        color: var(--primary);
-        border-color: var(--primary);
-    }
+    .btn-staff-login:hover { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
     body.admin-active .btn-staff-login {
         background: var(--primary-light);
         color: var(--primary);
@@ -215,10 +227,10 @@
 
     /* --- 1. HERO SECTION --- */
     .hero {
-        background: linear-gradient(to right, rgba(252, 249, 245, 0.98) 0%, rgba(252, 249, 245, 0.8) 45%, rgba(252, 249, 245, 0) 100%), 
+        background: linear-gradient(to right, rgba(252, 249, 245, 0.98) 0%, rgba(252, 249, 245, 0.8) 45%, rgba(252, 249, 245, 0) 100%),
                     url("family.png") no-repeat center center/cover;
-        padding: 220px 0 160px 0; 
-        position: relative; 
+        padding: 220px 0 160px 0;
+        position: relative;
         overflow: hidden;
     }
     .hero-content { display: flex; align-items: center; }
@@ -229,25 +241,25 @@
     .hero-btns { display: flex; gap: 20px; flex-wrap: wrap; }
 
     /* --- 2. PRODUCT CATEGORIES --- */
-    .services { background-color: var(--white); min-height: 800px;}
+    .services { background-color: var(--white); min-height: 800px; }
     .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-    
+
     .service-card {
-        background: var(--white); 
+        background: var(--white);
         border-radius: 15px;
-        border: 1px solid #f0f0f0; 
-        transition: all 0.3s ease; 
-        display: flex; 
-        flex-direction: column; 
-        position: relative; 
-        overflow: hidden; 
+        border: 1px solid #f0f0f0;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
         cursor: pointer;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
-        padding: 0; 
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        padding: 0;
     }
     .service-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(232, 102, 20, 0.15); 
+        box-shadow: 0 15px 30px rgba(232, 102, 20, 0.15);
         border-color: var(--primary-light);
     }
 
@@ -264,9 +276,7 @@
         object-fit: cover;
         transition: transform 0.5s ease;
     }
-    .service-card:hover .service-img-wrapper img {
-        transform: scale(1.08); 
-    }
+    .service-card:hover .service-img-wrapper img { transform: scale(1.08); }
 
     .service-content {
         padding: 25px;
@@ -285,17 +295,17 @@
         width: 100%;
     }
 
-    .service-icon { 
-        font-size: 26px; 
-        color: var(--white); 
-        background: linear-gradient(135deg, var(--primary) 0%, #ff8533 100%); 
-        width: 60px; 
-        height: 60px; 
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
+    .service-icon {
+        font-size: 26px;
+        color: var(--white);
+        background: linear-gradient(135deg, var(--primary) 0%, #ff8533 100%);
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border-radius: 50%;
-        box-shadow: 0 6px 15px rgba(232, 102, 20, 0.25); 
+        box-shadow: 0 6px 15px rgba(232, 102, 20, 0.25);
         transition: 0.3s ease;
         flex-shrink: 0;
     }
@@ -304,25 +314,13 @@
         0%, 100% { transform: translateY(0) scale(1.05); }
         50% { transform: translateY(-8px) scale(1.05); }
     }
-    .service-card:hover .service-icon { 
+    .service-card:hover .service-icon {
         animation: iconBounce 0.8s infinite ease-in-out;
-        box-shadow: 0 10px 25px rgba(232, 102, 20, 0.4); 
+        box-shadow: 0 10px 25px rgba(232, 102, 20, 0.4);
     }
 
-    .service-header-row h3 { 
-        font-size: 20px; 
-        font-weight: 600; 
-        color: var(--secondary); 
-        margin: 0;
-    }
-
-    .service-content p { 
-        font-size: 15px; 
-        color: var(--text-grey); 
-        margin-bottom: 25px; 
-        flex-grow: 1; 
-        text-align: center;
-    }
+    .service-header-row h3 { font-size: 20px; font-weight: 600; color: var(--secondary); margin: 0; }
+    .service-content p { font-size: 15px; color: var(--text-grey); margin-bottom: 25px; flex-grow: 1; text-align: center; }
 
     .glowing-btn {
         background: var(--primary);
@@ -357,32 +355,33 @@
     .back-btn:hover { color: var(--primary); transform: translateX(-5px); }
 
     .sub-plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-    
+
     .plan-detail-card {
         background: var(--white); border-radius: 12px; padding: 20px;
         border: 1px solid var(--border-color, #e5e5e5);
         box-shadow: 0 4px 15px rgba(0,0,0,0.03); display: flex; flex-direction: column; transition: 0.3s;
     }
-    .plan-detail-card:hover { box-shadow: 0 10px 25px rgba(232, 102, 20, 0.15); border-color: var(--primary-light); transform: translateY(-3px);}
-    
+    .plan-detail-card:hover { box-shadow: 0 10px 25px rgba(232, 102, 20, 0.15); border-color: var(--primary-light); transform: translateY(-3px); }
+
     .plan-img-wrapper { width: 100%; height: 160px; border-radius: 8px; overflow: hidden; margin-bottom: 15px; background: #f8f4f0; }
     .plan-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-    
+
     .plan-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     .plan-type { font-size: 12px; color: var(--primary); font-weight: 500; }
-    .share-btn { color: var(--primary); cursor: pointer; background: none; border: none; font-size: 16px;}
-    
+    .share-btn { color: var(--primary); cursor: pointer; background: none; border: none; font-size: 16px; }
+
     .plan-title-text { font-size: 20px; font-weight: 700; color: var(--secondary); margin-bottom: 10px; line-height: 1.3; }
-    .plan-desc { font-size: 13px; color: var(--text-grey); margin-bottom: 15px; flex-grow: 1;
+    .plan-desc {
+        font-size: 13px; color: var(--text-grey); margin-bottom: 15px; flex-grow: 1;
         display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
     }
-    
+
     .plan-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
     .plan-tag {
         font-size: 11px; color: var(--primary); border: 1px solid var(--primary);
         padding: 3px 8px; border-radius: 4px; background: var(--primary-light);
     }
-    
+
     .plan-actions { display: flex; flex-direction: column; gap: 8px; }
     .btn-ask {
         background: var(--primary); color: white; border: none; padding: 12px; border-radius: 8px;
@@ -423,7 +422,7 @@
         box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 5px solid var(--white);
     }
 
-    /* --- 3.5 NEWS & ACTIVITIES SECTION --- */
+    /* --- 4. NEWS & ACTIVITIES SECTION --- */
     .news-section {
         background-color: var(--white);
         border-top: 1px solid #f0ebe6;
@@ -453,21 +452,6 @@
         color: var(--white);
         border-color: var(--primary);
         box-shadow: 0 4px 12px rgba(232, 102, 20, 0.25);
-    }
-    .news-admin-Inline-toolbar {
-        display: none;
-        justify-content: space-between;
-        align-items: center;
-        background: var(--primary-light);
-        border: 1px dashed var(--primary);
-        padding: 15px 20px;
-        border-radius: 12px;
-        margin-bottom: 30px;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-    body.admin-active .news-admin-Inline-toolbar {
-        display: flex;
     }
     .news-grid {
         display: grid;
@@ -503,9 +487,7 @@
         object-fit: cover;
         transition: transform 0.5s ease;
     }
-    .news-card:hover .news-img-box img {
-        transform: scale(1.06);
-    }
+    .news-card:hover .news-img-box img { transform: scale(1.06); }
     .news-category-badge {
         position: absolute;
         top: 14px;
@@ -518,36 +500,6 @@
         border-radius: 20px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
-    .news-card-admin-btns {
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        display: none;
-        gap: 6px;
-        z-index: 5;
-    }
-    body.admin-active .news-card-admin-btns {
-        display: flex;
-    }
-    .btn-card-tool {
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        border: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        font-size: 14px;
-        color: var(--white);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-        transition: 0.2s;
-    }
-    .btn-card-tool.edit { background: #2563eb; }
-    .btn-card-tool.edit:hover { background: #1d4ed8; transform: scale(1.08); }
-    .btn-card-tool.delete { background: #dc3545; }
-    .btn-card-tool.delete:hover { background: #b02a37; transform: scale(1.08); }
-
     .news-body {
         padding: 24px;
         display: flex;
@@ -562,9 +514,7 @@
         align-items: center;
         gap: 6px;
     }
-    .news-date i {
-        color: var(--primary);
-    }
+    .news-date i { color: var(--primary); }
     .news-title {
         font-size: 19px;
         font-weight: 700;
@@ -601,30 +551,136 @@
         padding: 0;
         transition: 0.2s;
     }
-    .news-readmore-btn:hover {
-        color: #d15c12;
-        gap: 10px;
-    }
+    .news-readmore-btn:hover { color: #d15c12; gap: 10px; }
 
-    /* --- 4. TESTIMONIALS --- */
+    /* --- 5. TESTIMONIALS (DYNAMIC CMS) --- */
     .testimonials { background-color: var(--bg-color); }
     .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-    .testimonial-card { background: var(--white); padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: relative; }
+    .testimonial-card {
+        background: var(--white);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid #f2ece6;
+        transition: all 0.3s ease;
+    }
+    .testimonial-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 25px rgba(232, 102, 20, 0.1);
+    }
     .quote-icon { font-size: 24px; color: var(--primary); opacity: 0.2; position: absolute; top: 25px; left: 25px; }
-    .testimonial-text { font-size: 15px; color: var(--text-dark); margin-bottom: 20px; font-style: italic; padding-top: 20px; }
+    .testimonial-text { font-size: 15px; color: var(--text-dark); margin-bottom: 22px; font-style: italic; padding-top: 22px; flex-grow: 1; }
     .client-info { display: flex; align-items: center; gap: 15px; }
-    .client-img-placeholder { width: 50px; height: 50px; background: #e5e5e5; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #999; }
+    .client-img-placeholder {
+        width: 50px; height: 50px; background: #fff2e8; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 20px; color: var(--primary); flex-shrink: 0;
+    }
     .client-name { font-size: 15px; font-weight: 600; color: var(--secondary); }
     .client-plan { font-size: 13px; color: var(--text-grey); }
 
-    /* --- 4.5 VOLUNTARY CLIENT CONSULTATION FORM (#consult) --- */
+    /* Testimonial Optional Media (Image / Video) */
+    .testimonial-media-box {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 18px;
+        background: #f5f0eb;
+        position: relative;
+        border: 1px solid #eee5dc;
+    }
+    .testimonial-media-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        cursor: zoom-in;
+        transition: transform 0.35s ease;
+    }
+    .testimonial-media-box img:hover {
+        transform: scale(1.04);
+    }
+    .testimonial-media-zoom-hint {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        background: rgba(0, 0, 0, 0.58);
+        color: #ffffff;
+        font-size: 11px;
+        padding: 4px 9px;
+        border-radius: 20px;
+        pointer-events: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+    .testimonial-media-box iframe,
+    .testimonial-media-box video {
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: block;
+        background: #000000;
+    }
+
+    /* Full-size Image Lightbox Modal */
+    .lightbox-content {
+        position: relative;
+        max-width: 92vw;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .lightbox-content img {
+        max-width: 100%;
+        max-height: 82vh;
+        border-radius: 12px;
+        box-shadow: 0 15px 45px rgba(0,0,0,0.45);
+        object-fit: contain;
+        background: #111;
+    }
+    .lightbox-caption {
+        color: #ffffff;
+        font-size: 14px;
+        margin-top: 12px;
+        text-align: center;
+        background: rgba(0,0,0,0.55);
+        padding: 6px 16px;
+        border-radius: 20px;
+    }
+    .lightbox-close-btn {
+        position: absolute;
+        top: -16px;
+        right: -16px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: none;
+        background: var(--primary);
+        color: #ffffff;
+        font-size: 18px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        transition: 0.2s;
+    }
+    .lightbox-close-btn:hover { background: #d15c12; transform: scale(1.06); }
+
+    /* --- 6. VOLUNTARY CLIENT CONSULTATION FORM (#consult) --- */
     .consult-section {
         background: linear-gradient(180deg, var(--white) 0%, #fff7f0 100%);
         border-top: 1px solid #f0ebe6;
     }
     .consult-card {
         display: grid;
-        grid-template-columns: 0.95fr 1.35fr;
+        grid-template-columns: 0.9fr 1.4fr;
         background: var(--white);
         border-radius: 20px;
         overflow: hidden;
@@ -634,7 +690,7 @@
     .consult-left {
         background: linear-gradient(145deg, #2b2b2b 0%, #1a1a1a 100%);
         color: var(--white);
-        padding: 45px 38px;
+        padding: 45px 36px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -666,51 +722,19 @@
         margin-bottom: 20px;
         width: fit-content;
     }
-    .consult-left h3 {
-        font-size: 28px;
-        line-height: 1.3;
-        margin-bottom: 14px;
-        color: var(--white);
-    }
+    .consult-left h3 { font-size: 28px; line-height: 1.3; margin-bottom: 14px; color: var(--white); }
     .consult-left h3 span { color: var(--primary); }
-    .consult-left p.lead-desc {
-        color: #cccccc;
-        font-size: 14px;
-        margin-bottom: 28px;
-    }
-    .consult-benefits {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        margin-bottom: 32px;
-    }
-    .consult-benefit-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-    }
+    .consult-left p.lead-desc { color: #cccccc; font-size: 14px; margin-bottom: 28px; }
+    .consult-benefits { display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px; }
+    .consult-benefit-item { display: flex; align-items: flex-start; gap: 12px; }
     .consult-benefit-icon {
-        width: 34px;
-        height: 34px;
-        border-radius: 10px;
-        background: rgba(232, 102, 20, 0.18);
-        color: var(--primary);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        font-size: 15px;
+        width: 34px; height: 34px; border-radius: 10px;
+        background: rgba(232, 102, 20, 0.18); color: var(--primary);
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0; font-size: 15px;
     }
-    .consult-benefit-item h5 {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--white);
-        margin-bottom: 2px;
-    }
-    .consult-benefit-item p {
-        font-size: 13px;
-        color: #b5b5b5;
-    }
+    .consult-benefit-item h5 { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 2px; }
+    .consult-benefit-item p { font-size: 13px; color: #b5b5b5; }
     .consult-trust-box {
         background: rgba(255, 255, 255, 0.06);
         border: 1px solid rgba(255, 255, 255, 0.12);
@@ -723,58 +747,19 @@
         z-index: 2;
     }
     .consult-trust-box img {
-        width: 54px;
-        height: 54px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 2px solid var(--primary);
-        flex-shrink: 0;
+        width: 54px; height: 54px; border-radius: 50%;
+        object-fit: cover; border: 2px solid var(--primary); flex-shrink: 0;
     }
-    .consult-trust-info strong {
-        display: block;
-        font-size: 15px;
-        color: var(--white);
-    }
-    .consult-trust-info span {
-        font-size: 12px;
-        color: #cccccc;
-    }
+    .consult-trust-info strong { display: block; font-size: 15px; color: var(--white); }
+    .consult-trust-info span { font-size: 12px; color: #cccccc; }
 
-    .consult-right {
-        padding: 40px 38px;
-        background: var(--white);
-    }
-    .consult-form-header {
-        margin-bottom: 22px;
-        padding-bottom: 14px;
-        border-bottom: 1px solid #f0f0f0;
-    }
-    .consult-form-header h4 {
-        font-size: 20px;
-        color: var(--secondary);
-        font-weight: 700;
-        margin-bottom: 4px;
-    }
-    .consult-form-header p {
-        font-size: 13px;
-        color: var(--text-grey);
-    }
-    .c-grid-2 {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-    }
-    .c-grid-3 {
-        display: grid;
-        grid-template-columns: 0.7fr 1.15fr 1.15fr;
-        gap: 12px;
-    }
-    .c-dob-grid {
-        display: grid;
-        grid-template-columns: 0.9fr 1.3fr 1fr auto;
-        gap: 10px;
-        align-items: center;
-    }
+    .consult-right { padding: 38px 36px; background: var(--white); }
+    .consult-form-header { margin-bottom: 22px; padding-bottom: 14px; border-bottom: 1px solid #f0f0f0; }
+    .consult-form-header h4 { font-size: 20px; color: var(--secondary); font-weight: 700; margin-bottom: 4px; }
+    .consult-form-header p { font-size: 13px; color: var(--text-grey); }
+    .c-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .c-grid-3 { display: grid; grid-template-columns: 0.7fr 1.15fr 1.15fr; gap: 12px; }
+    .c-dob-grid { display: grid; grid-template-columns: 0.9fr 1.3fr 1fr auto; gap: 10px; align-items: center; }
     .age-live-badge {
         background: var(--primary-light);
         color: var(--primary);
@@ -789,11 +774,7 @@
     }
     .consult-right .form-group { margin-bottom: 14px; }
     .consult-right .form-group label {
-        display: block;
-        font-size: 13px;
-        font-weight: 600;
-        color: var(--secondary);
-        margin-bottom: 6px;
+        display: block; font-size: 13px; font-weight: 600; color: var(--secondary); margin-bottom: 6px;
     }
     .consult-right .form-group label .req { color: var(--danger); }
     .consult-right input[type="text"],
@@ -818,26 +799,13 @@
         background: var(--white);
         box-shadow: 0 0 0 3px rgba(232, 102, 20, 0.12);
     }
-    .consult-right textarea { min-height: 82px; resize: vertical; }
-    .radio-pill-group {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-    }
+    .consult-right textarea { min-height: 80px; resize: vertical; }
+    .radio-pill-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .radio-pill-label {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 10px 12px;
-        border: 1px solid #dcdcdc;
-        border-radius: 8px;
-        background: #fafafa;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--secondary);
-        transition: 0.2s;
+        display: flex; align-items: center; justify-content: center; gap: 8px;
+        padding: 10px 12px; border: 1px solid #dcdcdc; border-radius: 8px;
+        background: #fafafa; cursor: pointer; font-size: 14px; font-weight: 500;
+        color: var(--secondary); transition: 0.2s;
     }
     .radio-pill-label input { accent-color: var(--primary); }
     .radio-pill-label:has(input:checked) {
@@ -857,23 +825,13 @@
         margin: 18px 0 20px 0;
     }
     .pdpa-box input[type="checkbox"] {
-        margin-top: 4px;
-        width: 18px;
-        height: 18px;
-        accent-color: var(--primary);
-        flex-shrink: 0;
-        cursor: pointer;
+        margin-top: 4px; width: 18px; height: 18px; accent-color: var(--primary); flex-shrink: 0; cursor: pointer;
     }
     .pdpa-box label {
-        font-size: 12.5px;
-        color: #444;
-        line-height: 1.5;
-        cursor: pointer;
-        margin-bottom: 0 !important;
-        font-weight: 400 !important;
+        font-size: 12.5px; color: #444; line-height: 1.5; cursor: pointer; margin-bottom: 0 !important; font-weight: 400 !important;
     }
 
-    /* --- 4.6 ADMIN-ONLY OPERATIONS PANEL (#admin-leads-section) --- */
+    /* --- 7. ADMIN-ONLY OPERATIONS PANEL (#admin-leads-section) --- */
     .admin-leads-section {
         display: none; /* ซ่อนจากผู้ชมทั่วไป 100% */
         background: #f1f5f9;
@@ -881,9 +839,7 @@
         border-bottom: 3px solid #cbd5e1;
         padding: 60px 0;
     }
-    body.admin-active .admin-leads-section {
-        display: block;
-    }
+    body.admin-active .admin-leads-section { display: block; }
     .admin-panel-card {
         background: var(--white);
         border-radius: 16px;
@@ -901,17 +857,8 @@
         flex-wrap: wrap;
         gap: 15px;
     }
-    .admin-panel-header h3 {
-        font-size: 20px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .admin-panel-header p {
-        font-size: 13px;
-        color: #cbd5e1;
-        margin-top: 4px;
-    }
+    .admin-panel-header h3 { font-size: 20px; display: flex; align-items: center; gap: 10px; }
+    .admin-panel-header p { font-size: 13px; color: #cbd5e1; margin-top: 4px; }
     .admin-leads-toolbar {
         padding: 20px 28px;
         background: #f8fafc;
@@ -933,37 +880,25 @@
         outline: none;
     }
     .admin-leads-toolbar input:focus,
-    .admin-leads-toolbar select:focus {
-        border-color: var(--primary);
-    }
-    .leads-table-wrapper {
-        width: 100%;
-        overflow-x: auto;
-    }
-    .leads-table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 13.5px;
-        min-width: 820px;
-    }
+    .admin-leads-toolbar select:focus { border-color: var(--primary); }
+    .leads-table-wrapper { width: 100%; overflow-x: auto; }
+    .leads-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 960px; }
     .leads-table th {
         background: #f1f5f9;
         color: #334155;
         font-weight: 600;
         text-align: left;
-        padding: 14px 16px;
+        padding: 14px 14px;
         border-bottom: 2px solid #e2e8f0;
         white-space: nowrap;
     }
     .leads-table td {
-        padding: 14px 16px;
+        padding: 14px 14px;
         border-bottom: 1px solid #f1f5f9;
         vertical-align: top;
         color: #1e293b;
     }
-    .leads-table tr:hover td {
-        background: #fffaf6;
-    }
+    .leads-table tr:hover td { background: #fffaf6; }
     .lead-plan-chip {
         display: inline-block;
         background: var(--primary-light);
@@ -975,11 +910,39 @@
         font-weight: 600;
         margin-top: 4px;
     }
-    .lead-row-actions {
-        display: flex;
-        gap: 6px;
-        flex-wrap: nowrap;
+    .contact-time-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        background: #eff6ff;
+        color: #1d4ed8;
+        border: 1px solid #bfdbfe;
+        padding: 3px 9px;
+        border-radius: 6px;
+        font-size: 11.5px;
+        font-weight: 600;
+        margin-top: 5px;
     }
+
+    /* BMI Badges แยกสีตามเกณฑ์มาตรฐานเอเชีย/ไทย */
+    .bmi-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 2px 9px;
+        border-radius: 12px;
+        font-size: 11.5px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+    .bmi-under { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+    .bmi-normal { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+    .bmi-over { background: #fef9c3; color: #a16207; border: 1px solid #fde047; }
+    .bmi-obese1 { background: #ffedd5; color: #c2410c; border: 1px solid #fed7aa; }
+    .bmi-obese2 { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+    .bmi-na { background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0; }
+
+    .lead-row-actions { display: flex; gap: 6px; flex-wrap: nowrap; }
     .btn-tbl {
         padding: 6px 10px;
         border-radius: 6px;
@@ -1002,14 +965,14 @@
     .btn-tbl.del { background: #ef4444; }
     .btn-tbl.del:hover { background: #dc2626; }
 
-    /* --- 5. CONTACT & FOOTER --- */
+    /* --- 8. FOOTER --- */
     footer { background-color: var(--secondary); color: var(--white); padding: 60px 0 30px 0; font-size: 15px; }
-    .footer-content { display: grid; grid-template-columns: 1.2fr 0.8fr 1fr; gap: 50px; margin-bottom: 40px;}
+    .footer-content { display: grid; grid-template-columns: 1.2fr 0.8fr 1fr; gap: 50px; margin-bottom: 40px; }
     .footer-about h4, .footer-links h4, .footer-contact h4 { font-size: 18px; margin-bottom: 20px; color: var(--white); }
-    .footer-about p { color: #bbb; margin-bottom: 20px; font-size: 14px;}
+    .footer-about p { color: #bbb; margin-bottom: 20px; font-size: 14px; }
     .footer-contact ul { display: flex; flex-direction: column; gap: 10px; }
     .footer-contact li { display: flex; align-items: center; gap: 12px; color: #bbb; }
-    .footer-contact i { color: var(--primary); width: 20px; text-align: center;}
+    .footer-contact i { color: var(--primary); width: 20px; text-align: center; }
     .footer-contact a:hover { color: var(--white); text-decoration: underline; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px; text-align: center; color: #888; font-size: 13px; }
 
@@ -1022,9 +985,9 @@
     .sticky-contact-bar.show { bottom: 0; }
     .sticky-contact-content { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     .sticky-text { font-weight: 600; font-size: 16px; color: var(--secondary); }
-    .sticky-btns { display: flex; gap: 15px; align-items: center;}
+    .sticky-btns { display: flex; gap: 15px; align-items: center; }
 
-    /* --- 6. MODAL STYLES --- */
+    /* --- 9. MODAL STYLES --- */
     .modal-overlay {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
         background: rgba(0, 0, 0, 0.65); z-index: 2000;
@@ -1033,7 +996,7 @@
         padding: 20px;
     }
     .modal-overlay.active { display: flex; opacity: 1; }
-    
+
     .modal-content {
         background: var(--white); width: 100%; max-width: 500px;
         border-radius: 15px; padding: 30px; position: relative;
@@ -1052,7 +1015,7 @@
         max-height: 94vh;
     }
     .modal-overlay.active .modal-content { transform: translateY(0); }
-    
+
     .close-modal {
         position: absolute; top: 20px; right: 20px;
         background: #f5f5f5; border: none; width: 36px; height: 36px; border-radius: 50%;
@@ -1062,17 +1025,17 @@
         z-index: 10;
     }
     .close-modal:hover { background: var(--primary-light); color: var(--primary); }
-    
-    .modal-header { margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; padding-right: 30px;}
-    .modal-header h3 { font-size: 22px; color: var(--secondary); margin-bottom: 5px; line-height: 1.4;}
+
+    .modal-header { margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; padding-right: 30px; }
+    .modal-header h3 { font-size: 22px; color: var(--secondary); margin-bottom: 5px; line-height: 1.4; }
     .modal-header p { font-size: 14px; color: var(--text-grey); }
-    
+
     .form-group { margin-bottom: 15px; width: 100%; }
     .form-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: var(--text-dark); }
     .form-row { display: flex; gap: 15px; }
     .form-row .form-group { flex: 1; }
     .dob-row { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 10px; }
-    
+
     .modal-content input[type="text"],
     .modal-content input[type="tel"],
     .modal-content input[type="number"],
@@ -1085,14 +1048,14 @@
         border-radius: 8px; font-family: 'Prompt', sans-serif; font-size: 15px;
         outline: none; transition: 0.2s; background: #fafafa;
     }
-    .modal-content textarea { resize: vertical; min-height: 120px; }
+    .modal-content textarea { resize: vertical; min-height: 110px; }
     .modal-content input:focus, .modal-content select:focus, .modal-content textarea:focus { border-color: var(--primary); background: var(--white); }
-    
+
     .consent-box {
         display: flex; gap: 10px; align-items: flex-start;
         background: var(--bg-color); padding: 15px; border-radius: 8px; margin-bottom: 20px;
     }
-    .consent-box input[type="checkbox"] { margin-top: 4px; accent-color: var(--primary); flex-shrink: 0;}
+    .consent-box input[type="checkbox"] { margin-top: 4px; accent-color: var(--primary); flex-shrink: 0; }
     .consent-box label { font-size: 12px; color: var(--text-grey); line-height: 1.4; }
 
     .btn-submit {
@@ -1114,12 +1077,7 @@
         flex-wrap: wrap;
         gap: 10px;
     }
-    .a4-toolbar-btns {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-        align-items: center;
-    }
+    .a4-toolbar-btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
     .a4-scroll-stage {
         padding: 24px;
         overflow-y: auto;
@@ -1152,29 +1110,12 @@
         align-items: flex-start;
         border-bottom: 2px solid #e86614;
         padding-bottom: 14px;
-        margin-bottom: 18px;
+        margin-bottom: 16px;
     }
-    .a4-brand h2 {
-        font-size: 22px;
-        color: #e86614;
-        font-weight: 700;
-        line-height: 1.2;
-    }
-    .a4-brand p {
-        font-size: 13px;
-        color: #333333;
-        font-weight: 600;
-        margin-top: 3px;
-    }
-    .a4-brand small {
-        font-size: 11px;
-        color: #666666;
-    }
-    .a4-doc-meta {
-        text-align: right;
-        font-size: 12px;
-        color: #444;
-    }
+    .a4-brand h2 { font-size: 22px; color: #e86614; font-weight: 700; line-height: 1.2; }
+    .a4-brand p { font-size: 13px; color: #333333; font-weight: 600; margin-top: 3px; }
+    .a4-brand small { font-size: 11px; color: #666666; }
+    .a4-doc-meta { text-align: right; font-size: 12px; color: #444; }
     .a4-doc-meta .ref-badge {
         display: inline-block;
         background: #fff2e8;
@@ -1192,34 +1133,21 @@
         padding: 7px 12px;
         font-size: 14px;
         font-weight: 700;
-        margin: 16px 0 12px 0;
+        margin: 14px 0 10px 0;
         border-radius: 0 6px 6px 0;
     }
     .a4-info-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 10px 18px;
-        margin-bottom: 12px;
+        gap: 9px 18px;
+        margin-bottom: 10px;
     }
-    .a4-field {
-        border-bottom: 1px dashed #e2e8f0;
-        padding-bottom: 6px;
-    }
-    .a4-field.full {
-        grid-column: 1 / -1;
-    }
-    .a4-field-label {
-        font-size: 11px;
-        color: #64748b;
-        display: block;
-    }
-    .a4-field-value {
-        font-size: 14px;
-        font-weight: 600;
-        color: #111827;
-    }
+    .a4-field { border-bottom: 1px dashed #e2e8f0; padding-bottom: 5px; }
+    .a4-field.full { grid-column: 1 / -1; }
+    .a4-field-label { font-size: 11px; color: #64748b; display: block; }
+    .a4-field-value { font-size: 13.5px; font-weight: 600; color: #111827; }
     .a4-pdpa-verify {
-        margin-top: 18px;
+        margin-top: 16px;
         background: #f8fafc;
         border: 1px solid #cbd5e1;
         border-radius: 8px;
@@ -1236,8 +1164,8 @@
         font-size: 13px;
     }
     .a4-footer-sign {
-        margin-top: 26px;
-        padding-top: 14px;
+        margin-top: 22px;
+        padding-top: 12px;
         border-top: 1px solid #e2e8f0;
         display: flex;
         justify-content: space-between;
@@ -1247,19 +1175,19 @@
     .a4-summary-table {
         width: 100%;
         border-collapse: collapse;
-        font-size: 11.5px;
+        font-size: 11px;
         margin-top: 10px;
     }
     .a4-summary-table th {
         background: #fff2e8;
         color: #c2410c;
         border: 1px solid #f2cba8;
-        padding: 7px 8px;
+        padding: 6px 7px;
         text-align: left;
     }
     .a4-summary-table td {
         border: 1px solid #e2e8f0;
-        padding: 7px 8px;
+        padding: 6px 7px;
         vertical-align: top;
     }
 
@@ -1306,11 +1234,7 @@
         margin-top: 8px;
         position: relative;
     }
-    .img-upload-preview-box img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+    .img-upload-preview-box img { width: 100%; height: 100%; object-fit: cover; }
 
     /* ========================================================
        PRINT MEDIA QUERY (A4 Exact Margin & Clean Output)
@@ -1320,9 +1244,7 @@
         margin: 12mm;
     }
     @media print {
-        body * {
-            visibility: hidden !important;
-        }
+        body * { visibility: hidden !important; }
         body {
             background: #ffffff !important;
             padding-top: 0 !important;
@@ -1357,9 +1279,7 @@
             transform: none !important;
             overflow: visible !important;
         }
-        .a4-modal-toolbar {
-            display: none !important;
-        }
+        .a4-modal-toolbar { display: none !important; }
         .a4-scroll-stage {
             padding: 0 !important;
             background: #ffffff !important;
@@ -1400,20 +1320,20 @@
 
         .consult-card { grid-template-columns: 1fr; }
         .admin-leads-toolbar { grid-template-columns: 1fr 1fr; }
-        
+
         .footer-content { grid-template-columns: repeat(2, 1fr); gap: 40px; }
     }
 
     @media (max-width: 767px) {
-        body.admin-active { padding-top: 100px; }
-        body.admin-active header { top: 100px; }
+        body.admin-active { padding-top: 105px; }
+        body.admin-active header { top: 105px; }
 
         section { padding: 50px 0; }
-        .section-title { font-size: 26px; line-height: 1.3; margin-bottom: 10px; padding: 0 10px;}
-        .section-subtitle { font-size: 15px; margin-bottom: 40px; padding: 0 10px;}
+        .section-title { font-size: 26px; line-height: 1.3; margin-bottom: 10px; padding: 0 10px; }
+        .section-subtitle { font-size: 15px; margin-bottom: 40px; padding: 0 10px; }
 
         header { padding: 12px 0; }
-        .logo-placeholder { font-size: 18px; flex-direction: column; align-items: flex-start; gap: 2px;}
+        .logo-placeholder { font-size: 18px; flex-direction: column; align-items: flex-start; gap: 2px; }
         .logo-placeholder span { font-size: 12px; margin-left: 0; }
         .nav-menu { display: none; }
         .header-right-actions .btn { padding: 8px 14px; font-size: 13px; }
@@ -1421,13 +1341,13 @@
 
         .hero { padding: 130px 0 60px 0; }
         .hero-text h1 { font-size: 32px; margin-bottom: 15px; }
-        .hero-text p { font-size: 16px; margin-bottom: 25px; padding: 0 10px;}
-        .hero-btns { flex-direction: column; width: 100%; gap: 15px; padding: 0 10px;}
+        .hero-text p { font-size: 16px; margin-bottom: 25px; padding: 0 10px; }
+        .hero-btns { flex-direction: column; width: 100%; gap: 15px; padding: 0 10px; }
         .hero-btns .btn { width: 100%; justify-content: center; }
 
         .services-grid, .testimonial-grid, .sub-plans-grid, .news-grid { grid-template-columns: 1fr; gap: 20px; }
         .service-img-wrapper { height: 180px; }
-        
+
         .agent-image-container { max-width: 200px; }
         .agent-name { font-size: 26px; }
         .agent-bio { font-size: 15px; max-width: 100%; }
@@ -1459,7 +1379,7 @@
         .form-row { flex-direction: column; gap: 0; }
         .dob-row { grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
     }
-    
+
     @media (max-width: 400px) {
         .dob-row { grid-template-columns: 1fr; gap: 10px; }
         .stat-item { flex: 1 1 100%; }
@@ -1479,16 +1399,19 @@
         </div>
         <div class="admin-bar-actions">
             <button class="btn-admin-action primary" onclick="openNewsFormModal()">
-                <i class="fa-solid fa-plus"></i> เพิ่มข่าวสาร/กิจกรรม
+                <i class="fa-solid fa-newspaper"></i> + ข่าวสาร
+            </button>
+            <button class="btn-admin-action primary" onclick="openTestimonialFormModal()">
+                <i class="fa-solid fa-comments"></i> + รีวิวลูกค้า
             </button>
             <button class="btn-admin-action info" onclick="scrollToAdminLeads()">
-                <i class="fa-solid fa-users"></i> ข้อมูลลูกค้าลงทะเบียน <span class="lead-count-pill" id="admin-leads-badge">0</span>
+                <i class="fa-solid fa-users"></i> ข้อมูลลูกค้า <span class="lead-count-pill" id="admin-leads-badge">0</span>
             </button>
-            <button class="btn-admin-action success" onclick="downloadUpdatedHTML()" title="ดาวน์โหลดไฟล์ index.html ที่บันทึกข่าวสารและรายชื่อลูกค้าล่าสุดไว้ในโค้ดเรียบร้อยแล้ว">
+            <button class="btn-admin-action success" onclick="downloadUpdatedHTML()" title="ดาวน์โหลดไฟล์ index.html ที่บันทึกข่าวสาร รีวิว และรายชื่อลูกค้าล่าสุดไว้ในโค้ดเรียบร้อยแล้ว">
                 <i class="fa-solid fa-download"></i> ดาวน์โหลดไฟล์ HTML ล่าสุด
             </button>
             <button class="btn-admin-action" onclick="resetDefaultAll()" title="รีเซ็ตข้อมูลกลับเป็นค่าเริ่มต้น">
-                <i class="fa-solid fa-rotate-left"></i> รีเซ็ตค่าเริ่มต้น
+                <i class="fa-solid fa-rotate-left"></i> รีเซ็ต
             </button>
             <button class="btn-admin-action danger" onclick="logoutAdmin()">
                 <i class="fa-solid fa-right-from-bracket"></i> ออกจากโหมดแอดมิน
@@ -1538,13 +1461,13 @@
 <!-- 2. PRODUCT CATEGORIES & SUB PLANS -->
 <section class="services" id="services">
     <div class="container">
-        
+
         <div id="category-view">
             <h2 class="section-title">เลือกความคุ้มครองที่ตรงใจคุณ</h2>
             <p class="section-subtitle">เราพร้อมดูแลทุกช่วงชีวิต ด้วยแผนประกันที่หลากหลายและตอบโจทย์ทุกความต้องการ</p>
-            
+
             <div class="services-grid">
-                
+
                 <div class="service-card" onclick="showPlans('health')">
                     <div class="service-img-wrapper">
                         <img src="precious.png" alt="ประกันสุขภาพ" onerror="this.src='https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=600&q=80'">
@@ -1558,7 +1481,7 @@
                         <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
-                
+
                 <div class="service-card" onclick="showPlans('saving')">
                     <div class="service-img-wrapper">
                         <img src="deposit.png" alt="ประกันสะสมทรัพย์" onerror="this.src='https://images.unsplash.com/photo-1579621970795-87facc2f976d?auto=format&fit=crop&w=600&q=80'">
@@ -1572,7 +1495,7 @@
                         <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
-                
+
                 <div class="service-card" onclick="showPlans('ci')">
                     <div class="service-img-wrapper">
                         <img src="critical-Illness.png" alt="ประกันโรคร้ายแรง" onerror="this.src='https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=600&q=80'">
@@ -1586,7 +1509,7 @@
                         <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
-                
+
                 <div class="service-card" onclick="showPlans('pension')">
                     <div class="service-img-wrapper">
                         <img src="pension-pic.png" alt="ประกันบำนาญ" onerror="this.src='https://images.unsplash.com/photo-1536640712-4d4c36ff0e4e?auto=format&fit=crop&w=600&q=80'">
@@ -1600,7 +1523,7 @@
                         <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
-                
+
                 <div class="service-card" onclick="showPlans('legacy')">
                     <div class="service-img-wrapper">
                         <img src="legacy.png" alt="ประกันสร้างมรดก" onerror="this.src='https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=600&q=80'">
@@ -1614,7 +1537,7 @@
                         <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
-                
+
                 <div class="service-card" onclick="showPlans('nonlife')">
                     <div class="service-img-wrapper">
                         <img src="non-motor.png" alt="ประกันวินาศภัย" onerror="this.src='https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=600&q=80'">
@@ -1628,7 +1551,7 @@
                         <a href="javascript:void(0)" class="glowing-btn">ดูรายละเอียดแผน <i class="fa-solid fa-arrow-right"></i></a>
                     </div>
                 </div>
-                
+
             </div>
         </div>
 
@@ -1672,17 +1595,17 @@
     </div>
 </section>
 
-<!-- 4. NEWS & ACTIVITIES SECTION -->
+<!-- 4. NEWS & ACTIVITIES SECTION (CMS) -->
 <section class="news-section" id="news">
     <div class="container">
         <h2 class="section-title">ข่าวสารและกิจกรรมล่าสุด</h2>
         <p class="section-subtitle">อัปเดตข้อมูลข่าวสาร กิจกรรมพิเศษ และสาระความรู้ดีๆ ด้านการวางแผนการเงินและประกันชีวิตจาก FWD</p>
 
         <!-- แถบเครื่องมือย่อยแสดงเฉพาะเวลาแอดมินล็อกอิน -->
-        <div class="news-admin-Inline-toolbar">
+        <div class="admin-inline-toolbar">
             <div>
                 <strong style="color: var(--primary); font-size: 16px;"><i class="fa-solid fa-pen-to-square"></i> จัดการเนื้อหาข่าวสารและกิจกรรม</strong>
-                <p style="font-size: 13px; color: var(--text-grey); margin-top: 2px;">คุณสามารถเพิ่ม แก้ไข หรือลบการ์ดด้านล่างได้ทันที และกดปุ่ม "ดาวน์โหลดไฟล์ HTML ล่าสุด" ด้านบนเมื่อต้องการนำไปอัปเดตขึ้นเว็บจริง</p>
+                <p style="font-size: 13px; color: var(--text-grey); margin-top: 2px;">เพิ่ม แก้ไข หรือลบการ์ดด้านล่างได้ทันที และกดปุ่ม "ดาวน์โหลดไฟล์ HTML ล่าสุด" ด้านบนเพื่อนำไปอัปเดตขึ้นเว็บจริง</p>
             </div>
             <button class="btn btn-primary" style="padding: 10px 22px; font-size: 14px;" onclick="openNewsFormModal()">
                 <i class="fa-solid fa-plus"></i> สร้างข่าวสาร/กิจกรรมใหม่
@@ -1702,53 +1625,28 @@
     </div>
 </section>
 
-<!-- 5. TESTIMONIALS -->
+<!-- 5. TESTIMONIALS SECTION (DYNAMIC CMS) -->
 <section class="testimonials" id="testimonials">
     <div class="container">
         <h2 class="section-title">เสียงตอบรับจากลูกค้าที่วางใจ</h2>
         <p class="section-subtitle">ความประทับใจจริงในการให้บริการและการออกแบบแผนประกัน</p>
-        
-        <div class="testimonial-grid">
-            <div class="testimonial-card">
-                <i class="fa-solid fa-quote-left quote-icon"></i>
-                <p class="testimonial-text">"บริการดีมาก เคลมไว อธิบายแผนเข้าใจง่ายและตรงตามความต้องการที่สุด" </p>
-                <div class="client-info">
-                    <div class="client-img-placeholder"><i class="fa-solid fa-user"></i></div>
-                    <div>
-                        <div class="client-name">คุณสมชาย ก.</div>
-                        <div class="client-plan">แผนประกันสุขภาพ Precious Care</div>
-                    </div>
-                </div>
+
+        <!-- แถบเครื่องมือแอดมินสำหรับจัดการรีวิวลูกค้า -->
+        <div class="admin-inline-toolbar">
+            <div>
+                <strong style="color: var(--primary); font-size: 16px;"><i class="fa-solid fa-comments"></i> จัดการข้อมูลรีวิวลูกค้า</strong>
+                <p style="font-size: 13px; color: var(--text-grey); margin-top: 2px;">เพิ่ม แก้ไข หรือลบข้อความรีวิวจากลูกค้าได้ทันที (ปุ่มแก้ไข/ลบจะแสดงเฉพาะในโหมดแอดมิน)</p>
             </div>
-            
-            <div class="testimonial-card">
-                <i class="fa-solid fa-quote-left quote-icon"></i>
-                <p class="testimonial-text">"ช่วยวางแผนการเงินได้เห็นภาพชัดเจน ช่วยจัดแผนให้คุ้มค่ากับงบที่ตั้งไว้" </p>
-                <div class="client-info">
-                    <div class="client-img-placeholder"><i class="fa-solid fa-user-tie"></i></div>
-                    <div>
-                        <div class="client-name">คุณนกน้อย จ.</div>
-                        <div class="client-plan">แผนประกันสะสมทรัพย์</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="testimonial-card">
-                <i class="fa-solid fa-quote-left quote-icon"></i>
-                <p class="testimonial-text">"เป็นกันเอง ให้คำปรึกษาตลอดไม่หายหน้าเวลาเคลม รู้สึกอุ่นใจมากๆ เลยค่ะ" </p>
-                <div class="client-info">
-                    <div class="client-img-placeholder"><i class="fa-solid fa-user-graduate"></i></div>
-                    <div>
-                        <div class="client-name">คุณพัชรี ส.</div>
-                        <div class="client-plan">แผนประกันบำนาญ</div>
-                    </div>
-                </div>
-            </div>
+            <button class="btn btn-primary" style="padding: 10px 22px; font-size: 14px;" onclick="openTestimonialFormModal()">
+                <i class="fa-solid fa-plus"></i> เพิ่มรีวิวลูกค้าใหม่
+            </button>
         </div>
+
+        <div class="testimonial-grid" id="testimonial-grid-container"></div>
     </div>
 </section>
 
-<!-- 6. NEW: VOLUNTARY CLIENT CONSULTATION & FACT-FINDING FORM (#consult) -->
+<!-- 6. VOLUNTARY CLIENT CONSULTATION & FACT-FINDING FORM (#consult) -->
 <section class="consult-section" id="consult">
     <div class="container">
         <h2 class="section-title">ลงทะเบียนขอรับคำปรึกษาและออกแบบแผนประกันฟรี</h2>
@@ -1767,14 +1665,14 @@
                             <div class="consult-benefit-icon"><i class="fa-solid fa-calculator"></i></div>
                             <div>
                                 <h5>คำนวณเบี้ยประกันแม่นยำ</h5>
-                                <p>เปรียบเทียบแผนที่คุ้มค่าที่สุดตามอายุ เพศ และงบประมาณจริง</p>
+                                <p>เปรียบเทียบแผนที่คุ้มค่าที่สุดตามอายุ เพศ สุขภาพ และงบประมาณจริง</p>
                             </div>
                         </div>
                         <div class="consult-benefit-item">
-                            <div class="consult-benefit-icon"><i class="fa-solid fa-file-shield"></i></div>
+                            <div class="consult-benefit-icon"><i class="fa-solid fa-clock"></i></div>
                             <div>
-                                <h5>วิเคราะห์ความคุ้มครองรอบด้าน</h5>
-                                <p>ครอบคลุมสุขภาพ โรคร้ายแรง ลดหย่อนภาษี เกษียณ และมรดก</p>
+                                <h5>ติดต่อกลับตามเวลาที่คุณสะดวก</h5>
+                                <p>ระบุช่วงเวลาที่สะดวกเพื่อให้ตัวแทนติดต่อกลับโดยไม่รบกวนเวลาทำงาน</p>
                             </div>
                         </div>
                         <div class="consult-benefit-item">
@@ -1871,9 +1769,21 @@
                                 <option value="10">ตุลาคม</option>
                                 <option value="11">พฤศจิกายน</option>
                                 <option value="12">ธันวาคม</option>
-                            </select>
-                            <input type="number" id="c-year" placeholder="ปี พ.ศ. (เช่น 2535)" min="2460" max="2569" required oninput="updateConsultAgeBadge()">
-                            <div class="age-live-badge" id="c-age-badge">อายุ -- ปี</div>
+                    <!-- น้ำหนัก (กก.) + ส่วนสูง (ซม.) + คำนวณค่า BMI อัตโนมัติ -->
+                    <div class="c-grid-2">
+                        <div class="form-group">
+                            <label>น้ำหนัก (กิโลกรัม) <span class="req">*</span></label>
+                            <input type="number" id="c-weight" placeholder="เช่น 65" min="10" max="300" step="0.1" required oninput="updateConsultBMIBadge()">
+                        </div>
+                        <div class="form-group">
+                            <label>ส่วนสูง (เซนติเมตร) <span class="req">*</span></label>
+                            <input type="number" id="c-height" placeholder="เช่น 170" min="50" max="250" step="0.1" required oninput="updateConsultBMIBadge()">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: -4px; margin-bottom: 14px;">
+                        <div id="c-bmi-live-box" style="display: flex; align-items: center; justify-content: space-between; background: #f8fafc; border: 1px dashed #cbd5e1; padding: 8px 14px; border-radius: 8px; font-size: 13px; color: #475569;">
+                            <span><i class="fa-solid fa-weight-scale" style="color: var(--primary);"></i> ดัชนีมวลกายเบื้องต้น (BMI):</span>
+                            <span id="c-bmi-badge" class="bmi-badge bmi-na">กรอกน้ำหนักและส่วนสูงเพื่อคำนวณ BMI</span>
                         </div>
                     </div>
 
@@ -1889,12 +1799,27 @@
                         </div>
                     </div>
 
-                    <!-- อาชีพ + งบประมาณ -->
+                    <!-- ช่วงเวลาที่สะดวกให้ติดต่อ + อาชีพ -->
                     <div class="c-grid-2">
+                        <div class="form-group">
+                            <label>ช่วงเวลาที่สะดวกให้ติดต่อ <span class="req">*</span></label>
+                            <select id="c-contact-time" required>
+                                <option value="">-- เลือกช่วงเวลาที่สะดวก --</option>
+                                <option value="ช่วงเช้า (09:00 - 12:00 น.)">ช่วงเช้า (09:00 - 12:00 น.)</option>
+                                <option value="ช่วงบ่าย (13:00 - 16:00 น.)">ช่วงบ่าย (13:00 - 16:00 น.)</option>
+                                <option value="ช่วงเย็น (17:00 - 20:00 น.)">ช่วงเย็น (17:00 - 20:00 น.)</option>
+                                <option value="สะดวกทุกช่วงเวลา">สะดวกทุกช่วงเวลา</option>
+                                <option value="เฉพาะวันเสาร์-อาทิตย์ / วันหยุด">เฉพาะวันเสาร์-อาทิตย์ / วันหยุด</option>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label>อาชีพ / ลักษณะงาน <span class="req">*</span></label>
                             <input type="text" id="c-occupation" placeholder="เช่น พนักงานบริษัท, ธุรกิจส่วนตัว" required>
                         </div>
+                    </div>
+
+                    <!-- งบประมาณ + หมวดหมู่แผนประกัน -->
+                    <div class="c-grid-2">
                         <div class="form-group">
                             <label>งบประมาณเบี้ยประกันที่สนใจต่อปี <span class="req">*</span></label>
                             <select id="c-budget" required>
@@ -1905,22 +1830,20 @@
                                 <option value="มากกว่า 100,000 บาท/ปี">มากกว่า 100,000 บาท/ปี</option>
                             </select>
                         </div>
-                    </div>
-
-                    <!-- หมวดหมู่แผนประกัน + แบบประกันที่สนใจ (Dynamic จาก plansData) -->
-                    <div class="c-grid-2">
                         <div class="form-group">
                             <label>หมวดหมู่แผนประกันที่สนใจ <span class="req">*</span></label>
                             <select id="c-category" required onchange="populateConsultPlanOptions()">
                                 <option value="">-- เลือกหมวดหมู่ --</option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label>แบบประกันที่สนใจ <span class="req">*</span></label>
-                            <select id="c-plan" required>
-                                <option value="ให้ตัวแทนช่วยแนะนำ">ให้ตัวแทนช่วยแนะนำ</option>
-                            </select>
-                        </div>
+                    </div>
+
+                    <!-- แบบประกันที่สนใจ (Dynamic จาก plansData) -->
+                    <div class="form-group">
+                        <label>แบบประกันที่สนใจ <span class="req">*</span></label>
+                        <select id="c-plan" required>
+                            <option value="ให้ตัวแทนช่วยแนะนำ">ให้ตัวแทนช่วยแนะนำ</option>
+                        </select>
                     </div>
 
                     <!-- ข้อมูลสุขภาพเบื้องต้นหรือความต้องการเพิ่มเติม -->
@@ -1946,14 +1869,14 @@
     </div>
 </section>
 
-<!-- 7. NEW: ADMIN-ONLY OPERATIONS PANEL — รายชื่อลูกค้าที่ลงทะเบียน (#admin-leads-section) -->
+<!-- 7. ADMIN-ONLY OPERATIONS PANEL — รายชื่อลูกค้าที่ลงทะเบียน (#admin-leads-section) -->
 <section class="admin-leads-section" id="admin-leads-section">
     <div class="container">
         <div class="admin-panel-card">
             <div class="admin-panel-header">
                 <div>
                     <h3><i class="fa-solid fa-clipboard-list" style="color: #ff9f59;"></i> ระบบปฏิบัติการเจ้าหน้าที่: รายชื่อลูกค้าลงทะเบียนปรึกษา</h3>
-                    <p>ส่วนนี้แสดงผลเฉพาะเจ้าหน้าที่ (Admin) เท่านั้น ผู้ชมหน้าเว็บไซต์ทั่วไปไม่สามารถมองเห็นได้</p>
+                    <p>แสดงผลเฉพาะเจ้าหน้าที่ (Admin) พร้อมคำนวณค่า BMI เบื้องต้นและช่วงเวลาที่ลูกค้าสะดวกให้ติดต่อ</p>
                 </div>
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                     <button class="btn-admin-action primary" style="padding: 9px 16px; font-size: 13.5px;" onclick="openSummaryA4Modal()">
@@ -1964,7 +1887,7 @@
 
             <!-- Filter & Search Controls -->
             <div class="admin-leads-toolbar">
-                <input type="text" id="lead-search-input" placeholder="ค้นหาชื่อลูกค้า, เบอร์โทร, แผนประกัน..." oninput="renderAdminLeadsTable()">
+                <input type="text" id="lead-search-input" placeholder="ค้นหาชื่อลูกค้า, เบอร์โทร, แผนประกัน, ช่วงเวลาสะดวก..." oninput="renderAdminLeadsTable()">
                 <select id="lead-month-filter" onchange="renderAdminLeadsTable()">
                     <option value="all">ทุกเดือน</option>
                     <option value="1">มกราคม</option>
@@ -1999,7 +1922,8 @@
                         <tr>
                             <th>วัน-เวลาที่ลงทะเบียน</th>
                             <th>ชื่อ-นามสกุล / ข้อมูลส่วนตัว</th>
-                            <th>ช่องทางติดต่อ</th>
+                            <th>น้ำหนัก / ส่วนสูง / ค่า BMI</th>
+                            <th>ช่องทาง & ช่วงเวลาสะดวกติดต่อ</th>
                             <th>แผนประกันที่สนใจ / งบประมาณ</th>
                             <th style="text-align: center;">จัดการ (A4 / แชร์ / ลบ)</th>
                         </tr>
@@ -2019,7 +1943,7 @@
             <p>ตัวแทนประกันชีวิต FWD พร้อมออกแบบความคุ้มครองที่ตรงใจ ดูแลตลอดชีพแบบเพื่อนคู่คิด</p>
             <img id="footer-qr" src="line-qr.png" alt="LINE QR Code" style="max-width: 120px; border-radius: 8px; border: 2px solid #fff; padding: 4px;" onerror="this.style.display='none';">
         </div>
-        
+
         <div class="footer-links">
             <h4>เมนูและแผนประกัน</h4>
             <ul style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: #bbb;">
@@ -2029,10 +1953,11 @@
                 <li><a href="javascript:void(0)" onclick="showPlans('pension')">ประกันบำนาญ</a></li>
                 <li><a href="javascript:void(0)" onclick="showPlans('legacy')">ประกันสร้างมรดก</a></li>
                 <li><a href="#news">ข่าวสารและกิจกรรม</a></li>
+                <li><a href="#testimonials">รีวิวลูกค้า</a></li>
                 <li><a href="#consult">ลงทะเบียนปรึกษาฟรี</a></li>
             </ul>
         </div>
-        
+
         <div class="footer-contact">
             <h4>ติดต่อตัวแทน</h4>
             <ul>
@@ -2043,7 +1968,7 @@
             <a href="https://line.me/R/oaMessage/@toifwd/?" target="_blank" class="btn btn-line" style="margin-top: 25px;"><i class="fa-brands fa-line" style="font-size: 20px;"></i> ทักแอดไลน์ด่วน</a>
         </div>
     </div>
-    
+
     <div class="footer-bottomcontainer">
         <div class="footer-bottom">
             © 2026 คุณนฤมล คำใบ (ตัวแทน FWD License 6901010926) | สงวนลิขสิทธิ์
@@ -2062,7 +1987,7 @@
     </div>
 </div>
 
-<!-- MODAL 1: แบบฟอร์มสอบถามแผนประกัน (Sub-Plan Quick Inquiry) -->
+<!-- MODAL 1: แบบฟอร์มสอบถามแผนประกันด่วน (Sub-Plan Quick Inquiry) -->
 <div class="modal-overlay" id="inquiry-modal">
     <div class="modal-content">
         <button class="close-modal" onclick="closeModal()"><i class="fa-solid fa-times"></i></button>
@@ -2070,7 +1995,7 @@
             <h3>ใช้เวลาเพียงสักครู่ เพื่อสอบถามเกี่ยวกับแผนประกันนี้</h3>
             <p>เราจะขอให้คุณให้ข้อมูลเพื่อใช้ในการติดต่อกลับเท่านั้น <br><strong id="modal-plan-name" style="color:var(--primary);"></strong></p>
         </div>
-        
+
         <div class="form-row">
             <div class="form-group">
                 <label>ชื่อจริง</label>
@@ -2115,12 +2040,12 @@
             <label>หมายเลขโทรศัพท์</label>
             <input type="tel" id="form-phone" placeholder="08X-XXX-XXXX">
         </div>
-        
+
         <div class="consent-box" style="margin-top: 15px;">
             <input type="checkbox" id="form-consent">
             <label for="form-consent">คุณยินยอมให้ตัวแทนประกันชีวิตรวบรวมและใช้ข้อมูลส่วนบุคคลของข้าพเจ้าเพื่อนำเสนอผลิตภัณฑ์ บริการ และข้อเสนอพิเศษ</label>
         </div>
-        
+
         <button class="btn-submit" id="btn-submit-form" onclick="submitForm()">ตกลง (ส่งข้อมูลให้ตัวแทน)</button>
     </div>
 </div>
@@ -2155,7 +2080,7 @@
         <button class="close-modal" onclick="closeAdminLoginModal()"><i class="fa-solid fa-times"></i></button>
         <div class="modal-header">
             <h3><i class="fa-solid fa-user-shield" style="color: var(--primary);"></i> เข้าสู่ระบบเจ้าหน้าที่</h3>
-            <p>สำหรับแอดมินเพื่อจัดการข่าวสารและดูรายชื่อลูกค้าที่ลงทะเบียน</p>
+            <p>สำหรับแอดมินเพื่อจัดการข่าวสาร รีวิวลูกค้า และดูรายชื่อลูกค้าลงทะเบียน</p>
         </div>
         <div class="form-group">
             <label>รหัสผ่านเจ้าหน้าที่ (Passcode)</label>
@@ -2231,7 +2156,109 @@
     </div>
 </div>
 
-<!-- MODAL 5: ยืนยันการลบ (ใช้ร่วมกันทั้งข่าวสารและรายชื่อลูกค้า) -->
+<!-- MODAL 5: เพิ่ม/แก้ไข รีวิวลูกค้า (TESTIMONIALS CMS) -->
+<div class="modal-overlay" id="testimonial-form-modal">
+    <div class="modal-content modal-lg">
+        <button class="close-modal" onclick="closeTestimonialFormModal()"><i class="fa-solid fa-times"></i></button>
+        <div class="modal-header">
+            <h3 id="testi-form-modal-title">เพิ่มรีวิวลูกค้าใหม่</h3>
+            <p>จัดการข้อความรีวิว แผนประกัน และสื่อแนบ (รูปภาพหรือคลิปวิดีโอแบบไม่บังคับ)</p>
+        </div>
+
+        <input type="hidden" id="edit-testi-id">
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>ชื่อลูกค้า *</label>
+                <input type="text" id="testi-input-name" placeholder="เช่น คุณสมชาย ก.">
+            </div>
+            <div class="form-group">
+                <label>แผนประกันที่ลูกค้าเลือก *</label>
+                <input type="text" id="testi-input-plan" placeholder="เช่น แผนประกันสุขภาพ Precious Care">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>ข้อความรีวิวความประทับใจ *</label>
+            <textarea id="testi-input-text" placeholder="พิมพ์ความประทับใจของลูกค้า..." style="min-height: 95px;"></textarea>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>ไอคอนโปรไฟล์ลูกค้า</label>
+                <select id="testi-input-icon">
+                    <option value="fa-user">บุคคลทั่วไป (fa-user)</option>
+                    <option value="fa-user-tie">นักธุรกิจ / พนักงาน (fa-user-tie)</option>
+                    <option value="fa-user-graduate">นักศึกษา / บัณฑิต (fa-user-graduate)</option>
+                    <option value="fa-user-doctor">บุคลากรทางการแพทย์ (fa-user-doctor)</option>
+                    <option value="fa-heart">ประทับใจ / ครอบครัว (fa-heart)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>สื่อแนบ (ไม่บังคับ)</label>
+                <select id="testi-input-media-type" onchange="toggleTestimonialMediaFields()">
+                    <option value="none">ไม่มี (แสดงเฉพาะข้อความ)</option>
+                    <option value="image">รูปภาพประกอบ (Image)</option>
+                    <option value="video">คลิปวิดีโอ (YouTube / MP4 / อัปโหลดจากเครื่อง)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- ช่องกรอกรูปภาพประกอบ (แสดงเฉพาะเมื่อเลือก image) -->
+        <div class="form-group" id="testi-media-image-group" style="display: none;">
+            <label>รูปภาพประกอบรีวิว (วาง URL รูปภาพ หรือ อัปโหลดจากเครื่อง)</label>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <input type="text" id="testi-input-img-url" placeholder="วางลิงก์รูปภาพ หรือกดปุ่มเลือกรูปจากเครื่อง ->" style="flex: 1;" oninput="updateTestimonialMediaPreview()">
+                <label for="testi-file-upload" class="btn btn-primary" style="padding: 10px 18px; font-size: 13px; border-radius: 8px; cursor: pointer; margin: 0;">
+                    <i class="fa-solid fa-upload"></i> เลือกรูปจากเครื่อง
+                </label>
+                <input type="file" id="testi-file-upload" accept="image/*" style="display: none;" onchange="handleTestimonialImageUpload(event)">
+            </div>
+        </div>
+
+        <!-- ช่องกรอกคลิปวิดีโอ หรืออัปโหลดวิดีโอจากเครื่องโดยตรง (แสดงเฉพาะเมื่อเลือก video) -->
+        <div class="form-group" id="testi-media-video-group" style="display: none;">
+            <label>คลิปวิดีโอรีวิว (วางลิงก์ YouTube / MP4 หรือ อัปโหลดไฟล์วิดีโอจากเครื่อง / คลังภาพ)</label>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <input type="text" id="testi-input-video-url" placeholder="วางลิงก์ YouTube / .mp4 หรือกดปุ่มเลือกคลิปจากเครื่อง ->" style="flex: 1;" oninput="handleManualVideoUrlInput(this.value)">
+                <label for="testi-video-file-upload" class="btn btn-primary" style="padding: 10px 18px; font-size: 13px; border-radius: 8px; cursor: pointer; margin: 0; white-space: nowrap;">
+                    <i class="fa-solid fa-file-video"></i> เลือกคลิปวิดีโอจากเครื่อง / คลังภาพ
+                </label>
+                <input type="file" id="testi-video-file-upload" accept="video/mp4,video/webm,video/quicktime,video/*" style="display: none;" onchange="handleTestimonialVideoUpload(event)">
+            </div>
+            <div id="testi-video-upload-status" style="font-size: 12px; color: var(--text-grey); margin-top: 6px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                <span><i class="fa-solid fa-circle-info" style="color: var(--primary);"></i> รองรับไฟล์ .mp4, .mov, .webm จากมือถือหรือคอมพิวเตอร์ หรือลิงก์ YouTube</span>
+                <button type="button" id="btn-clear-uploaded-video" onclick="clearUploadedTestimonialVideo()" style="display: none; background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; padding: 3px 10px; border-radius: 6px; font-size: 11.5px; cursor: pointer; font-family: 'Prompt', sans-serif;">
+                    <i class="fa-solid fa-trash-can"></i> ล้างไฟล์วิดีโอที่เลือก
+                </button>
+            </div>
+        </div>
+
+        <!-- พรีวิวสื่อแนบ -->
+        <div class="form-group" id="testi-media-preview-wrapper" style="display: none;">
+            <label>ตัวอย่างสื่อแนบที่จะแสดงในการ์ดรีวิว</label>
+            <div id="testi-media-preview-box" class="img-upload-preview-box" style="height: 220px; background: #111;">
+                <span style="color: #bbb; font-size: 13px;">ยังไม่ได้ระบุสื่อแนบ</span>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; margin-top: 15px;">
+            <button class="btn-submit" onclick="saveTestimonialItem()"><i class="fa-solid fa-floppy-disk"></i> บันทึกข้อมูลรีวิว</button>
+            <button class="btn-submit" style="background: #e5e5e5; color: #333; width: 35%;" onclick="closeTestimonialFormModal()">ยกเลิก</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL 5.5: LIGHTBOX ขยายดูรูปภาพรีวิวขนาดเต็ม -->
+<div class="modal-overlay" id="media-lightbox-modal" onclick="if(event.target===this) closeMediaLightbox()">
+    <div class="lightbox-content">
+        <button class="lightbox-close-btn" onclick="closeMediaLightbox()" title="ปิดหน้าต่าง"><i class="fa-solid fa-xmark"></i></button>
+        <img id="lightbox-img" src="" alt="ภาพประกอบรีวิวลูกค้า">
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+</div>
+
+<!-- MODAL 6: ยืนยันการลบ (ใช้ร่วมกันทั้งข่าวสาร รีวิว และรายชื่อลูกค้า) -->
 <div class="modal-overlay" id="confirm-delete-modal">
     <div class="modal-content" style="max-width: 400px; text-align: center;">
         <div style="font-size: 42px; color: var(--danger); margin-bottom: 10px;">
@@ -2246,7 +2273,7 @@
     </div>
 </div>
 
-<!-- MODAL 6: A4 DOCUMENT PREVIEW, PRINT, ULTRA-HIGH-RES CAPTURE & SHARE -->
+<!-- MODAL 7: A4 DOCUMENT PREVIEW, PRINT, ULTRA-HIGH-RES CAPTURE & SHARE -->
 <div class="modal-overlay" id="a4-preview-modal">
     <div class="modal-content modal-a4">
         <div class="a4-modal-toolbar">
@@ -2292,6 +2319,7 @@
         }, 4000);
     }
 
+    // คัดลอกข้อความลงคลิปบอร์ดแบบปลอดภัย (รองรับ iFrame)
     function copyTextFallback(text) {
         const ta = document.createElement('textarea');
         ta.value = text;
@@ -2313,6 +2341,33 @@
     });
 
     /* =========================================================================
+       ฟังก์ชันคำนวณค่า BMI และเกณฑ์มาตรฐานเอเชีย/ไทย
+       สูตร: BMI = น้ำหนัก (กก.) / (ส่วนสูง (เมตร) ยกกำลังสอง)
+       ========================================================================= */
+    function calculateBMIInfo(weightKg, heightCm) {
+        const w = parseFloat(weightKg);
+        const hCm = parseFloat(heightCm);
+        if (isNaN(w) || isNaN(hCm) || w <= 0 || hCm <= 0) {
+            return { bmi: null, display: '-', label: 'ไม่ระบุ', cssClass: 'bmi-na' };
+        }
+        const hMeter = hCm / 100;
+        const bmiVal = w / (hMeter * hMeter);
+        const bmiFixed = bmiVal.toFixed(2);
+
+        if (bmiVal < 18.5) {
+            return { bmi: bmiFixed, display: bmiFixed, label: 'ผอม', cssClass: 'bmi-under' };
+        } else if (bmiVal < 23.0) {
+            return { bmi: bmiFixed, display: bmiFixed, label: 'ปกติ/สมส่วน', cssClass: 'bmi-normal' };
+        } else if (bmiVal < 25.0) {
+            return { bmi: bmiFixed, display: bmiFixed, label: 'ท้วม', cssClass: 'bmi-over' };
+        } else if (bmiVal < 30.0) {
+            return { bmi: bmiFixed, display: bmiFixed, label: 'อ้วนระดับ 1', cssClass: 'bmi-obese1' };
+        } else {
+            return { bmi: bmiFixed, display: bmiFixed, label: 'อ้วนระดับ 2', cssClass: 'bmi-obese2' };
+        }
+    }
+
+    /* =========================================================================
        ข้อมูลแผนประกัน (PLANS DATA)
        ========================================================================= */
     const plansData = {
@@ -2323,12 +2378,12 @@
                     type: 'ผลิตภัณฑ์', title: 'ประกันสุขภาพ เหมาจ่าย FWD Precious Protection',
                     desc: 'ดูแลคุ้มครองครบทั้ง IPD และ OPD ไม่ว่าป่วยหนักหรือป่วยเบา ครอบคลุมทุกค่ารักษา ด้วยผลประโยชน์เหมาจ่ายสูงสุด 100 ล้านบาท',
                     tags: ['สุขภาพ', 'ค่ารักษาผู้ป่วยใน', 'ค่ารักษาผู้ป่วยนอก'], img: 'precious-pic.png?text=Precious+Care',
-                    url: 'https://precious-protection-toifwd.wirood01.workers.dev/' 
+                    url: 'https://precious-protection-toifwd.wirood01.workers.dev/'
                 },
                 {
                     type: 'ผลิตภัณฑ์', title: 'ประกันสุขภาพ FWD Prema Care',
                     desc: 'แผนความคุ้มครองสุขภาพที่เข้ามาช่วยแบ่งเบาภาระ พร้อมดูแลทุกค่าใช้จ่ายจากการรักษาเมื่อต้องเข้ารับการรักษาตัวในโรงพยาบาล',
-                    tags: ['สุขภาพ',  'ครอบครัว'], img: 'prema-pic.png?text=Family+Sharing',
+                    tags: ['สุขภาพ', 'ครอบครัว'], img: 'prema-pic.png?text=Family+Sharing',
                     url: 'https://prema-care-toifwd.wirood01.workers.dev/'
                 },
                 {
@@ -2364,43 +2419,43 @@
                 }
             ]
         },
-        'ci': { 
-            title: 'แผนประกันโรคร้ายแรง', 
+        'ci': {
+            title: 'แผนประกันโรคร้ายแรง',
             items: [
                 {
                     type: 'สัญญาเพิ่มเติม', title: 'ประกันโรคร้าย ซีไอ 50',
                     desc: 'เตรียมพร้อมไว้เสมอ กับแผนประกันที่ออกแบบมาให้คุณพร้อมรับมือกับ 50 โรคร้าย มาเมื่อไหร่ก็รับมือได้ทันที',
-                    tags: ['สุขภาพ', 'โรคร้ายแรง', 'เสียชีวิต'], img: 'ci50.png', url: 'https://life-value-protect-ci50-toifwd.wirood01.workers.dev/' 
+                    tags: ['สุขภาพ', 'โรคร้ายแรง', 'เสียชีวิต'], img: 'ci50.png', url: 'https://life-value-protect-ci50-toifwd.wirood01.workers.dev/'
                 },
                 {
                     type: 'ผลิตภัณฑ์', title: 'CI Re-Claim Re-Care Plus',
                     desc: 'แพ็กเกจความคุ้มครองชีวิตและโรคร้ายแรง เคลมได้สูงสุด 14 ครั้ง และเคลมซ้ำใน 5 โรคร้ายแรงระดับรุนแรงเดิมได้อีกครั้ง ครอบคลุมมากถึง 110 โรคร้าย...',
-                    tags: ['โรคร้ายแรง', 'โรคมะเร็ง', 'สุขภาพ'], img: 'ci-reclaim.png', url: 'https://ci-reclaim-recare-plus-toifwd.wirood01.workers.dev/' 
+                    tags: ['โรคร้ายแรง', 'โรคมะเร็ง', 'สุขภาพ'], img: 'ci-reclaim.png', url: 'https://ci-reclaim-recare-plus-toifwd.wirood01.workers.dev/'
                 },
                 {
                     type: 'ผลิตภัณฑ์', title: 'ซีไอ ฟิกซ์ เปย์ ตลอดชีพ รับมือโรคร้ายแรง',
                     desc: 'เพิ่มความมั่นใจในการใช้ชีวิต และไร้กังวลกับเรื่องที่ไม่คาดฝัน ด้วยแผนความคุ้มครองชีวิต และโรคร้ายแรงตลอดชีพ',
-                    tags: ['เสียชีวิต', 'โรคร้ายแรง', 'ลดหย่อนภาษี'], img: 'cifixpay.png', url: 'https://ci-fixed-pay-toifwd.wirood01.workers.dev/' 
+                    tags: ['เสียชีวิต', 'โรคร้ายแรง', 'ลดหย่อนภาษี'], img: 'cifixpay.png', url: 'https://ci-fixed-pay-toifwd.wirood01.workers.dev/'
                 },
                 {
                     type: 'ผลิตภัณฑ์', title: 'ประกันโรคร้ายแรง Big 3',
                     desc: 'คุ้มครองครอบคลุม 3 กลุ่มโรคร้ายแรง อันดับต้นๆ ของไทย เจอ จ่าย เต็ม 100%',
                     tags: ['สุขภาพ', 'โรคร้ายแรง', 'เสียชีวิต'], img: 'big3.png', url: 'https://big3-toifwd.wirood01.workers.dev/'
                 }
-            ] 
+            ]
         },
-        'pension': { 
-            title: 'แผนประกันบำนาญ', 
+        'pension': {
+            title: 'แผนประกันบำนาญ',
             items: [
                 {
                     type: 'ผลิตภัณฑ์', title: 'เอฟดับบลิวดี ชัวร์ เพนชัน',
                     desc: 'รับเงินบำนาญสูงถึง 20% ของทุนประกันภัย ต่อเนื่องจนถึงอายุ 85 ปี เพื่อชีวิตหลังเกษียณที่อิสระ และมีคุณภาพในแบบที่คุณวางแผนไว้',
                     tags: ['เกษียณ/บำนาญ', 'เงินคืน', 'ลดหย่อนภาษี'], img: 'sure-pension.png', url: 'https://fwd-sure-pension-toifwd.wirood01.workers.dev/'
                 }
-            ] 
+            ]
         },
-        'legacy': { 
-            title: 'แผนประกันสร้างมรดก', 
+        'legacy': {
+            title: 'แผนประกันสร้างมรดก',
             items: [
                 {
                     type: 'แพ็กเกจ', title: 'ประกันสร้างมรดก + คุ้มครอง 50 โรคร้ายแรง',
@@ -2427,7 +2482,7 @@
                     desc: 'แผนประกันชีวิตที่ไม่เพียงแต่มอบความคุ้มครองตลอดชีพให้ครอบครัวและคนที่คุณรัก แต่ยังมอบเงินคืนให้คุณทุกปี พร้อมโอกาสรับเงินปันผล',
                     tags: ['เสียชีวิต', 'เงินคืน'], img: 'legacy-extra.png', url: 'https://whole-life-extra-toifwd.wirood01.workers.dev/'
                 }
-            ] 
+            ]
         },
         'nonlife': { title: 'แผนประกันวินาศภัย', items: [] }
     };
@@ -2468,6 +2523,41 @@
     /*__END_DEFAULT_NEWS_DATA__*/
 
     /* =========================================================================
+       ข้อมูลเริ่มต้นของรีวิวลูกค้า (DEFAULT TESTIMONIAL DATA)
+       ========================================================================= */
+    /*__START_DEFAULT_TESTI_DATA__*/
+    const defaultTestimonialData = [
+        {
+            id: 'testi-1',
+            name: 'คุณสมชาย ก.',
+            plan: 'แผนประกันสุขภาพ Precious Care',
+            text: '"บริการดีมาก เคลมไว อธิบายแผนเข้าใจง่ายและตรงตามความต้องการที่สุด"',
+            icon: 'fa-user',
+            mediaType: 'none',
+            mediaUrl: ''
+        },
+        {
+            id: 'testi-2',
+            name: 'คุณนกน้อย จ.',
+            plan: 'แผนประกันสะสมทรัพย์',
+            text: '"ช่วยวางแผนการเงินได้เห็นภาพชัดเจน ช่วยจัดแผนให้คุ้มค่ากับงบที่ตั้งไว้"',
+            icon: 'fa-user-tie',
+            mediaType: 'none',
+            mediaUrl: ''
+        },
+        {
+            id: 'testi-3',
+            name: 'คุณพัชรี ส.',
+            plan: 'แผนประกันบำนาญ',
+            text: '"เป็นกันเอง ให้คำปรึกษาตลอดไม่หายหน้าเวลาเคลม รู้สึกอุ่นใจมากๆ เลยค่ะ"',
+            icon: 'fa-user-graduate',
+            mediaType: 'none',
+            mediaUrl: ''
+        }
+    ];
+    /*__END_DEFAULT_TESTI_DATA__*/
+
+    /* =========================================================================
        ข้อมูลเริ่มต้นของรายชื่อลูกค้าลงทะเบียน (DEFAULT LEADS DATA - ADMIN ONLY)
        ========================================================================= */
     /*__START_DEFAULT_LEADS_DATA__*/
@@ -2480,8 +2570,11 @@
             gender: 'ชาย',
             dob: '14/5/2533',
             age: 36,
+            weight: 74,
+            height: 175,
             phone: '089-456-7890',
             lineId: 'thanakorn.w',
+            contactTime: 'ช่วงเย็น (16:00 - 20:00 น.)',
             occupation: 'วิศวกรโรงงาน (นิคมฯ นวนคร)',
             smoking: 'ไม่สูบบุหรี่',
             budget: '20,000 - 50,000 บาท/ปี',
@@ -2501,8 +2594,11 @@
             gender: 'หญิง',
             dob: '22/9/2538',
             age: 31,
+            weight: 54,
+            height: 162,
             phone: '081-234-5678',
             lineId: 'kanokwan_s',
+            contactTime: 'ช่วงเช้า (09:00 - 12:00 น.)',
             occupation: 'พนักงานบริษัทเอกชน / บัญชี',
             smoking: 'ไม่สูบบุหรี่',
             budget: '50,000 - 100,000 บาท/ปี',
@@ -2518,23 +2614,92 @@
     /*__END_DEFAULT_LEADS_DATA__*/
 
     const STORAGE_KEY_NEWS = 'fwd_agent_news_items_v1';
-    const STORAGE_KEY_LEADS = 'fwd_agent_leads_items_v1';
+    const STORAGE_KEY_TESTI = 'fwd_agent_testi_items_v1';
+    const STORAGE_KEY_LEADS = 'fwd_agent_leads_items_v2';
 
     let newsList = [];
+    let testimonialList = [];
     let leadsList = [];
     let currentNewsFilter = 'all';
     let isAdminLoggedIn = false;
     let currentA4Context = { mode: 'single', lead: null, leads: [] };
+    let tempUploadedVideoDataUrl = '';
+
+    /* =========================================================================
+       INDEXEDDB HELPER (รองรับการจัดเก็บไฟล์วิดีโอขนาดใหญ่เกินโควตา localStorage)
+       ========================================================================= */
+    const IDB_NAME = 'FWD_Agent_CMS_DB';
+    const IDB_STORE = 'cms_store';
+
+    function openCmsIDB() {
+        return new Promise((resolve, reject) => {
+            if (!window.indexedDB) {
+                reject(new Error('No IndexedDB'));
+                return;
+            }
+            const req = indexedDB.open(IDB_NAME, 1);
+            req.onupgradeneeded = function(e) {
+                const db = e.target.result;
+                if (!db.objectStoreNames.contains(IDB_STORE)) {
+                    db.createObjectStore(IDB_STORE);
+                }
+            };
+            req.onsuccess = e => resolve(e.target.result);
+            req.onerror = e => reject(e.target.error);
+        });
+    }
+
+    async function saveToIDB(key, val) {
+        try {
+            const db = await openCmsIDB();
+            return new Promise((resolve, reject) => {
+                const tx = db.transaction(IDB_STORE, 'readwrite');
+                tx.objectStore(IDB_STORE).put(val, key);
+                tx.oncomplete = () => resolve(true);
+                tx.onerror = e => reject(e.target.error);
+            });
+        } catch (e) {
+            return false;
+        }
+    }
+
+    async function getFromIDB(key) {
+        try {
+            const db = await openCmsIDB();
+            return new Promise((resolve) => {
+                const tx = db.transaction(IDB_STORE, 'readonly');
+                const req = tx.objectStore(IDB_STORE).get(key);
+                req.onsuccess = () => resolve(req.result || null);
+                req.onerror = () => resolve(null);
+            });
+        } catch (e) {
+            return null;
+        }
+    }
 
     /* =========================================================================
        INITIALIZATION & STORAGE
        ========================================================================= */
-    function loadAllData() {
+    async function loadAllData() {
         try {
             const savedNews = localStorage.getItem(STORAGE_KEY_NEWS);
             newsList = savedNews ? JSON.parse(savedNews) : JSON.parse(JSON.stringify(defaultNewsData));
         } catch (e) {
             newsList = JSON.parse(JSON.stringify(defaultNewsData));
+        }
+
+        try {
+            const idbTesti = await getFromIDB(STORAGE_KEY_TESTI);
+            const savedTesti = localStorage.getItem(STORAGE_KEY_TESTI);
+            if (idbTesti && Array.isArray(idbTesti) && idbTesti.length > 0) {
+                testimonialList = idbTesti;
+            } else if (savedTesti) {
+                testimonialList = JSON.parse(savedTesti);
+            } else {
+                testimonialList = JSON.parse(JSON.stringify(defaultTestimonialData));
+            }
+        } catch (e) {
+            testimonialList = JSON.parse(JSON.stringify(defaultTestimonialData));
         }
 
         try {
@@ -2546,6 +2711,7 @@
 
         populateConsultCategoryOptions();
         renderNewsGrid();
+        renderTestimonialGrid();
         populateLeadYearFilter();
         renderAdminLeadsTable();
         updateAdminLeadsBadge();
@@ -2556,6 +2722,15 @@
             localStorage.setItem(STORAGE_KEY_NEWS, JSON.stringify(newsList));
         } catch (e) {
             showToast('พื้นที่จัดเก็บในเบราว์เซอร์เต็ม กรุณาใช้รูปภาพขนาดเล็กลง');
+        }
+    }
+
+    function saveTestimonialsToStorage() {
+        saveToIDB(STORAGE_KEY_TESTI, testimonialList);
+        try {
+            localStorage.setItem(STORAGE_KEY_TESTI, JSON.stringify(testimonialList));
+        } catch (e) {
+            // หากไฟล์วิดีโอมีขนาดใหญ่เกิน 5MB ของ localStorage ระบบจะเก็บใน IndexedDB และหน่วยความจำหลักแทน
         }
     }
 
@@ -2643,6 +2818,21 @@
         badge.innerText = 'อายุ -- ปี';
     }
 
+    function updateConsultBMIBadge() {
+        const w = document.getElementById('c-weight')?.value;
+        const h = document.getElementById('c-height')?.value;
+        const badge = document.getElementById('c-bmi-badge');
+        if (!badge) return;
+        const bmiInfo = calculateBMIInfo(w, h);
+        if (bmiInfo.bmi) {
+            badge.className = `bmi-badge ${bmiInfo.cssClass}`;
+            badge.innerText = `BMI ${bmiInfo.display} (${bmiInfo.label})`;
+        } else {
+            badge.className = 'bmi-badge bmi-na';
+            badge.innerText = 'กรอกน้ำหนักและส่วนสูงเพื่อคำนวณ BMI';
+        }
+    }
+
     function submitConsultForm(e) {
         e.preventDefault();
         const prefix = document.getElementById('c-prefix').value;
@@ -2653,8 +2843,11 @@
         const day = document.getElementById('c-day').value;
         const month = document.getElementById('c-month').value;
         const year = document.getElementById('c-year').value.trim();
+        const weight = parseFloat(document.getElementById('c-weight').value);
+        const height = parseFloat(document.getElementById('c-height').value);
         const phone = document.getElementById('c-phone').value.trim();
         const lineId = document.getElementById('c-line').value.trim() || '-';
+        const contactTime = document.getElementById('c-contact-time').value;
         const occupation = document.getElementById('c-occupation').value.trim();
         const budget = document.getElementById('c-budget').value;
         const categoryKey = document.getElementById('c-category').value;
@@ -2663,7 +2856,7 @@
         const notes = document.getElementById('c-notes').value.trim() || '-';
         const pdpa = document.getElementById('c-pdpa').checked;
 
-        if (!fname || !lname || !day || !month || !year || !phone || !occupation || !budget || !categoryKey) {
+        if (!fname || !lname || !day || !month || !year || isNaN(weight) || isNaN(height) || !phone || !contactTime || !occupation || !budget || !categoryKey) {
             showToast('กรุณากรอกข้อมูลที่จำเป็นให้ครบถ้วน');
             return;
         }
@@ -2674,12 +2867,15 @@
 
         const age = calculateAge(day, month, year);
         const dob = `${day}/${month}/${year}`;
+        const bmiInfo = calculateBMIInfo(weight, height);
         const now = new Date();
         const refId = `LEAD-${now.getFullYear() + 543}-${String(Math.floor(100 + Math.random() * 900))}`;
 
         const newLead = {
             id: refId,
-            prefix, fname, lname, gender, dob, age, phone, lineId,
+            prefix, fname, lname, gender, dob, age,
+            weight, height,
+            phone, lineId, contactTime,
             occupation, smoking, budget, categoryKey, categoryTitle, plan, notes,
             pdpaConsent: true,
             source: 'แบบฟอร์มลงทะเบียนหน้าเว็บ',
@@ -2704,7 +2900,7 @@
                 dob: dob,
                 age: age,
                 phone: phone,
-                plan: `${categoryTitle} - ${plan} (งบ: ${budget}, อาชีพ: ${occupation}, LINE: ${lineId})`
+                plan: `${categoryTitle} - ${plan} (น้ำหนัก ${weight} กก./สูง ${height} ซม./BMI ${bmiInfo.display} ${bmiInfo.label}, สะดวกติดต่อ: ${contactTime}, งบ: ${budget}, อาชีพ: ${occupation}, LINE: ${lineId})`
             })
         }).catch(() => {
             // บันทึกในระบบแอดมินเรียบร้อยแล้วแม้ offline
@@ -2713,8 +2909,9 @@
             btn.innerHTML = oldHtml;
             document.getElementById('voluntary-consult-form').reset();
             document.getElementById('c-age-badge').innerText = 'อายุ -- ปี';
+            updateConsultBMIBadge();
             populateConsultPlanOptions();
-            showToast('ลงทะเบียนเรียบร้อยแล้วค่ะ! ตัวแทนจะติดต่อกลับเพื่อให้คำปรึกษาโดยเร็วที่สุด');
+            showToast('ลงทะเบียนเรียบร้อยแล้วค่ะ! ตัวแทนจะติดต่อกลับในช่วงเวลาที่คุณสะดวกค่ะ');
         });
     }
 
@@ -2766,7 +2963,7 @@
             if (yearVal !== 'all' && leadYearBE !== yearVal) return false;
 
             if (q) {
-                const haystack = `${lead.id} ${lead.prefix}${lead.fname} ${lead.lname} ${lead.phone} ${lead.lineId} ${lead.plan} ${lead.categoryTitle} ${lead.occupation}`.toLowerCase();
+                const haystack = `${lead.id} ${lead.prefix || ''}${lead.fname} ${lead.lname} ${lead.phone} ${lead.lineId || ''} ${lead.contactTime || ''} ${lead.plan} ${lead.categoryTitle || ''} ${lead.occupation || ''}`.toLowerCase();
                 if (!haystack.includes(q)) return false;
             }
             return true;
@@ -2792,7 +2989,7 @@
         if (filtered.length === 0) {
             tbody.innerHTML = `
                 <tr>
-                    <td colspan="5" style="text-align: center; padding: 40px 20px; color: #64748b;">
+                    <td colspan="6" style="text-align: center; padding: 40px 20px; color: #64748b;">
                         <i class="fa-regular fa-folder-open" style="font-size: 32px; color: var(--primary); margin-bottom: 8px; opacity: 0.6;"></i>
                         <div>ไม่พบข้อมูลลูกค้าตามเงื่อนไขที่ค้นหา</div>
                     </td>
@@ -2801,7 +2998,14 @@
             return;
         }
 
-        tbody.innerHTML = filtered.map(lead => `
+        tbody.innerHTML = filtered.map(lead => {
+            const bmiInfo = calculateBMIInfo(lead.weight, lead.height);
+            const whText = (lead.weight && lead.height) ? `${lead.weight} กก. / ${lead.height} ซม.` : 'ไม่ระบุ';
+            const bmiBadgeHtml = bmiInfo.bmi
+                ? `<span class="bmi-badge ${bmiInfo.cssClass}">BMI ${bmiInfo.display} (${bmiInfo.label})</span>`
+                : `<span class="bmi-badge bmi-na">ไม่มีข้อมูล BMI</span>`;
+
+            return `
             <tr>
                 <td style="white-space: nowrap;">
                     <div style="font-weight: 600; color: #0f172a;">${formatThaiDateTime(lead.createdAt)}</div>
@@ -2815,8 +3019,13 @@
                     <div style="font-size: 12px; color: #64748b;">อาชีพ: ${lead.occupation || '-'}</div>
                 </td>
                 <td style="white-space: nowrap;">
-                    <div><i class="fa-solid fa-phone" style="color: var(--primary); width: 16px;"></i> ${lead.phone}</div>
-                    <div style="font-size: 12px; color: #059669;"><i class="fa-brands fa-line" style="width: 16px;"></i> ${lead.lineId || '-'}</div>
+                    <div style="font-size: 12.5px; font-weight: 600; color: #334155; margin-bottom: 5px;">${whText}</div>
+                    ${bmiBadgeHtml}
+                </td>
+                <td>
+                    <div style="white-space: nowrap;"><i class="fa-solid fa-phone" style="color: var(--primary); width: 16px;"></i> ${lead.phone}</div>
+                    <div style="font-size: 12px; color: #059669; white-space: nowrap;"><i class="fa-brands fa-line" style="width: 16px;"></i> ${lead.lineId || '-'}</div>
+                    <div class="contact-time-chip"><i class="fa-regular fa-clock"></i> ${lead.contactTime || 'ไม่ระบุช่วงเวลา'}</div>
                 </td>
                 <td>
                     <div style="font-size: 12px; color: #64748b;">${lead.categoryTitle || 'ทั่วไป'}</div>
@@ -2837,7 +3046,8 @@
                     </div>
                 </td>
             </tr>
-        `).join('');
+            `;
+        }).join('');
     }
 
     function confirmDeleteLead(id) {
@@ -2860,6 +3070,12 @@
         currentA4Context = { mode: 'single', lead, leads: [lead] };
         document.getElementById('a4-modal-title-text').innerText = `ใบข้อมูลลูกค้า A4 — ${lead.prefix || ''}${lead.fname} ${lead.lname}`;
 
+        const bmiInfo = calculateBMIInfo(lead.weight, lead.height);
+        const whDisplay = (lead.weight && lead.height) ? `${lead.weight} กก. / ${lead.height} ซม.` : '-';
+        const bmiDisplayHtml = bmiInfo.bmi
+            ? `<span class="bmi-badge ${bmiInfo.cssClass}" style="font-size: 12.5px;">BMI ${bmiInfo.display} — ${bmiInfo.label}</span>`
+            : '-';
+
         const printArea = document.getElementById('a4-print-area');
         printArea.innerHTML = `
             <div class="a4-top-accent"></div>
@@ -2876,7 +3092,7 @@
                 </div>
             </div>
 
-            <div class="a4-section-heading">1. ข้อมูลส่วนตัวลูกค้า (Personal Information)</div>
+            <div class="a4-section-heading">1. ข้อมูลส่วนตัวและสุขภาพเบื้องต้น (Personal & Health Information)</div>
             <div class="a4-info-grid">
                 <div class="a4-field">
                     <span class="a4-field-label">ชื่อ - นามสกุล</span>
@@ -2895,12 +3111,20 @@
                     <span class="a4-field-value">${lead.occupation || '-'}</span>
                 </div>
                 <div class="a4-field">
-                    <span class="a4-field-label">หมายเลขโทรศัพท์</span>
-                    <span class="a4-field-value">${lead.phone}</span>
+                    <span class="a4-field-label">น้ำหนัก / ส่วนสูง</span>
+                    <span class="a4-field-value">${whDisplay}</span>
                 </div>
                 <div class="a4-field">
-                    <span class="a4-field-label">LINE ID</span>
-                    <span class="a4-field-value">${lead.lineId || '-'}</span>
+                    <span class="a4-field-label">ค่าดัชนีมวลกาย (BMI) และเกณฑ์มาตรฐาน</span>
+                    <span class="a4-field-value" style="display:inline-block; margin-top:2px;">${bmiDisplayHtml}</span>
+                </div>
+                <div class="a4-field">
+                    <span class="a4-field-label">หมายเลขโทรศัพท์ / LINE ID</span>
+                    <span class="a4-field-value">${lead.phone} / LINE: ${lead.lineId || '-'}</span>
+                </div>
+                <div class="a4-field">
+                    <span class="a4-field-label">ช่วงเวลาที่สะดวกให้ติดต่อ</span>
+                    <span class="a4-field-value" style="color: #1d4ed8;">${lead.contactTime || '-'}</span>
                 </div>
             </div>
 
@@ -2952,15 +3176,20 @@
         const yearSel = document.getElementById('lead-year-filter');
         const filterDesc = `${monthSel.options[monthSel.selectedIndex].text} / ${yearSel.options[yearSel.selectedIndex].text}`;
 
-        const rowsHtml = filtered.map((l, idx) => `
+        const rowsHtml = filtered.map((l, idx) => {
+            const bmiInfo = calculateBMIInfo(l.weight, l.height);
+            const bmiSummary = bmiInfo.bmi ? `${l.weight}กก./${l.height}ซม.<br><strong>BMI ${bmiInfo.display}</strong> (${bmiInfo.label})` : '-';
+            return `
             <tr>
                 <td style="text-align: center;">${idx + 1}</td>
                 <td>${formatThaiDateTime(l.createdAt)}<br><small style="color:#666;">${l.id}</small></td>
                 <td><strong>${l.prefix || ''}${l.fname} ${l.lname}</strong><br><small>${l.gender || '-'}, อายุ ${l.age} ปี, ${l.smoking || '-'}</small></td>
-                <td>${l.phone}<br><small>LINE: ${l.lineId || '-'}</small></td>
+                <td>${bmiSummary}</td>
+                <td>${l.phone}<br><small>LINE: ${l.lineId || '-'}</small><br><small style="color:#1d4ed8;">สะดวก: ${l.contactTime || '-'}</small></td>
                 <td><strong>${l.plan}</strong><br><small>งบ: ${l.budget || '-'}</small></td>
             </tr>
-        `).join('');
+            `;
+        }).join('');
 
         const printArea = document.getElementById('a4-print-area');
         printArea.innerHTML = `
@@ -2981,10 +3210,11 @@
             <table class="a4-summary-table">
                 <thead>
                     <tr>
-                        <th style="width: 34px; text-align: center;">#</th>
-                        <th style="width: 135px;">วัน-เวลาลงทะเบียน</th>
+                        <th style="width: 28px; text-align: center;">#</th>
+                        <th style="width: 115px;">วัน-เวลาลงทะเบียน</th>
                         <th>ชื่อ-นามสกุล / ข้อมูล</th>
-                        <th style="width: 115px;">ติดต่อ</th>
+                        <th style="width: 105px;">นน./สส./BMI</th>
+                        <th style="width: 120px;">ติดต่อ & เวลาสะดวก</th>
                         <th>แบบประกันที่สนใจ / งบประมาณ</th>
                     </tr>
                 </thead>
@@ -3048,7 +3278,9 @@
     }
 
     function buildLeadShareText(lead) {
-        return `[ข้อมูลลูกค้าลงทะเบียน FWD]\nรหัส: ${lead.id}\nชื่อ: ${lead.prefix || ''}${lead.fname} ${lead.lname}\nเพศ: ${lead.gender || '-'} | อายุ: ${lead.age} ปี (${lead.dob})\nสูบบุหรี่: ${lead.smoking || '-'}\nอาชีพ: ${lead.occupation || '-'}\nเบอร์โทร: ${lead.phone} | LINE: ${lead.lineId || '-'}\nแผนที่สนใจ: ${lead.plan}\nงบประมาณ: ${lead.budget || '-'}\nหมายเหตุ: ${lead.notes || '-'}\nเวลาลงทะเบียน: ${formatThaiDateTime(lead.createdAt)}`;
+        const bmiInfo = calculateBMIInfo(lead.weight, lead.height);
+        const bmiStr = bmiInfo.bmi ? `${lead.weight} กก. / ${lead.height} ซม. (BMI ${bmiInfo.display} - ${bmiInfo.label})` : '-';
+        return `[ข้อมูลลูกค้าลงทะเบียน FWD]\nรหัส: ${lead.id}\nชื่อ: ${lead.prefix || ''}${lead.fname} ${lead.lname}\nเพศ: ${lead.gender || '-'} | อายุ: ${lead.age} ปี (${lead.dob})\nน้ำหนัก/ส่วนสูง/BMI: ${bmiStr}\nสูบบุหรี่: ${lead.smoking || '-'}\nอาชีพ: ${lead.occupation || '-'}\nเบอร์โทร: ${lead.phone} | LINE: ${lead.lineId || '-'}\nช่วงเวลาสะดวกติดต่อ: ${lead.contactTime || '-'}\nแผนที่สนใจ: ${lead.plan}\nงบประมาณ: ${lead.budget || '-'}\nหมายเหตุ: ${lead.notes || '-'}\nเวลาลงทะเบียน: ${formatThaiDateTime(lead.createdAt)}`;
     }
 
     async function shareA4Document() {
@@ -3097,6 +3329,373 @@
     }
 
     /* =========================================================================
+       TESTIMONIALS CMS FUNCTIONS (รีวิวลูกค้า + สื่อแนบรูปภาพ/วิดีโอไม่บังคับ)
+       ========================================================================= */
+    function getYouTubeEmbedUrl(url) {
+        if (!url) return null;
+        const trimmed = url.trim();
+        const patterns = [
+            /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/|youtube\.com\/embed\/)([A-Za-z0-9_-]{11})/
+        ];
+        for (const regex of patterns) {
+            const match = trimmed.match(regex);
+            if (match && match[1]) {
+                return `https://www.youtube.com/embed/${match[1]}?rel=0`;
+            }
+        }
+        return null;
+    }
+
+    function buildTestimonialMediaHtml(item) {
+        const type = item.mediaType || 'none';
+        const url = (item.mediaUrl || '').trim();
+        if (type === 'none' || !url) return '';
+
+        if (type === 'image') {
+            const safeCaption = `${item.name} — ${item.plan}`.replace(/'/g, "\\'");
+            const safeUrl = url.replace(/'/g, "\\'");
+            return `
+                <div class="testimonial-media-box">
+                    <img src="${url}" alt="รีวิวจาก ${item.name}" onclick="openMediaLightbox('${safeUrl}', '${safeCaption}')" onerror="this.src='https://placehold.co/600x340/fff2e8/e86614?text=Image+Not+Found'">
+                    <span class="testimonial-media-zoom-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> คลิกดูภาพเต็ม</span>
+                </div>
+            `;
+        }
+
+        if (type === 'video') {
+            const ytEmbed = getYouTubeEmbedUrl(url);
+            if (ytEmbed) {
+                return `
+                    <div class="testimonial-media-box">
+                        <iframe src="${ytEmbed}" title="วิดีโอรีวิวจาก ${item.name}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                `;
+            }
+            return `
+                <div class="testimonial-media-box">
+                    <video controls playsinline preload="metadata" src="${url}">
+                        เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอนี้
+                    </video>
+                </div>
+            `;
+        }
+        return '';
+    }
+
+    function openMediaLightbox(src, caption) {
+        document.getElementById('lightbox-img').src = src;
+        const capEl = document.getElementById('lightbox-caption');
+        capEl.innerText = caption || '';
+        capEl.style.display = caption ? 'block' : 'none';
+        document.getElementById('media-lightbox-modal').classList.add('active');
+    }
+
+    function closeMediaLightbox() {
+        document.getElementById('media-lightbox-modal').classList.remove('active');
+        document.getElementById('lightbox-img').src = '';
+    }
+
+    function renderTestimonialGrid() {
+        const container = document.getElementById('testimonial-grid-container');
+        if (!container) return;
+        container.innerHTML = '';
+
+        if (testimonialList.length === 0) {
+            container.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 40px 20px; background: var(--white); border-radius: 15px; color: var(--text-grey);">
+                    <i class="fa-regular fa-comments" style="font-size: 36px; color: var(--primary); margin-bottom: 10px; opacity: 0.6;"></i>
+                    <p>ยังไม่มีข้อความรีวิวจากลูกค้า</p>
+                </div>
+            `;
+            return;
+        }
+
+        testimonialList.forEach(item => {
+            const mediaHtml = buildTestimonialMediaHtml(item);
+            const card = document.createElement('div');
+            card.className = 'testimonial-card';
+            card.innerHTML = `
+                <div class="card-admin-btns">
+                    <button class="btn-card-tool edit" title="แก้ไขรีวิวนี้" onclick="openTestimonialFormModal('${item.id}')">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>
+                    <button class="btn-card-tool delete" title="ลบรีวิวนี้" onclick="confirmDeleteTestimonial('${item.id}')">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+                <i class="fa-solid fa-quote-left quote-icon"></i>
+                <p class="testimonial-text">${item.text}</p>
+                ${mediaHtml}
+                <div class="client-info">
+                    <div class="client-img-placeholder"><i class="fa-solid ${item.icon || 'fa-user'}"></i></div>
+                    <div>
+                        <div class="client-name">${item.name}</div>
+                        <div class="client-plan">${item.plan}</div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function toggleTestimonialMediaFields() {
+        const type = document.getElementById('testi-input-media-type').value;
+        document.getElementById('testi-media-image-group').style.display = type === 'image' ? 'block' : 'none';
+        document.getElementById('testi-media-video-group').style.display = type === 'video' ? 'block' : 'none';
+        document.getElementById('testi-media-preview-wrapper').style.display = type === 'none' ? 'none' : 'block';
+        updateTestimonialMediaPreview();
+    }
+
+    function updateTestimonialMediaPreview() {
+        const type = document.getElementById('testi-input-media-type').value;
+        const previewBox = document.getElementById('testi-media-preview-box');
+        if (!previewBox) return;
+
+        if (type === 'image') {
+            const url = document.getElementById('testi-input-img-url').value.trim();
+            if (url) {
+                previewBox.innerHTML = `<img src="${url}" alt="Preview" onerror="this.parentElement.innerHTML='<span style=color:#ff858f;font-size:13px;>ไม่สามารถโหลดรูปภาพจากลิงก์นี้ได้</span>'">`;
+            } else {
+                previewBox.innerHTML = `<span style="color: #bbb; font-size: 13px;">วางลิงก์รูปภาพ หรือเลือกรูปจากเครื่องเพื่อดูตัวอย่าง</span>`;
+            }
+        } else if (type === 'video') {
+            const rawInput = document.getElementById('testi-input-video-url').value.trim();
+            const url = tempUploadedVideoDataUrl || rawInput;
+            if (!url) {
+                previewBox.innerHTML = `<span style="color: #bbb; font-size: 13px;">วางลิงก์ YouTube / .mp4 หรือกดปุ่ม "เลือกคลิปวิดีโอจากเครื่อง" เพื่อดูตัวอย่างวิดีโอ</span>`;
+                return;
+            }
+            const ytEmbed = getYouTubeEmbedUrl(url);
+            if (ytEmbed) {
+                previewBox.innerHTML = `<iframe src="${ytEmbed}" style="width:100%;height:100%;border:none;" allowfullscreen></iframe>`;
+            } else {
+                previewBox.innerHTML = `<video controls playsinline preload="metadata" src="${url}" style="width:100%;height:100%;background:#000;object-fit:contain;"></video>`;
+            }
+        }
+    }
+
+    function handleManualVideoUrlInput(val) {
+        if (tempUploadedVideoDataUrl && !val.startsWith('[ไฟล์วิดีโอจากเครื่อง:')) {
+            tempUploadedVideoDataUrl = '';
+            const clearBtn = document.getElementById('btn-clear-uploaded-video');
+            if (clearBtn) clearBtn.style.display = 'none';
+        }
+        updateTestimonialMediaPreview();
+    }
+
+    function handleTestimonialVideoUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (!file.type.startsWith('video/')) {
+            showToast('กรุณาเลือกไฟล์วิดีโอเท่านั้น (เช่น .mp4, .mov, .webm)');
+            return;
+        }
+
+        const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+        const statusSpan = document.querySelector('#testi-video-upload-status span');
+        const clearBtn = document.getElementById('btn-clear-uploaded-video');
+        const previewBox = document.getElementById('testi-media-preview-box');
+
+        if (statusSpan) {
+            statusSpan.innerHTML = `<i class="fa-solid fa-spinner fa-spin" style="color: var(--primary);"></i> กำลังโหลดไฟล์วิดีโอ "${file.name}" (${sizeMB} MB)...`;
+        }
+        if (previewBox) {
+            previewBox.innerHTML = `<span style="color: #ff9f59; font-size: 13px;"><i class="fa-solid fa-spinner fa-spin"></i> กำลังประมวลผลคลิปวิดีโอ (${sizeMB} MB)...</span>`;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            tempUploadedVideoDataUrl = e.target.result;
+            const videoUrlInput = document.getElementById('testi-input-video-url');
+            if (videoUrlInput) {
+                videoUrlInput.value = `[ไฟล์วิดีโอจากเครื่อง: ${file.name} (${sizeMB} MB)]`;
+            }
+            if (statusSpan) {
+                statusSpan.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #198754;"></i> โหลดคลิปวิดีโอ <strong>${file.name}</strong> (${sizeMB} MB) พร้อมแสดงผลแล้ว`;
+            }
+            if (clearBtn) clearBtn.style.display = 'inline-block';
+            updateTestimonialMediaPreview();
+            showToast(`อัปโหลดคลิปวิดีโอ (${sizeMB} MB) เรียบร้อยแล้ว`);
+        };
+        reader.onerror = function() {
+            showToast('เกิดข้อผิดพลาดในการอ่านไฟล์วิดีโอ กรุณาลองใหม่อีกครั้ง');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function clearUploadedTestimonialVideo() {
+        tempUploadedVideoDataUrl = '';
+        const videoUrlInput = document.getElementById('testi-input-video-url');
+        const videoFileInput = document.getElementById('testi-video-file-upload');
+        const statusSpan = document.querySelector('#testi-video-upload-status span');
+        const clearBtn = document.getElementById('btn-clear-uploaded-video');
+
+        if (videoUrlInput) videoUrlInput.value = '';
+        if (videoFileInput) videoFileInput.value = '';
+        if (clearBtn) clearBtn.style.display = 'none';
+        if (statusSpan) {
+            statusSpan.innerHTML = `<i class="fa-solid fa-circle-info" style="color: var(--primary);"></i> รองรับไฟล์ .mp4, .mov, .webm จากมือถือหรือคอมพิวเตอร์ หรือลิงก์ YouTube`;
+        }
+        updateTestimonialMediaPreview();
+    }
+
+    function handleTestimonialImageUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const maxW = 800;
+                let w = img.width;
+                let h = img.height;
+                if (w > maxW) {
+                    h = Math.round((h * maxW) / w);
+                    w = maxW;
+                }
+                canvas.width = w;
+                canvas.height = h;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, w, h);
+                const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.82);
+                document.getElementById('testi-input-img-url').value = compressedDataUrl;
+                updateTestimonialMediaPreview();
+                showToast('อัปโหลดและย่อขนาดรูปภาพรีวิวเรียบร้อยแล้ว');
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function openTestimonialFormModal(editId = null) {
+        const titleEl = document.getElementById('testi-form-modal-title');
+        const idInput = document.getElementById('edit-testi-id');
+        const nameInput = document.getElementById('testi-input-name');
+        const planInput = document.getElementById('testi-input-plan');
+        const textInput = document.getElementById('testi-input-text');
+        const iconInput = document.getElementById('testi-input-icon');
+        const mediaTypeInput = document.getElementById('testi-input-media-type');
+        const imgUrlInput = document.getElementById('testi-input-img-url');
+        const videoUrlInput = document.getElementById('testi-input-video-url');
+        const fileInput = document.getElementById('testi-file-upload');
+        const videoFileInput = document.getElementById('testi-video-file-upload');
+        const clearBtn = document.getElementById('btn-clear-uploaded-video');
+        const statusSpan = document.querySelector('#testi-video-upload-status span');
+
+        if (fileInput) fileInput.value = '';
+        if (videoFileInput) videoFileInput.value = '';
+        tempUploadedVideoDataUrl = '';
+        if (clearBtn) clearBtn.style.display = 'none';
+        if (statusSpan) {
+            statusSpan.innerHTML = `<i class="fa-solid fa-circle-info" style="color: var(--primary);"></i> รองรับไฟล์ .mp4, .mov, .webm จากมือถือหรือคอมพิวเตอร์ หรือลิงก์ YouTube`;
+        }
+
+        if (editId) {
+            const item = testimonialList.find(t => t.id === editId);
+            if (!item) return;
+            titleEl.innerText = 'แก้ไขรีวิวลูกค้า';
+            idInput.value = item.id;
+            nameInput.value = item.name;
+            planInput.value = item.plan;
+            textInput.value = item.text.replace(/^"|"$/g, '');
+            iconInput.value = item.icon || 'fa-user';
+            mediaTypeInput.value = item.mediaType || 'none';
+            imgUrlInput.value = item.mediaType === 'image' ? (item.mediaUrl || '') : '';
+
+            if (item.mediaType === 'video' && item.mediaUrl) {
+                if (item.mediaUrl.startsWith('data:video/')) {
+                    tempUploadedVideoDataUrl = item.mediaUrl;
+                    const approxMB = ((item.mediaUrl.length * 0.75) / (1024 * 1024)).toFixed(2);
+                    videoUrlInput.value = `[ไฟล์วิดีโอที่บันทึกไว้ในระบบ (${approxMB} MB)]`;
+                    if (clearBtn) clearBtn.style.display = 'inline-block';
+                    if (statusSpan) {
+                        statusSpan.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #198754;"></i> มีคลิปวิดีโอที่อัปโหลดไว้แล้ว (${approxMB} MB) สามารถเลือกไฟล์ใหม่เพื่อแทนที่ได้`;
+                    }
+                } else {
+                    videoUrlInput.value = item.mediaUrl;
+                }
+            } else {
+                videoUrlInput.value = '';
+            }
+        } else {
+            titleEl.innerText = 'เพิ่มรีวิวลูกค้าใหม่';
+            idInput.value = '';
+            nameInput.value = '';
+            planInput.value = '';
+            textInput.value = '';
+            iconInput.value = 'fa-user';
+            mediaTypeInput.value = 'none';
+            imgUrlInput.value = '';
+            videoUrlInput.value = '';
+        }
+        toggleTestimonialMediaFields();
+        document.getElementById('testimonial-form-modal').classList.add('active');
+    }
+
+    function closeTestimonialFormModal() {
+        document.getElementById('testimonial-form-modal').classList.remove('active');
+    }
+
+    function saveTestimonialItem() {
+        const editId = document.getElementById('edit-testi-id').value;
+        const name = document.getElementById('testi-input-name').value.trim();
+        const plan = document.getElementById('testi-input-plan').value.trim();
+        let text = document.getElementById('testi-input-text').value.trim();
+        const icon = document.getElementById('testi-input-icon').value;
+        const mediaType = document.getElementById('testi-input-media-type').value;
+        let mediaUrl = '';
+
+        if (mediaType === 'image') {
+            mediaUrl = document.getElementById('testi-input-img-url').value.trim();
+        } else if (mediaType === 'video') {
+            mediaUrl = tempUploadedVideoDataUrl || document.getElementById('testi-input-video-url').value.trim();
+        }
+
+        if (!name || !plan || !text) {
+            showToast('กรุณากรอกชื่อลูกค้า แผนประกัน และข้อความรีวิวให้ครบถ้วน');
+            return;
+        }
+
+        const finalMediaType = mediaUrl ? mediaType : 'none';
+
+        if (!text.startsWith('"')) text = '"' + text;
+        if (!text.endsWith('"')) text = text + '"';
+
+        if (editId) {
+            const idx = testimonialList.findIndex(t => t.id === editId);
+            if (idx > -1) {
+                testimonialList[idx] = { id: editId, name, plan, text, icon, mediaType: finalMediaType, mediaUrl };
+            }
+            showToast('บันทึกการแก้ไขรีวิวลูกค้าเรียบร้อยแล้ว');
+        } else {
+            testimonialList.push({
+                id: 'testi-' + Date.now(),
+                name, plan, text, icon, mediaType: finalMediaType, mediaUrl
+            });
+            showToast('เพิ่มรีวิวลูกค้าใหม่เรียบร้อยแล้ว');
+        }
+
+        saveTestimonialsToStorage();
+        renderTestimonialGrid();
+        closeTestimonialFormModal();
+    }
+
+    function confirmDeleteTestimonial(id) {
+        document.getElementById('confirm-delete-desc').innerText = 'คุณต้องการลบรีวิวลูกค้ารายการนี้ออกจากหน้าเว็บไซต์ใช่หรือไม่';
+        document.getElementById('confirm-delete-modal').classList.add('active');
+        document.getElementById('btn-confirm-delete-yes').onclick = function() {
+            testimonialList = testimonialList.filter(t => t.id !== id);
+            saveTestimonialsToStorage();
+            renderTestimonialGrid();
+            closeConfirmDeleteModal();
+            showToast('ลบรีวิวลูกค้าเรียบร้อยแล้ว');
+        };
+    }
+
+    /* =========================================================================
        NEWS & ACTIVITIES CMS FUNCTIONS
        ========================================================================= */
     function filterNews(category, btnEl) {
@@ -3108,6 +3707,7 @@
 
     function renderNewsGrid() {
         const container = document.getElementById('news-grid-container');
+        if (!container) return;
         container.innerHTML = '';
 
         const filtered = currentNewsFilter === 'all'
@@ -3132,7 +3732,7 @@
                 <div class="news-img-box">
                     <img src="${safeImg}" alt="${item.title}" onerror="this.src='https://placehold.co/600x400/fff2e8/e86614?text=FWD+News'">
                     <span class="news-category-badge">${item.category}</span>
-                    <div class="news-card-admin-btns">
+                    <div class="card-admin-btns">
                         <button class="btn-card-tool edit" title="แก้ไขข่าวสารนี้" onclick="openNewsFormModal('${item.id}')">
                             <i class="fa-solid fa-pen"></i>
                         </button>
@@ -3179,42 +3779,6 @@
 
     function closeNewsDetailModal() {
         document.getElementById('news-detail-modal').classList.remove('active');
-    }
-
-    function handleStaffButtonClick() {
-        if (isAdminLoggedIn) {
-            scrollToAdminLeads();
-            showToast('คุณอยู่ในโหมดเจ้าหน้าที่แล้ว');
-        } else {
-            document.getElementById('admin-passcode-input').value = '';
-            document.getElementById('admin-login-modal').classList.add('active');
-            setTimeout(() => document.getElementById('admin-passcode-input').focus(), 200);
-        }
-    }
-
-    function closeAdminLoginModal() {
-        document.getElementById('admin-login-modal').classList.remove('active');
-    }
-
-    function verifyAdminLogin() {
-        const code = document.getElementById('admin-passcode-input').value.trim();
-        if (code === '147991' || code === 'admin1234') {
-            isAdminLoggedIn = true;
-            document.body.classList.add('admin-active');
-            document.getElementById('staff-btn-label').innerText = 'โหมดแอดมินทำงานอยู่';
-            closeAdminLoginModal();
-            showToast('เข้าสู่โหมดเจ้าหน้าที่สำเร็จ! สามารถจัดการข่าวสารและดูรายชื่อลูกค้าได้แล้ว');
-            scrollToAdminLeads();
-        } else {
-            showToast('รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง');
-        }
-    }
-
-    function logoutAdmin() {
-        isAdminLoggedIn = false;
-        document.body.classList.remove('admin-active');
-        document.getElementById('staff-btn-label').innerText = 'สำหรับเจ้าหน้าที่';
-        showToast('ออกจากโหมดแอดมินแล้ว ตอนนี้แสดงผลในมุมมองผู้ชมทั่วไปค่ะ');
     }
 
     function openNewsFormModal(editId = null) {
@@ -3347,16 +3911,58 @@
         document.getElementById('confirm-delete-modal').classList.remove('active');
     }
 
-    function resetDefaultAll() {
-        newsList = JSON.parse(JSON.stringify(defaultNewsData));
-        leadsList = JSON.parse(JSON.stringify(defaultLeadsData));
-        saveNewsToStorage();
-        saveLeadsToStorage();
-        renderNewsGrid();
-        showToast('รีเซ็ตข้อมูลข่าวสารและรายชื่อลูกค้ากลับเป็นค่าเริ่มต้นแล้ว');
+    /* =========================================================================
+       ADMIN AUTHENTICATION, RESET & DOWNLOAD UPDATED HTML
+       ========================================================================= */
+    function handleStaffButtonClick() {
+        if (isAdminLoggedIn) {
+            scrollToAdminLeads();
+            showToast('คุณอยู่ในโหมดเจ้าหน้าที่แล้ว');
+        } else {
+            document.getElementById('admin-passcode-input').value = '';
+            document.getElementById('admin-login-modal').classList.add('active');
+            setTimeout(() => document.getElementById('admin-passcode-input').focus(), 200);
+        }
     }
 
-    // ดาวน์โหลดไฟล์ index.html ที่ฝังทั้ง defaultNewsData และ defaultLeadsData ล่าสุด (และปิดโหมดแอดมิน)
+    function closeAdminLoginModal() {
+        document.getElementById('admin-login-modal').classList.remove('active');
+    }
+
+    function verifyAdminLogin() {
+        const code = document.getElementById('admin-passcode-input').value.trim();
+        if (code === '147991' || code === 'admin1234') {
+            isAdminLoggedIn = true;
+            document.body.classList.add('admin-active');
+            document.getElementById('staff-btn-label').innerText = 'โหมดแอดมินทำงานอยู่';
+            closeAdminLoginModal();
+            showToast('เข้าสู่โหมดเจ้าหน้าที่สำเร็จ! สามารถจัดการข่าวสาร รีวิว และดูรายชื่อลูกค้าได้แล้ว');
+            scrollToAdminLeads();
+        } else {
+            showToast('รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง');
+        }
+    }
+
+    function logoutAdmin() {
+        isAdminLoggedIn = false;
+        document.body.classList.remove('admin-active');
+        document.getElementById('staff-btn-label').innerText = 'สำหรับเจ้าหน้าที่';
+        showToast('ออกจากโหมดแอดมินแล้ว ตอนนี้แสดงผลในมุมมองผู้ชมทั่วไปค่ะ');
+    }
+
+    function resetDefaultAll() {
+        newsList = JSON.parse(JSON.stringify(defaultNewsData));
+        testimonialList = JSON.parse(JSON.stringify(defaultTestimonialData));
+        leadsList = JSON.parse(JSON.stringify(defaultLeadsData));
+        saveNewsToStorage();
+        saveTestimonialsToStorage();
+        saveLeadsToStorage();
+        renderNewsGrid();
+        renderTestimonialGrid();
+        showToast('รีเซ็ตข้อมูลข่าวสาร รีวิวลูกค้า และรายชื่อลูกค้ากลับเป็นค่าเริ่มต้นแล้ว');
+    }
+
+    // ดาวน์โหลดไฟล์ index.html ที่ฝัง defaultNewsData, defaultTestimonialData และ defaultLeadsData ล่าสุด (และปิดโหมดแอดมินอัตโนมัติ)
     function downloadUpdatedHTML() {
         const cloneDoc = document.documentElement.cloneNode(true);
         const cloneBody = cloneDoc.querySelector('body');
@@ -3375,6 +3981,9 @@
         const newDefaultNews = `/*__START_DEFAULT_NEWS_DATA__*/\n    const defaultNewsData = ${JSON.stringify(newsList, null, 8)};\n    /*__END_DEFAULT_NEWS_DATA__*/`;
         fullHtml = fullHtml.replace(/\/\*__START_DEFAULT_NEWS_DATA__\*\/[\s\S]*?\/\*__END_DEFAULT_NEWS_DATA__\*\//, newDefaultNews);
 
+        const newDefaultTesti = `/*__START_DEFAULT_TESTI_DATA__*/\n    const defaultTestimonialData = ${JSON.stringify(testimonialList, null, 8)};\n    /*__END_DEFAULT_TESTI_DATA__*/`;
+        fullHtml = fullHtml.replace(/\/\*__START_DEFAULT_TESTI_DATA__\*\/[\s\S]*?\/\*__END_DEFAULT_TESTI_DATA__\*\//, newDefaultTesti);
+
         const newDefaultLeads = `/*__START_DEFAULT_LEADS_DATA__*/\n    const defaultLeadsData = ${JSON.stringify(leadsList, null, 8)};\n    /*__END_DEFAULT_LEADS_DATA__*/`;
         fullHtml = fullHtml.replace(/\/\*__START_DEFAULT_LEADS_DATA__\*\/[\s\S]*?\/\*__END_DEFAULT_LEADS_DATA__\*\//, newDefaultLeads);
 
@@ -3388,7 +3997,7 @@
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
 
-        showToast('ดาวน์โหลดไฟล์ index.html ที่อัปเดตข่าวสารและข้อมูลลูกค้าล่าสุดเรียบร้อยแล้ว!');
+        showToast('ดาวน์โหลดไฟล์ index.html ที่อัปเดตข้อมูลล่าสุดทั้งหมดเรียบร้อยแล้ว!');
     }
 
     /* =========================================================================
@@ -3397,17 +4006,17 @@
     function showPlans(categoryId) {
         document.getElementById('category-view').style.display = 'none';
         document.getElementById('plans-view').style.display = 'block';
-        
+
         const categoryData = plansData[categoryId];
         document.getElementById('plan-section-title').innerText = categoryData.title;
-        
+
         const container = document.getElementById('plans-container');
-        container.innerHTML = ''; 
+        container.innerHTML = '';
 
         if (categoryData.items.length > 0) {
             categoryData.items.forEach(plan => {
                 let tagsHtml = plan.tags.map(tag => `<span class="plan-tag">${tag}</span>`).join('');
-                
+
                 let cardHtml = `
                     <div class="plan-detail-card">
                         <div class="plan-img-wrapper"><img src="${plan.img}" alt="${plan.title}" onerror="this.src='https://placehold.co/600x400/fff2e8/e86614?text=FWD+Plan'"></div>
@@ -3440,7 +4049,7 @@
 
     let currentInquiryPlan = "";
     let currentInquiryCategory = "";
-    
+
     function openModal(planTitle, catKey = '') {
         currentInquiryPlan = planTitle;
         currentInquiryCategory = catKey;
@@ -3476,10 +4085,10 @@
         let phone = document.getElementById('form-phone').value.trim();
         let consent = document.getElementById('form-consent').checked;
 
-        if(!fname || !lname || !day || !month || !year || !phone) {
+        if (!fname || !lname || !day || !month || !year || !phone) {
             showToast("กรุณากรอกข้อมูลให้ครบถ้วน"); return;
         }
-        if(!consent) {
+        if (!consent) {
             showToast("กรุณากดยอมรับเงื่อนไขการให้ข้อมูล"); return;
         }
 
@@ -3487,14 +4096,17 @@
         let dob = `${day}/${month}/${year}`;
         const now = new Date();
 
-        // บันทึกลงระบบรายชื่อลูกค้าของแอดมินด้วย
         const quickLead = {
             id: `LEAD-${now.getFullYear() + 543}-${String(Math.floor(100 + Math.random() * 900))}`,
             prefix: '',
             fname, lname,
             gender: '-',
-            dob, age, phone,
+            dob, age,
+            weight: null,
+            height: null,
+            phone,
             lineId: '-',
+            contactTime: 'ไม่ระบุ (สอบถามด่วน)',
             occupation: '-',
             smoking: '-',
             budget: '-',
@@ -3517,7 +4129,7 @@
         let originalText = submitBtn.innerText;
         submitBtn.innerText = "กำลังบันทึกข้อมูล...";
         submitBtn.disabled = true;
-        
+
         fetch(WEB_APP_URL, {
             method: "POST",
             body: JSON.stringify(formData)
@@ -3532,11 +4144,11 @@
                 showToast("ส่งข้อมูลให้ตัวแทนเรียบร้อยแล้วค่ะ! (คัดลอกข้อความสำหรับวางใน LINE แล้ว)");
                 window.open("https://line.me/R/ti/p/@toifwd", '_blank');
             }
-            
+
             closeModal();
             submitBtn.innerText = originalText;
             submitBtn.disabled = false;
-            
+
             document.getElementById('form-fname').value = "";
             document.getElementById('form-lname').value = "";
             document.getElementById('form-year').value = "";
@@ -3565,12 +4177,12 @@
             let targetId = this.getAttribute('href');
             if (targetId === "#") return;
             let targetElement = document.querySelector(targetId);
-            if(targetElement) targetElement.scrollIntoView({ behavior: 'smooth' });
+            if (targetElement) targetElement.scrollIntoView({ behavior: 'smooth' });
         });
     });
 
     function calculateExperience() {
-        let startDate = new Date(2006, 5, 28); 
+        let startDate = new Date(2006, 5, 28);
         let today = new Date();
         let years = today.getFullYear() - startDate.getFullYear();
         let months = today.getMonth() - startDate.getMonth();
@@ -3582,7 +4194,7 @@
         let expText = "";
         if (years > 0) expText += years + " ปี ";
         if (months > 0) expText += months + " เดือน";
-        if (expText === "") expText = "0 เดือน"; 
+        if (expText === "") expText = "0 เดือน";
 
         document.getElementById('experience-text-main').innerText = expText.trim();
     }
