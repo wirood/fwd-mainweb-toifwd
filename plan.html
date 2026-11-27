@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>กำลังโหลดรายละเอียดแผนประกัน FWD...</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Prompt', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #fcf9f5 0%, #fff2e8 100%);
+            color: #1e293b;
+        }
+        .status-card {
+            width: 100%;
+            max-width: 460px;
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 36px 28px;
+            text-align: center;
+            box-shadow: 0 20px 45px rgba(232, 102, 20, 0.12);
+            border: 1px solid #ffe4d1;
+        }
+        .spinner {
+            width: 52px;
+            height: 52px;
+            border: 4px solid #ffe4d1;
+            border-top-color: #e86614;
+            border-radius: 50%;
+            animation: spin 0.85s linear infinite;
+            margin: 0 auto 18px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .icon-err {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #fef2f2;
+            color: #dc2626;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin: 0 auto 16px;
+            border: 1px solid #fecaca;
+        }
+        h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: #1e293b; }
+        p { font-size: 14px; color: #64748b; line-height: 1.6; margin-bottom: 22px; }
+        code {
+            display: inline-block;
+            background: #f1f5f9;
+            color: #c9520a;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 12.5px;
+        }
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 26px;
+            border-radius: 999px;
+            background: #e86614;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        .btn-back:hover { background: #c9520a; }
+    </style>
+</head>
+<body>
+    <div class="status-card" id="status-box">
+        <div class="spinner"></div>
+        <h2>กำลังเตรียมข้อมูลแผนประกัน...</h2>
+        <p>กรุณารอสักครู่ ระบบกำลังโหลดข้อมูลและปรับแต่งให้ตรงกับตัวแทนผู้ดูแลของคุณ</p>
+    </div>
+
+    <script>
+        (async function initPlanViewer() {
+            const CENTRAL_IMAGE_URL = "https://raw.githubusercontent.com/wirood/fwd-mainweb-toifwd/main/";
+            const STORAGE_AGENTS_KEY = "fwd_portal_agents_v5";
+
+            // ข้อมูลสำรองกรณีไม่สามารถอ่านจาก index.html หรือ localStorage ได้
+            const FALLBACK_AGENTS = [
+                {
+                    code: "FWD001",
+                    name: "นฤมล คำใบ",
+                    badge: "MDRT Agent (ปี 2022)",
+                    license: "6901010926",
+                    showExperience: true,
+                    startDate: "2006-06-28",
+                    phone: "086-901-7235",
+                    lineId: "@toifwd",
+                    avatar: "agent.jpg",
+                    active: true,
+                    expiresAt: "2027-12-31"
+                },
+                {
+                    code: "FWD002",
+                    name: "ภัทราวดี ศรีสงคราม",
+                    badge: "ที่ปรึกษาทางการเงิน FWD",
+                    license: "6901099812",
+                    showExperience: false,
+                    startDate: "2022-03-01",
+                    phone: "089-555-1234",
+                    lineId: "@fwdcare",
+                    avatar: "",
+                    active: true,
+                    expiresAt: "2027-12-31"
+                }
+            ];
+
+            function showError(title, htmlDesc, backUrl) {
+                const box = document.getElementById('status-box');
+                if (!box) return;
+                box.innerHTML = `
+                    <div class="icon-err"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <h2>${title}</h2>
+                    <p>${htmlDesc}</p>
+                    <a href="${backUrl}" class="btn-back"><i class="fa-solid fa-house"></i> กลับสู่หน้าหลัก</a>
+                `;
+            }
+
+            function resolveAssetUrl(path) {
+                if (!path || typeof path !== 'string') return '';
+                const trimmed = path.trim();
+                if (!trimmed) return '';
+                if (/^(https?:\/\/|data:)/i.test(trimmed)) return trimmed;
+                return CENTRAL_IMAGE_URL + encodeURI(trimmed.replace(/^\/+/, ''));
+            }
+
+            function escapeHtml(str) {
+                return String(str ?? '')
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#39;');
+            }
+
+            function buildLinePrefix(lineId) {
+                const clean = (lineId || '').trim();
+                if (!clean) return 'https://line.me/R/oaMessage/@toifwd/?';
+                if (/^https?:\/\//i.test(clean)) {
+                    return clean.includes('?') ? clean + '&text=' : clean + '?text=';
+                }
+                if (clean.startsWith('@')) {
+                    return `https://line.me/R/oaMessage/${encodeURIComponent(clean)}/?`;
+                }
+                return `https://line.me/ti/p/~${encodeURIComponent(clean)}#`;
+            }
+
+            // แปลง Relative Path เป็น URL อย่างปลอดภัย (รองรับทั้ง https://, file:// และหน้าพรีวิว blob:)
+            function resolveRelativeUrl(relPath) {
+                try {
+                    if (window.location.protocol === 'blob:' || window.location.protocol === 'about:') {
+                        return relPath;
+                    }
+                    return new URL(relPath, window.location.href).href;
+                } catch (e) {
+                    return relPath;
+                }
+            }
+
+            // ดึงรายชื่อตัวแทนล่าสุด: อ่านจาก index.html บนโฮสต์ + รวมกับ localStorage (หากมี)
+            async function loadAgentsList() {
+                let fromIndex = null;
+                try {
+                    if (window.location.protocol !== 'blob:' && window.location.protocol !== 'about:') {
+                        const res = await fetch('./index.html?v=' + Date.now(), { cache: 'no-store' });
+                        if (res.ok) {
+                            const text = await res.text();
+                            const blockMatch = text.match(/\/\*__START_AGENTS_DATA__\*\/([\s\S]*?)\/\*__END_AGENTS_DATA__\*\//);
+                            if (blockMatch) {
+                                const arrMatch = blockMatch[1].match(/defaultAgentsData\s*=\s*(\[[\s\S]*\])\s*;/);
+                                if (arrMatch) {
+                                    fromIndex = (new Function('return (' + arrMatch[1] + ')'))();
+                                }
+                            }
+                        }
+                    }
+                } catch (e) {
+                    /* ใช้งาน Fallback หรือ localStorage แทน */
+                }
+
+                let fromLocal = null;
+                try {
+                    const raw = localStorage.getItem(STORAGE_AGENTS_KEY);
+                    if (raw) fromLocal = JSON.parse(raw);
+                } catch (e) {
+                    fromLocal = null;
+                }
+
+                const baseList = Array.isArray(fromIndex) && fromIndex.length > 0
+                    ? fromIndex
+                    : FALLBACK_AGENTS;
+
+                if (Array.isArray(fromLocal) && fromLocal.length > 0) {
+                    const merged = [...baseList];
+                    fromLocal.forEach(locAgent => {
+                        const idx = merged.findIndex(a => a.code === locAgent.code);
+                        if (idx > -1) merged[idx] = locAgent;
+                        else merged.push(locAgent);
+                    });
+                    return merged;
+                }
+                return baseList;
+            }
+
+            try {
+                // 1. อ่านพารามิเตอร์จาก URL (?p=easy-cancer&agent=FWD002)
+                const params = new URLSearchParams(window.location.search);
+                const rawPlan = (params.get('p') || params.get('plan') || '').trim();
+                const rawAgent = (params.get('agent') || '').trim();
+                const planSlug = rawPlan.replace(/[^a-zA-Z0-9_-]/g, '');
+
+                const portalBaseUrl = resolveRelativeUrl('./');
+                const defaultBackUrl = rawAgent
+                    ? `${portalBaseUrl}?agent=${encodeURIComponent(rawAgent)}`
+                    : portalBaseUrl;
+
+                if (!planSlug) {
+                    showError(
+                        'ไม่พบชื่อแผนประกันในลิงก์',
+                        'กรุณาเปิดผ่านปุ่มรายละเอียดจากหน้าเว็บหลัก เช่น <code>plan.html?p=easy-cancer&agent=FWD001</code>',
+                        defaultBackUrl
+                    );
+                    return;
+                }
+
+                // 2. ค้นหาข้อมูลตัวแทน
+                const agentsList = await loadAgentsList();
+                let agent = null;
+                if (rawAgent) {
+                    const needle = rawAgent.toLowerCase().replace(/^@/, '');
+                    agent = agentsList.find(a =>
+                        (a.code || '').toLowerCase() === needle ||
+                        ((a.lineId || '').toLowerCase().replace(/^@/, '') === needle)
+                    );
+                    if (!agent) {
+                        showError(
+                            'ไม่พบรหัสตัวแทนในระบบ',
+                            `ไม่พบรหัสตัวแทน <code>${escapeHtml(rawAgent)}</code> ในระบบ กรุณาตรวจสอบลิงก์อีกครั้ง`,
+                            portalBaseUrl
+                        );
+                        return;
+                    }
+                    if (!agent.active) {
+                        showError(
+                            'ระงับการเข้าถึงชั่วคราว',
+                            'หน้าเว็บไซต์ตัวแทนนี้ถูกระงับสิทธิ์ชั่วคราว กรุณาติดต่อผู้ดูแลระบบ',
+                            portalBaseUrl
+                        );
+                        return;
+                    }
+                    if (agent.expiresAt && new Date() > new Date(agent.expiresAt + 'T23:59:59')) {
+                        showError(
+                            'ลิงก์หมดอายุการใช้งาน',
+                            `หน้าเว็บไซต์ตัวแทนนี้หมดอายุแล้วเมื่อ ${escapeHtml(agent.expiresAt)}`,
+                            portalBaseUrl
+                        );
+                        return;
+                    }
+                } else {
+                    agent = agentsList[0];
+                }
+
+                // 3. โหลดไฟล์ HTML ต้นฉบับของแผนประกัน (ลองค้นหาอัตโนมัติหลายรูปแบบเพื่อรองรับ Cloudflare Pretty URLs)
+                const candidatePaths = [
+                    { folder: `./plans/${planSlug}/`, file: `./plans/${planSlug}/` },
+                    { folder: `./plans/${planSlug}/`, file: `./plans/${planSlug}/index.html` },
+                    { folder: `./plans/`, file: `./plans/${planSlug}.html` },
+                    { folder: `./${planSlug}/`, file: `./${planSlug}/` },
+                    { folder: `./${planSlug}/`, file: `./${planSlug}/index.html` }
+                ];
+
+                let htmlText = '';
+                let planFolderUrl = resolveRelativeUrl(`./plans/${planSlug}/`);
+                let lastStatus = '';
+
+                for (const cand of candidatePaths) {
+                    const tryUrl = resolveRelativeUrl(cand.file);
+                    try {
+                        const res = await fetch(tryUrl + '?v=' + Date.now(), { cache: 'no-store' });
+                        lastStatus = 'HTTP ' + res.status;
+                        if (res.ok) {
+                            const text = await res.text();
+                            // ตรวจสอบว่าไม่ได้ถูก Cloudflare Fallback กลับมาเป็นหน้า index.html หลักหรือหน้า plan.html เอง
+                            if (text && !text.includes('id="login-gate"') && !text.includes('initPlanViewer')) {
+                                htmlText = text;
+                                planFolderUrl = resolveRelativeUrl(cand.folder);
+                                break;
+                            }
+                        }
+                    } catch (err) {
+                        lastStatus = err?.message || 'Network Error';
+                    }
+                }
+
+                if (!htmlText) {
+                    showError(
+                        'ไม่พบไฟล์หน้าแผนประกัน',
+                        `ระบบค้นหาไฟล์ <code>plans/${escapeHtml(planSlug)}/index.html</code> ไม่พบ (${escapeHtml(lastStatus)})<br><br>` +
+                        `<span style="font-size:12.5px; color:#475569;">วิธีตรวจสอบ:<br>` +
+                        `1. ตรวจสอบว่าได้อัปโหลดโฟลเดอร์ <b>plans</b> ขึ้นโฮสต์แล้ว<br>` +
+                        `2. ชื่อโฟลเดอร์ต้องเป็นตัวพิมพ์เล็กตรงเป๊ะ: <code>${escapeHtml(planSlug)}</code><br>` +
+                        `3. ข้างในโฟลเดอร์ต้องมีไฟล์ชื่อ <code>index.html</code></span>`,
+                        defaultBackUrl
+                    );
+                    return;
+                }
+
+                // 4. เตรียมข้อมูลตัวแทนสำหรับแทนที่
+                const agentName = agent.name || 'ตัวแทนประกันชีวิต FWD';
+                const agentBadge = agent.badge || 'ตัวแทนประกันชีวิต FWD';
+                const agentLicense = agent.license || '-';
+                const agentPhoneDisplay = agent.phone || '';
+                const agentPhoneClean = agentPhoneDisplay.replace(/[^0-9+]/g, '');
+                const agentAvatar = resolveAssetUrl(agent.avatar) || `https://placehold.co/300x300/e86614/ffffff?text=${encodeURIComponent(agent.code || 'FWD')}`;
+                const agentLinePrefix = buildLinePrefix(agent.lineId);
+                const agentHomeUrl = `${portalBaseUrl}?agent=${encodeURIComponent(agent.code)}`;
+
+                // 5. แทรก <base href="..."> เพื่อให้อ้างอิง banner.jpg, logo.png ในโฟลเดอร์แผนได้ถูกต้อง
+                htmlText = htmlText.replace(/<head([^>]*)>/i, `<head$1>\n<base href="${planFolderUrl}">`);
+
+                // 6. แทนที่รูปโปรไฟล์ตัวแทน (พร้อมเติม crossorigin="anonymous" เพื่อรองรับ html2canvas Ultra HD)
+                htmlText = htmlText.replace(
+                    /src=["']agent\.(jpg|jpeg|png|webp)["'](\s+onerror=["'][^"']*["'])?/gi,
+                    `src="${agentAvatar}" crossorigin="anonymous" onerror="this.src='https://placehold.co/300x300/e86614/ffffff?text=FWD'"`
+                );
+
+                // 7. แทนที่ชื่อตัวแทนและลบชื่อเล่นเดิม (ต๋อย) หากไม่ใช่คุณนฤมล
+                htmlText = htmlText.replace(/(?:น\.ส\.|นางสาว|คุณ)?\s*นฤมล\s*คำใบ/g, escapeHtml(agentName));
+                if (agentName.trim() !== 'นฤมล คำใบ') {
+                    htmlText = htmlText.replace(/<span[^>]*>\s*\(ต๋อย\)\s*<\/span>/gi, '');
+                    htmlText = htmlText.replace(/\s*\(ต๋อย\)/g, '');
+                }
+
+                // 8. แทนที่ตำแหน่ง, เลขที่ใบอนุญาต, เบอร์โทร, LINE และปุ่มกลับหน้าหลัก
+                htmlText = htmlText.replace(/ผู้จัดการสำนักงานตัวแทน\s*FWD\s*นวนคร/g, escapeHtml(agentBadge));
+                htmlText = htmlText.replace(/ผู้จัดการขาย\s*FWD/g, escapeHtml(agentBadge));
+                htmlText = htmlText.replace(/6901010926/g, escapeHtml(agentLicense));
+                htmlText = htmlText.replace(/tel:0869017235/g, `tel:${agentPhoneClean}`);
+                htmlText = htmlText.replace(/086-901-7235/g, escapeHtml(agentPhoneDisplay));
+                htmlText = htmlText.replace(/0869017235/g, agentPhoneClean);
+                htmlText = htmlText.replace(/https:\/\/line\.me\/R\/oaMessage\/@toifwd\/\?/g, agentLinePrefix);
+                htmlText = htmlText.replace(/@toifwd/g, escapeHtml(agent.lineId || ''));
+                htmlText = htmlText.replace(/https:\/\/fwd-navanakorn\.wirood01\.workers\.dev\/?/g, agentHomeUrl);
+
+                // 9. จัดการวันเริ่มงานและสวิตช์เปิด-ปิดประสบการณ์อายุงาน
+                if (agent.showExperience && agent.startDate) {
+                    const parts = agent.startDate.split('-').map(Number);
+                    if (parts.length === 3 && !parts.some(isNaN)) {
+                        htmlText = htmlText.replace(
+                            /new\s+Date\(\s*2006\s*,\s*5\s*,\s*28\s*\)/g,
+                            `new Date(${parts[0]}, ${parts[1] - 1}, ${parts[2]})`
+                        );
+                        // คำนวณจำนวนปีสำหรับแผนที่พิมพ์ข้อความคงที่ไว้ เช่น (ประสบการณ์ 20 ปี, MDRT 2022, TNQA 2022)
+                        const now = new Date();
+                        let expY = now.getFullYear() - parts[0];
+                        if (now.getMonth() < (parts[1] - 1) || (now.getMonth() === (parts[1] - 1) && now.getDate() < parts[2])) expY--;
+                        const expLabel = expY > 0 ? `(ประสบการณ์ ${expY} ปี)` : '';
+                        htmlText = htmlText.replace(/\(ประสบการณ์[^)]*\)/g, expLabel);
+                    }
+                } else {
+                    // ปิดซ่อนข้อความประสบการณ์อายุงานทุกรูปแบบ
+                    htmlText = htmlText.replace(/&nbsp;•&nbsp;\s*ประสบการณ์[\s\S]*?เดือน/g, '');
+                    htmlText = htmlText.replace(/•\s*ประสบการณ์[\s\S]*?เดือน/g, '');
+                    htmlText = htmlText.replace(/\(ประสบการณ์[^)]*\)/g, '');
+                }
+
+                // 10. แสดงผลหน้าแผนประกันฉบับสมบูรณ์แทนที่หน้า Loading
+                document.open();
+                document.write(htmlText);
+                document.close();
+            } catch (fatalErr) {
+                showError(
+                    'เกิดข้อผิดพลาดในการโหลดหน้าแผนประกัน',
+                    escapeHtml(fatalErr?.message || 'ไม่สามารถแสดงผลได้ กรุณาลองใหม่อีกครั้ง'),
+                    './'
+                );
+            }
+        })();
+    </script>
+</body>
+</html>
