@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>แพ็กเกจ CI Re-Claim Re-Care Plus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+    :root {
+        --primary: #e86614; 
+        --primary-light: #fff2e8;
+        --text-dark: #333333;
+        --text-grey: #666666;
+        --bg-color: #fcf9f5;
+        --border-color: #e5e5e5;
+        --info-orange: #e27429;
+        --info-bg: #fcece1;
+        --info-teal: #009e9f;
+    }
+
+    body {
+        font-family: 'Prompt', sans-serif;
+        background-color: var(--bg-color);
+        margin: 0;
+        padding: 0;
+        color: var(--text-dark);
+        padding-bottom: 100px; 
+    }
+
+    .main-banner { max-width: 1100px; margin: 40px auto 10px auto; padding: 0 20px; }
+    .main-banner > img { width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: block; }
+
+    /* --- รูปแบบโครงสร้าง Container หลัก (จัดสมดุลซ้าย-ขวา) --- */
+    .container { max-width: 1100px; margin: 20px auto 40px auto; padding: 0 20px; display: flex; gap: 30px; align-items: stretch; }
+    .left-panel { flex: 1; min-width: 0; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column; }
+    .right-panel { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 18px; }
+
+    .input-section { padding: 25px; display: flex; flex-direction: column; height: 100%; box-sizing: border-box; }
+    .input-section h2 { font-size: 22px; margin: 0 0 20px 0; color: var(--primary); }
+
+    .form-row { display: flex; gap: 15px; margin-bottom: 20px; }
+    .form-group { flex: 1; }
+    .form-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: var(--text-grey); }
+
+    .gender-select { display: flex; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; }
+    .gender-btn { flex: 1; padding: 10px; border: none; background: white; cursor: pointer; font-family: 'Prompt'; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 5px; transition: 0.2s; }
+    .gender-btn.active { background: var(--primary-light); color: var(--primary); font-weight: 600; border: 1px solid var(--primary); }
+
+    input[type="number"], input[type="text"] { width: 100%; padding: 10px 15px; border: 1px solid var(--border-color); border-radius: 8px; font-family: 'Prompt'; font-size: 16px; box-sizing: border-box; height: 44px; }
+    .sum-insured-box { background: #fafafa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--border-color); }
+    .sum-insured-box label { font-weight: 600; color: var(--text-dark); margin-bottom: 5px; display: block; }
+    .sum-insured-box .note { font-size: 12px; color: #888; margin-bottom: 10px; display: block; }
+    
+    .quick-sum-btns { display: flex; gap: 8px; margin-top: 10px; }
+    .quick-sum-btns button { flex: 1; padding: 6px; font-size: 13px; font-family: 'Prompt'; background: white; border: 1px solid var(--border-color); border-radius: 6px; cursor: pointer; }
+    .quick-sum-btns button:hover { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
+    
+    input[type=range] { width: 100%; margin-top: 15px; accent-color: var(--primary); cursor: pointer; }
+
+    .requirements { margin-top: auto; border: 1px dashed var(--border-color); border-radius: 12px; padding: 20px; background-color: #fafafa; }
+    .requirements h3 { font-size: 16px; display: flex; align-items: center; gap: 8px; color: var(--primary); margin: 0 0 15px 0; }
+    .req-list { list-style: none; padding: 0; margin: 0 0 5px 0; font-size: 14px; color: var(--text-grey); }
+    .req-list li { margin-bottom: 10px; display: flex; gap: 10px; align-items: flex-start; }
+    .req-list i { margin-top: 3px; color: #06C755; }
+
+    /* --- RIGHT PANEL --- */
+    .header-right { display: flex; justify-content: space-between; align-items: center; }
+    .header-right h2 { font-size: 22px; margin: 0; color: var(--primary); }
+
+    .plan-card { background: white; border: 2px solid var(--primary); border-radius: 12px; padding: 15px 20px; box-shadow: 0 4px 15px rgba(232, 102, 20, 0.15); position: relative; }
+    .popular-badge { position: absolute; top: -12px; right: 20px; background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+    .plan-header { display: flex; justify-content: space-between; align-items: flex-start; }
+    .plan-title h3 { margin: 0; font-size: 20px; color: var(--text-dark); }
+    .plan-title p { margin: 5px 0 0 0; font-size: 14px; color: var(--text-grey); background: var(--bg-color); padding: 4px 8px; border-radius: 4px; display: inline-block;}
+    .plan-price-display { text-align: right; }
+    .price-label { font-size: 14px; color: var(--text-grey); margin-bottom: 5px;}
+    .price-amount { font-size: 32px; font-weight: 700; color: var(--primary); line-height: 1;}
+    .price-unit { font-size: 16px; font-weight: 400; }
+    .plan-details { margin-top: 15px; border-top: 1px dashed var(--border-color); padding-top: 15px; }
+    .detail-row { display: flex; justify-content: space-between; font-size: 15px; margin-bottom: 10px; color: var(--text-dark); }
+    .detail-val { font-weight: 600; color: var(--text-dark); text-align: right; max-width: 60%; }
+    .breakdown-row { display: flex; justify-content: space-between; font-size: 13px; color: var(--text-grey); margin-bottom: 8px; padding-left: 15px;}
+    .btn-buy { width: 100%; background: #06C755; color: white; border: none; padding: 15px; font-size: 16px; font-family: 'Prompt'; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 15px; transition: 0.2s; display: flex; justify-content: center; align-items: center; gap: 8px; }
+    .btn-buy:hover { background: #05a044; }
+    .error-msg { color: red; font-size: 13px; margin-top: 10px; display: none; font-weight: 500; }
+
+    /* --- INFOGRAPHIC BANNER --- */
+    .infographic-banner-link { display: block; text-decoration: none; transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; }
+    .infographic-banner-link:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(232, 102, 20, 0.2); }
+    .infographic-banner { background: linear-gradient(135deg, #ffffff 0%, #fff6f0 100%); border: 2px solid var(--primary); border-radius: 12px; padding: 15px; box-shadow: 0 4px 15px rgba(232, 102, 20, 0.1); position: relative; overflow: hidden; }
+    .infographic-banner::before { content: ''; position: absolute; top: 0; left: 0; width: 8px; height: 100%; background: var(--primary); }
+    .info-header { font-size: 16px; font-weight: 600; color: var(--primary); margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; padding-left: 10px; }
+    .info-header-text { display: flex; align-items: center; gap: 8px; }
+    .info-header-icon { background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 500; transition: 0.2s; }
+    .infographic-banner-link:hover .info-header-icon { background: #cf5a10; }
+    .info-summary-box { display: flex; justify-content: space-between; background: rgba(255, 255, 255, 0.8); border: 1px dashed var(--primary); padding: 12px 5px; border-radius: 8px; }
+    .info-summary-item { text-align: center; flex: 1; padding: 0 5px; }
+    .info-summary-item:not(:last-child) { border-right: 1px solid #e5c4af; }
+    .info-label { font-size: 12px; color: #555; margin-bottom: 4px; line-height: 1.3; }
+    .info-value { font-size: 15px; font-weight: 600; color: var(--text-dark); }
+    .info-value.highlight { color: var(--primary); font-size: 16px; }
+
+    /* --- HTML BROCHURE BUTTON --- */
+    .html-brochure-btn {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(90deg, #e86614 0%, #c45510 100%);
+        color: white;
+        text-decoration: none;
+        padding: 12px 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(232, 102, 20, 0.2);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .html-brochure-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(232, 102, 20, 0.3);
+        color: white;
+    }
+    .html-brochure-btn .brochure-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .html-brochure-btn .icon-pdf {
+        font-size: 28px;
+    }
+    .html-brochure-btn .btn-text {
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+    .html-brochure-btn .icon-dl {
+        font-size: 18px;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 8px;
+        border-radius: 50%;
+    }
+
+    /* --- AGENT CARD --- */
+    .agent-card-right { background: white; border-radius: 12px; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 15px; border-left: 5px solid var(--primary); }
+    .agent-profile-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; object-position: top center; border: 3px solid var(--primary-light); flex-shrink: 0; }
+    .agent-info { flex: 1; }
+    .agent-info h4 { margin: 0 0 5px 0; color: var(--text-dark); font-size: 16px; }
+    .agent-info p { margin: 0 0 5px 0; color: var(--text-grey); font-size: 13px; }
+    .agent-info .phone { display: inline-block; background: var(--primary-light); color: var(--primary); padding: 5px 12px; border-radius: 20px; font-weight: 600; font-size: 13px; margin-top: 5px; text-decoration: none; }
+    .agent-qr-container { margin-left: auto; text-align: center; flex-shrink: 0; }
+    .agent-qr-img { width: 70px; height: 70px; border-radius: 8px; object-fit: contain; border: 1px solid var(--border-color); padding: 4px; background: white; }
+    .agent-qr-text { font-size: 11px; color: var(--text-grey); margin-top: 4px; font-weight: 500; }
+
+    /* --- STICKY BOTTOM BAR --- */
+    .sticky-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: white; box-shadow: 0 -4px 20px rgba(0,0,0,0.1); padding: 15px 0; transform: translateY(100%); transition: transform 0.4s ease-in-out; z-index: 1000; border-top: 2px solid var(--primary); }
+    .sticky-bar.show { transform: translateY(0); }
+    .sticky-content { max-width: 1100px; margin: auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+    .sticky-left { display: flex; align-items: center; gap: 15px; }
+    .sticky-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--primary-light); display: flex; align-items: center; justify-content: center; overflow: hidden; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .sticky-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .sticky-info h4 { margin: 0; font-size: 18px; }
+    .sticky-info p { margin: 0; font-size: 14px; color: var(--text-grey); }
+    .sticky-right { display: flex; align-items: center; gap: 20px; }
+    .sticky-price { font-size: 28px; font-weight: bold; color: var(--primary);}
+    .sticky-btn { background: var(--primary); color: white; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: 0.2s; }
+    .sticky-btn:hover { background: #cf5a10; }
+
+    /* --- MODAL POPUP & DYNAMIC INFOGRAPHIC --- */
+    .modal-overlay { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); align-items: center; justify-content: center; backdrop-filter: blur(5px); }
+    .modal-content-wrapper { position: relative; max-width: 850px; width: 95%; max-height: 90vh; background: white; border-radius: 12px; padding: 30px; overflow-y: auto; box-sizing: border-box; font-family: 'Prompt', sans-serif; }
+    .modal-close-btn { position: absolute; top: 15px; right: 20px; color: #888; font-size: 35px; font-weight: bold; cursor: pointer; transition: 0.2s; background: none; border: none; padding: 0; line-height: 1; }
+    .modal-close-btn:hover { color: var(--primary); }
+
+    /* Infographic Styles */
+    .info-replica-title { color: var(--info-orange); font-size: 26px; font-weight: 700; margin-top: 0; margin-bottom: 20px; text-align: left; }
+    .info-block { background-color: var(--info-bg); border-radius: 8px; margin-bottom: 20px; overflow: hidden; }
+    .block-head { background-color: var(--info-orange); color: white; padding: 12px 20px; font-weight: 600; font-size: 16px; }
+    .block-content { padding: 20px; font-size: 14px; color: #333; }
+    
+    .data-row { display: flex; align-items: center; margin-bottom: 15px; }
+    .data-label { width: 35%; font-weight: 500; }
+    .data-val-box { background-color: white; padding: 10px 15px; border-radius: 6px; text-align: center; font-weight: 600; width: 65%; font-size: 16px; box-shadow: inset 0 0 3px rgba(0,0,0,0.05); }
+    
+    .info-table { width: 100%; border-collapse: separate; border-spacing: 5px; margin-top: 10px; }
+    .info-table th { padding: 0; font-weight: normal; vertical-align: bottom;}
+    .teal-tab { background-color: var(--info-teal); color: white; padding: 10px; position: relative; text-align: center; font-weight: 500; font-size: 14px; border-radius: 4px; margin-bottom: 10px; }
+    .teal-tab::after { content: ''; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); border-width: 12px 12px 0; border-style: solid; border-color: var(--info-teal) transparent transparent transparent; }
+    
+    .info-table td { padding: 12px; vertical-align: middle; }
+    .td-val { background-color: white; border-radius: 6px; text-align: center; font-weight: 500; }
+    .calc-hint { color: var(--info-orange); display: block; font-size: 12px; margin-top: 3px; font-weight: 600; }
+    
+    .text-right { text-align: right; }
+    .text-center { text-align: center; }
+
+    @media (max-width: 800px) {
+        .container { flex-direction: column; align-items: stretch; }
+        .left-panel, .right-panel { width: 100%; }
+        .sticky-right { gap: 10px; flex-direction: column; align-items: flex-end;}
+        .sticky-price { font-size: 20px; }
+        .agent-card-right { flex-direction: column; text-align: center; gap: 15px; }
+        .agent-qr-container { margin-left: 0; margin-top: 10px; }
+        
+        .data-row { flex-direction: column; align-items: flex-start; gap: 8px;}
+        .data-label, .data-val-box { width: 100%; box-sizing: border-box; }
+        .info-table { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+</style>
+</head>
+<body>
+
+<div class="main-banner">
+    <img src="image.png?v=2" alt="CI Re-Claim Re-Care Plus" onerror="this.src='https://via.placeholder.com/1100x400/e86614/fff.png?text=CI+Re-Claim+Re-Care+Plus';">
+</div>
+
+<div class="container">
+    <div class="left-panel">
+        <div class="input-section">
+            <h2>คำนวณแพ็กเกจประกัน</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>เพศ</label>
+                    <div class="gender-select">
+                        <button class="gender-btn active" id="btn-male" onclick="setGender('male')">👨 ชาย</button>
+                        <button class="gender-btn" id="btn-female" onclick="setGender('female')">👩 หญิง</button>
+                    </div>
+                </div>
+                <div class="form-group" style="flex: 0.6;">
+                    <label>อายุ (ปี)</label>
+                    <input type="number" id="age-input" value="30" min="0" max="70" oninput="calculate()">
+                    <div style="font-size: 11px; color: #888; margin-top: 4px;">1 เดือน 1 วัน ใส่ 0</div>
+                </div>
+            </div>
+
+            <div class="sum-insured-box">
+                <label>ทุนประกันโรคร้ายแรง CI (บาท)</label>
+                <span class="note">*สัญญาหลัก 99/99 บังคับทุนคงที่ 100,000 บาท</span>
+                <input type="text" id="sum-display-input" value="1,000,000" onchange="handleSumManualInput(this.value)">
+                <input type="range" id="sum-slider" min="500000" max="5000000" step="100000" value="1000000" oninput="handleSlider(this.value)">
+                <div class="quick-sum-btns">
+                    <button onclick="setSum(500000)">500K (ขั้นต่ำ)</button>
+                    <button onclick="setSum(1000000)">1M</button>
+                    <button onclick="setSum(2000000)">2M</button>
+                    <button onclick="setSum(5000000)">5M</button>
+                </div>
+                <div id="sum-error" class="error-msg"></div>
+            </div>
+
+            <div style="background: #e6f7ef; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 10px; cursor: pointer; margin-bottom: 20px;" onclick="sendToLine()">
+                <img src="image_53cdba.png" alt="LINE OA" style="width: 28px; border-radius: 6px;" onerror="this.style.display='none'">
+                <div>
+                    <div style="font-weight: 600; font-size: 14px;">บันทึกแบบประกันนี้ไปยัง LINE</div>
+                    <div style="font-size: 12px; color: #555;">กลับมาซื้อหรือสอบถามต่อง่าย ไม่ต้องเริ่มใหม่</div>
+                </div>
+            </div>
+
+            <div class="requirements">
+                <h3><i class="fa-solid fa-shield-halved"></i> จุดเด่นแพ็กเกจ</h3>
+                <ul class="req-list">
+                    <li><i class="fa-solid fa-check"></i> คุ้มครองชีวิตยาวนานถึงอายุ 99 ปี</li>
+                    <li><i class="fa-solid fa-check"></i> คุ้มครองโรคร้ายแรง CI Re-Claim Re-Care</li>
+                    <li><i class="fa-solid fa-check"></i> ยกเว้นเบี้ยประกันหากป่วยโรคร้าย (WP60CI)</li>
+                    <li><i class="fa-solid fa-check"></i> เคลมซ้ำโรคร้ายแรงได้หลายครั้ง</li>
+                    <li><i class="fa-solid fa-check"></i> เบี้ยประกันสามารถนำมาลดหย่อนภาษีได้</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-panel">
+        <div class="header-right">
+            <h2>สรุปแผนความคุ้มครอง</h2>
+        </div>
+
+        <div class="plan-card">
+            <div class="popular-badge">ขายดี</div>
+            <div class="plan-header">
+                <div class="plan-title">
+                    <h3>CI Re-Claim Re-Care Plus</h3>
+                    <p>รหัสแพ็กเกจ: W16A + RINA + RWCA</p>
+                </div>
+                <div class="plan-price-display">
+                    <div class="price-label">เบี้ยประกันรวมต่อปี</div>
+                    <span class="price-amount" id="total-price">-</span> <span class="price-unit">บาท</span>
+                </div>
+            </div>
+            
+            <div class="plan-details">
+                <div class="detail-row">
+                    <span>1. สัญญาหลัก ตลอดชีพ 99/99 (1)</span>
+                    <span class="detail-val" id="main-price">-</span>
+                </div>
+                <div class="breakdown-row">ทุนประกัน 100,000 บาท</div>
+                
+                <div class="detail-row" style="margin-top:10px;">
+                    <span>2. ประกันโรคร้ายแรง CI Re-Claim</span>
+                    <span class="detail-val" id="ci-price">-</span>
+                </div>
+                <div class="breakdown-row">ทุนประกัน <span id="display-ci-sum">1,000,000</span> บาท</div>
+
+                <div class="detail-row" style="margin-top:10px;">
+                    <span>3. ยกเว้นเบี้ยประกันภัย (WP60CI)</span>
+                    <span class="detail-val" id="wp-price">-</span>
+                </div>
+                <div class="breakdown-row">ทุนอ้างอิงตามเบี้ยประกันหลัก</div>
+
+                <button class="btn-buy" onclick="sendToLine()">
+                    <i class="fa-brands fa-line" style="font-size: 24px;"></i> สนใจแพ็กเกจนี้ (ส่ง LINE)
+                </button>
+            </div>
+        </div>
+
+        <a onclick="openModal()" class="infographic-banner-link">
+            <div class="infographic-banner">
+                <div class="info-header">
+                    <div class="info-header-text">
+                        <i class="fa-solid fa-chart-pie"></i> ภาพแสดงตารางผลประโยชน์
+                    </div>
+                    <div class="info-header-icon">คลิกเปิด <i class="fa-solid fa-arrow-pointer"></i></div>
+                </div>
+                <div class="info-summary-box">
+                    <div class="info-summary-item">
+                        <div class="info-label">ทุนประกันหลัก<br>(99/99)</div>
+                        <div class="info-value">100,000</div>
+                    </div>
+                    <div class="info-summary-item">
+                        <div class="info-label">ทุนโรคร้ายแรง<br>(CI Re-Claim)</div>
+                        <div class="info-value highlight" id="banner-ci-sum">1,000,000</div>
+                    </div>
+                    <div class="info-summary-item">
+                        <div class="info-label">รับผลประโยชน์สูงสุด<br>(1,100%)</div>
+                        <div class="info-value highlight" id="banner-ci-max">11,000,000</div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <a href="https://www.fwd.co.th/files/v3/assets/blt331c1aa12dcfd37a/blt21dc7d8e5dce51fa/6967089e2269f800082a04fa/TH_Brochure_CI_Re-Claim_Re-Care_Plus_Omne.pdf" target="_blank" class="html-brochure-btn">
+            <div class="brochure-content">
+                <i class="fa-solid fa-file-pdf icon-pdf"></i>
+                <span class="btn-text">ดาวน์โหลดดูโบรชัวร์</span>
+            </div>
+            <i class="fa-solid fa-cloud-arrow-down icon-dl"></i>
+        </a>
+
+        <div class="agent-card-right">
+            <img src="agent.jpg" alt="นฤมล คำใบ" class="agent-profile-img" onerror="this.src='https://via.placeholder.com/90/e86614/fff.png?text=Agent';">
+            <div class="agent-info">
+                <h4>นฤมล คำใบ <span style="font-weight: 400;">(ผู้จัดการขาย)</span></h4>
+                <p>ใบอนุญาตตัวแทนประกันชีวิต: 6901010926</p>
+                <p style="color: var(--primary); font-weight: 400;">ประสบการณ์ในธุรกิจประกันชีวิต <span id="experience-text"></span></p>
+                <a href="tel:0869017235" class="phone"><i class="fa fa-phone"></i> 086-901-7235</a>
+            </div>
+            <div class="agent-qr-container">
+                <img src="line-qr.png" alt="LINE QR Code" class="agent-qr-img" onerror="this.src='https://via.placeholder.com/80/fcf9f5/333.png?text=QR+Code';">
+                <div class="agent-qr-text">สแกนสอบถาม</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sticky-bar" id="sticky-bar">
+    <div class="sticky-content">
+        <div class="sticky-left">
+            <div class="sticky-avatar">
+                <img id="sticky-avatar-img" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Avatar">
+            </div>
+            <div class="sticky-info">
+                <h4>CI Re-Claim <span style="color: var(--primary);">Plus</span></h4>
+                <p><span id="sticky-gender-text">ชาย</span>, <span id="sticky-age-text">30</span> ปี | ทุน CI <span id="sticky-sum-text">1M</span></p>
+            </div>
+        </div>
+        <div class="sticky-right">
+            <div class="sticky-price"><span id="sticky-price-amount">0</span> <span style="font-size: 16px; font-weight: 400; color:var(--text-dark);">บาท/ปี</span></div>
+            <a href="javascript:void(0)" class="sticky-btn" onclick="sendToLine()">ส่งข้อมูล</a>
+        </div>
+    </div>
+</div>
+
+<div id="infoModal" class="modal-overlay" onclick="closeModal(event)">
+    <div class="modal-content-wrapper" onclick="event.stopPropagation()">
+        <button class="modal-close-btn" onclick="closeModal()">&times;</button>
+        
+        <h2 class="info-replica-title">ผลประโยชน์และความคุ้มครอง</h2>
+        
+        <div class="info-block">
+            <div class="block-head">สัญญาหลักแบบประกันตลอดชีพ 99/99</sup></div>
+            <div class="block-content">
+                <div class="data-row">
+                    <div class="data-label">ทุนประกันภัย</div>
+                    <div class="data-val-box">100,000 บาท</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-block">
+            <div class="block-head">สัญญาเพิ่มเติมการประกันภัยโรคร้ายแรงแบบ CI Re-Claim Re-Care</sup></div>
+            <div class="block-content">
+                <div class="data-row">
+                    <div class="data-label">ทุนประกันภัย</div>
+                    <div class="data-val-box"><span id="modal-table-ci">1,000,000</span> บาท</div>
+                </div>
+
+                <table class="info-table">
+                    <thead>
+                        <tr>
+                            <th style="width:40%;"><div class="teal-tab">ความคุ้มครอง</div></th>
+                            <th style="width:20%;"><div class="teal-tab">ผลประโยชน์สูงสุด<br>ต่อครั้ง</div></th>
+                            <th style="width:20%;"><div class="teal-tab">จำนวนสูงสุด</div></th>
+                            <th style="width:20%;"><div class="teal-tab">ผลประโยชน์<br>รวมสูงสุด</div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1. โรคร้ายแรงระดับต้นถึงระดับปานกลาง (50 โรค)</td>
+                            <td class="td-val">40%</td>
+                            <td class="td-val">5 ครั้ง</td>
+                            <td class="td-val">200%<span class="calc-hint" id="val-early">(2,000,000 บาท)</span></td>
+                        </tr>
+                        <tr>
+                            <td>2. โรคร้ายแรงระดับรุนแรง (60 โรค)</td>
+                            <td class="td-val">100%</td>
+                            <td class="td-val">9 ครั้ง</td>
+                            <td class="td-val">900%<span class="calc-hint" id="val-severe">(9,000,000 บาท)</span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-right" style="padding-right: 15px; font-weight: 600;">รวม 1,100%</td>
+                            <td class="text-center" style="font-weight: bold; color: var(--info-orange); font-size: 16px;" id="val-total">11,000,000 บาท</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="data-row" style="margin-top: 20px;">
+                    <div class="data-label">3. กรณีเสียชีวิต</div>
+                    <div class="data-val-box text-center" style="font-size: 14px;">100% หักด้วยผลประโยชน์โรคร้ายแรงที่จ่ายไปแล้ว (ถ้ามี)</div>
+                </div>
+
+                <div class="data-row" style="align-items: flex-start;">
+                    <div class="data-label">4. ยกเว้นเบี้ยประกันภัย</div>
+                    <div class="data-val-box text-center" style="font-size: 14px;">ยกเว้นเบี้ยประกันภัยของสัญญาเพิ่มเติม CI Re-Claim Re-Care<br>เมื่อได้รับการวินิจฉัยและหรือยืนยันจากแพทย์เป็นครั้งแรก<br>ว่าเจ็บป่วยด้วยโรคร้ายแรงระดับรุนแรง</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-block" style="margin-bottom: 0;">
+            <div class="block-head">สัญญาเพิ่มเติมการยกเว้นเบี้ยประกันภัย สำหรับการเจ็บป่วยด้วย 60 โรคร้ายแรงระดับรุนแรง</div>
+            <div class="block-content">
+                <div class="data-row">
+                    <div class="data-label" style="width: 35%;">ยกเว้นเบี้ยประกันภัยสัญญาหลัก</div>
+                    <div class="data-val-box text-center" style="width: 65%; font-size: 12px; font-weight: normal; line-height: 1.5;">
+                        ยกเว้นเบี้ยประกันภัยหลักของกรมธรรม์ประกันภัยที่สัญญาเพิ่มเติมนี้แนบอยู่<br>รวมถึงเบี้ยประกันภัยของสัญญาเพิ่มเติมนี้ (ไม่รวมเบี้ยประกันภัยของสัญญาเพิ่มเติมอื่นๆ)<br>เมื่อได้รับการวินิจฉัยว่าเจ็บป่วยด้วยโรคร้ายแรงระดับรุนแรงเป็นครั้งแรก
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const rates = {
+        main9999: { 0:{m:9.51, f:8.52}, 1:{m:9.62, f:8.59}, 2:{m:9.78, f:8.71}, 3:{m:9.94, f:8.83}, 4:{m:10.12, f:8.96}, 5:{m:10.30, f:9.10}, 6:{m:10.49, f:9.24}, 7:{m:10.68, f:9.38}, 8:{m:10.89, f:9.53}, 9:{m:11.11, f:9.69}, 10:{m:11.34, f:9.86}, 11:{m:11.58, f:10.03}, 12:{m:11.82, f:10.20}, 13:{m:12.07, f:10.39}, 14:{m:12.33, f:10.58}, 15:{m:12.59, f:10.78}, 16:{m:12.86, f:10.99}, 17:{m:13.13, f:11.20}, 18:{m:13.42, f:11.43}, 19:{m:13.71, f:11.67}, 20:{m:14.00, f:11.91}, 21:{m:14.31, f:12.17}, 22:{m:14.64, f:12.43}, 23:{m:14.98, f:12.71}, 24:{m:15.33, f:13.00}, 25:{m:15.70, f:13.31}, 26:{m:16.09, f:13.63}, 27:{m:16.49, f:13.96}, 28:{m:16.92, f:14.31}, 29:{m:17.37, f:14.68}, 30:{m:17.85, f:15.07}, 31:{m:18.34, f:15.47}, 32:{m:18.87, f:15.90}, 33:{m:19.41, f:16.34}, 34:{m:19.99, f:16.81}, 35:{m:20.60, f:17.31}, 36:{m:21.23, f:17.83}, 37:{m:21.90, f:18.37}, 38:{m:22.61, f:18.95}, 39:{m:23.35, f:19.55}, 40:{m:24.13, f:20.19}, 41:{m:24.95, f:20.86}, 42:{m:25.82, f:21.57}, 43:{m:26.74, f:22.32}, 44:{m:27.71, f:23.11}, 45:{m:28.74, f:23.95}, 46:{m:29.82, f:24.84}, 47:{m:30.97, f:25.77}, 48:{m:32.18, f:26.77}, 49:{m:33.47, f:27.83}, 50:{m:34.84, f:28.96}, 51:{m:36.30, f:30.15}, 52:{m:37.84, f:31.43}, 53:{m:39.50, f:32.80}, 54:{m:41.26, f:34.25}, 55:{m:43.14, f:35.81}, 56:{m:45.16, f:37.48}, 57:{m:47.33, f:39.27}, 58:{m:49.65, f:41.19}, 59:{m:52.15, f:43.26}, 60:{m:54.84, f:45.49}, 61:{m:57.74, f:47.89}, 62:{m:60.86, f:50.48}, 63:{m:64.22, f:53.29}, 64:{m:67.85, f:56.34}, 65:{m:71.78, f:59.64}, 66:{m:76.02, f:63.23}, 67:{m:80.61, f:67.13}, 68:{m:85.58, f:71.36}, 69:{m:90.97, f:75.96}, 70:{m:96.80, f:80.95} },
+        ciReclaim: { 0:{m:5.93, f:4.73}, 1:{m:4.95, f:4.39}, 2:{m:4.33, f:4.14}, 3:{m:4.24, f:4.13}, 4:{m:4.02, f:3.78}, 5:{m:3.55, f:3.30}, 6:{m:3.03, f:2.77}, 7:{m:2.66, f:2.46}, 8:{m:2.49, f:2.47}, 9:{m:2.55, f:2.62}, 10:{m:2.65, f:2.75}, 11:{m:2.75, f:2.79}, 12:{m:3.06, f:2.80}, 13:{m:3.42, f:2.82}, 14:{m:3.57, f:2.85}, 15:{m:3.74, f:2.85}, 16:{m:3.79, f:2.85}, 17:{m:3.84, f:2.85}, 18:{m:3.89, f:2.85}, 19:{m:3.97, f:2.88}, 20:{m:3.97, f:2.88}, 21:{m:4.19, f:2.89}, 22:{m:4.29, f:2.91}, 23:{m:4.37, f:3.05}, 24:{m:4.54, f:3.26}, 25:{m:4.57, f:3.39}, 26:{m:4.64, f:3.46}, 27:{m:4.69, f:3.77}, 28:{m:4.75, f:4.13}, 29:{m:4.90, f:4.31}, 30:{m:4.99, f:4.39}, 31:{m:5.16, f:4.48}, 32:{m:5.57, f:4.98}, 33:{m:5.71, f:5.15}, 34:{m:5.80, f:5.65}, 35:{m:5.82, f:5.68}, 36:{m:5.93, f:5.74}, 37:{m:6.15, f:5.86}, 38:{m:6.90, f:6.41}, 39:{m:7.74, f:6.95}, 40:{m:8.69, f:7.46}, 41:{m:10.56, f:7.88}, 42:{m:11.77, f:8.55}, 43:{m:13.20, f:9.33}, 44:{m:14.86, f:10.24}, 45:{m:16.66, f:11.26}, 46:{m:18.61, f:12.61}, 47:{m:20.59, f:13.80}, 48:{m:22.60, f:15.04}, 49:{m:24.68, f:16.30}, 50:{m:26.98, f:17.44}, 51:{m:29.60, f:21.69}, 52:{m:32.59, f:23.30}, 53:{m:36.09, f:25.96}, 54:{m:40.17, f:27.55}, 55:{m:44.75, f:29.27}, 56:{m:49.92, f:31.52}, 57:{m:55.64, f:34.52}, 58:{m:61.67, f:37.47}, 59:{m:68.68, f:41.19}, 60:{m:77.22, f:46.21}, 61:{m:86.71, f:51.68}, 62:{m:96.99, f:55.80}, 63:{m:104.46, f:59.81}, 64:{m:118.02, f:63.99}, 65:{m:132.01, f:73.02}, 66:{m:136.63, f:76.11}, 67:{m:148.72, f:84.90}, 68:{m:157.86, f:94.89}, 69:{m:172.42, f:106.09}, 70:{m:189.97, f:112.86} },
+        wp60ci: { 0:{m:54.10, f:56.11}, 1:{m:53.03, f:55.75}, 2:{m:52.41, f:55.56}, 3:{m:52.22, f:55.58}, 4:{m:52.14, f:55.71}, 5:{m:52.29, f:56.08}, 6:{m:52.76, f:56.77}, 7:{m:53.57, f:57.82}, 8:{m:54.63, f:59.07}, 9:{m:55.81, f:60.39}, 10:{m:57.08, f:61.68}, 11:{m:58.40, f:62.87}, 12:{m:59.80, f:64.06}, 13:{m:61.21, f:65.19}, 14:{m:62.61, f:66.30}, 15:{m:64.02, f:67.40}, 16:{m:65.43, f:68.57}, 17:{m:66.97, f:69.95}, 18:{m:68.57, f:71.45}, 19:{m:70.32, f:73.13}, 20:{m:72.22, f:75.01}, 21:{m:74.32, f:77.10}, 22:{m:76.58, f:79.36}, 23:{m:79.42, f:82.18}, 24:{m:82.43, f:85.13}, 25:{m:85.59, f:88.16}, 26:{m:88.90, f:91.27}, 27:{m:92.31, f:94.52}, 28:{m:95.86, f:97.84}, 29:{m:99.59, f:101.22}, 30:{m:103.45, f:104.69}, 31:{m:107.47, f:108.21}, 32:{m:111.62, f:111.73}, 33:{m:115.88, f:115.20}, 34:{m:120.59, f:119.07}, 35:{m:125.42, f:122.85}, 36:{m:130.34, f:126.52}, 37:{m:135.86, f:130.75}, 38:{m:141.59, f:135.01}, 39:{m:147.56, f:139.35}, 40:{m:153.80, f:143.80}, 41:{m:160.32, f:148.39}, 42:{m:167.10, f:153.12}, 43:{m:174.11, f:157.99}, 44:{m:181.33, f:162.94}, 45:{m:188.72, f:167.94}, 46:{m:196.30, f:172.97}, 47:{m:204.07, f:178.02}, 48:{m:212.12, f:183.09}, 49:{m:220.53, f:188.21}, 50:{m:229.37, f:193.43}, 51:{m:238.66, f:198.81}, 52:{m:248.43, f:203.56}, 53:{m:258.67, f:208.64}, 54:{m:269.35, f:214.22}, 55:{m:280.44, f:220.44}, 56:{m:291.92, f:227.36}, 57:{m:303.77, f:234.97}, 58:{m:316.01, f:243.19}, 59:{m:328.78, f:251.92}, 60:{m:342.00, f:261.04}, 61:{m:355.34, f:270.21}, 62:{m:368.71, f:279.41}, 63:{m:382.12, f:288.78}, 64:{m:395.46, f:298.48}, 65:{m:408.64, f:308.69}, 66:{m:419.30, f:317.51}, 67:{m:430.86, f:327.39}, 68:{m:441.31, f:337.16}, 69:{m:450.47, f:346.64}, 70:{m:458.11, f:355.66} }
+    };
+
+    let currentGender = 'male';
+    let ciSumInsured = 1000000;
+    const MAIN_SUM_INSURED = 100000; 
+
+    // สคริปต์เปิด/ปิด Modal Popup
+    function openModal() { document.getElementById('infoModal').style.display = 'flex'; }
+    function closeModal(e) { document.getElementById('infoModal').style.display = 'none'; }
+
+    function calculateExperience() {
+        let startDate = new Date(2006, 5, 28); let today = new Date();
+        let years = today.getFullYear() - startDate.getFullYear();
+        let months = today.getMonth() - startDate.getMonth();
+        let days = today.getDate() - startDate.getDate();
+        if (days < 0) { months--; let prevMonth = new Date(today.getFullYear(), today.getMonth(), 0); days += prevMonth.getDate(); }
+        if (months < 0) { years--; months += 12; }
+        
+        let expText = "";
+        if (years > 0) expText += years + " ปี ";
+        if (months > 0) expText += months + " เดือน ";
+        if (days > 0) expText += days + " วัน";
+        if (expText === "") expText = "1 วัน";
+        document.getElementById('experience-text').innerText = expText.trim();
+    }
+
+    function formatNumber(num) { return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+    function parseNumber(str) { return parseInt(str.replace(/,/g, '')) || 0; }
+    function formatSumShort(num) {
+        if(num >= 1000000) return (num/1000000) + 'M';
+        if(num >= 1000) return (num/1000) + 'K';
+        return num;
+    }
+
+    function setGender(gender) {
+        currentGender = gender;
+        document.getElementById('btn-male').classList.remove('active');
+        document.getElementById('btn-female').classList.remove('active');
+        document.getElementById(`btn-${gender}`).classList.add('active');
+        document.getElementById('sticky-gender-text').innerText = (gender === 'male') ? 'ชาย' : 'หญิง';
+        
+        let avatarImg = document.getElementById('sticky-avatar-img');
+        avatarImg.src = (gender === 'male') ? 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' : 'https://cdn-icons-png.flaticon.com/512/3135/3135789.png';
+        calculate();
+    }
+
+    function handleSlider(val) {
+        ciSumInsured = parseInt(val);
+        document.getElementById('sum-display-input').value = formatNumber(ciSumInsured);
+        calculate();
+    }
+
+    function handleSumManualInput(val) { let num = parseNumber(val); setSum(num); }
+    function setSum(val) {
+        ciSumInsured = val;
+        document.getElementById('sum-slider').value = val;
+        document.getElementById('sum-display-input').value = formatNumber(ciSumInsured);
+        calculate();
+    }
+
+    function getRate(planObj, age, gender) {
+        let gKey = (gender === 'male') ? 'm' : 'f'; 
+        if(planObj[age]) return planObj[age][gKey];
+        return 0;
+    }
+
+    function calculate() {
+        let age = parseInt(document.getElementById('age-input').value) || 0;
+        document.getElementById('sticky-age-text').innerText = age;
+        let sumError = document.getElementById('sum-error');
+        
+        if (age > 70) {
+            sumError.innerText = "*แพ็กเกจนี้รับประกันถึงอายุ 70 ปีเท่านั้น";
+            sumError.style.display = 'block'; resetDisplay(); return;
+        } else if (ciSumInsured < 500000) {
+            sumError.innerText = "*ทุนประกัน CI เริ่มต้นที่ 500,000 บาท";
+            sumError.style.display = 'block'; resetDisplay(); return;
+        } else {
+            sumError.style.display = 'none';
+        }
+
+        document.getElementById('display-ci-sum').innerText = formatNumber(ciSumInsured);
+        document.getElementById('sticky-sum-text').innerText = formatSumShort(ciSumInsured);
+
+        let rateMain = getRate(rates.main9999, age, currentGender);
+        let premiumMain = Math.ceil(rateMain * (MAIN_SUM_INSURED / 1000));
+        let rateCI = getRate(rates.ciReclaim, age, currentGender);
+        let premiumCI = Math.ceil(rateCI * (ciSumInsured / 1000));
+        let rateWP = getRate(rates.wp60ci, age, currentGender);
+        let premiumWP = Math.ceil(rateWP * (premiumMain / 1000));
+        let totalPremium = premiumMain + premiumCI + premiumWP;
+
+        document.getElementById('main-price').innerText = formatNumber(premiumMain) + " บาท";
+        document.getElementById('ci-price').innerText = formatNumber(premiumCI) + " บาท";
+        document.getElementById('wp-price').innerText = formatNumber(premiumWP) + " บาท";
+        document.getElementById('total-price').innerText = formatNumber(totalPremium);
+        document.getElementById('sticky-price-amount').innerText = formatNumber(totalPremium);
+
+        // อัปเดตตัวเลขในแถบแบนเนอร์ด้านนอก
+        document.getElementById('banner-ci-sum').innerText = formatNumber(ciSumInsured);
+        document.getElementById('banner-ci-max').innerText = formatNumber(ciSumInsured * 11);
+
+        // อัปเดตตัวเลขในหน้าต่าง Modal จำลอง Infographic
+        document.getElementById('modal-table-ci').innerText = formatNumber(ciSumInsured);
+        document.getElementById('val-early').innerText = "(" + formatNumber(ciSumInsured * 2) + " บาท)";
+        document.getElementById('val-severe').innerText = "(" + formatNumber(ciSumInsured * 9) + " บาท)";
+        document.getElementById('val-total').innerText = formatNumber(ciSumInsured * 11) + " บาท";
+    }
+
+    function resetDisplay() {
+        document.getElementById('main-price').innerText = "- บาท";
+        document.getElementById('ci-price').innerText = "- บาท";
+        document.getElementById('wp-price').innerText = "- บาท";
+        document.getElementById('total-price').innerText = "-";
+        document.getElementById('sticky-price-amount').innerText = "-";
+        document.getElementById('banner-ci-sum').innerText = "-";
+        document.getElementById('banner-ci-max').innerText = "-";
+        
+        document.getElementById('modal-table-ci').innerText = "-";
+        document.getElementById('val-early').innerText = "";
+        document.getElementById('val-severe').innerText = "";
+        document.getElementById('val-total').innerText = "-";
+    }
+
+    function sendToLine() {
+        let age = document.getElementById('age-input').value;
+        let price = document.getElementById('sticky-price-amount').innerText;
+        if(price === '-' || price === '0') { alert("กรุณาตรวจสอบอายุหรือทุนประกันให้ถูกต้อง"); return; }
+        let msg = `สนใจแพ็กเกจ CI Re-Claim Re-Care Plus\nเพศ: ${currentGender==='male'?'ชาย':'หญิง'}\nอายุ: ${age} ปี\nทุนประกันหลัก: 100,000 บาท\nทุนโรคร้ายแรง CI: ${formatNumber(ciSumInsured)} บาท\nเบี้ยรวมประมาณ: ${price} บาท/ปี`;
+        let url = "https://line.me/R/oaMessage/@toifwd/?" + encodeURIComponent(msg);
+        window.open(url, '_blank');
+    }
+
+    window.addEventListener('scroll', () => {
+        let stickyBar = document.getElementById('sticky-bar');
+        if (window.scrollY > 300) { stickyBar.classList.add('show'); } else { stickyBar.classList.remove('show'); }
+    });
+
+    calculateExperience();
+    setSum(1000000); 
+    setGender('male');
+</script>
+
+</body>
+</html>
