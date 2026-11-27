@@ -1,0 +1,1995 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เอฟดับบลิวดี บิ๊ก ทรี (FWD Big 3) คุ้มครอง 3 กลุ่มโรคร้ายแรง</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+    :root {
+        --primary: #e86614;
+        --primary-dark: #c9520a;
+        --primary-light: #fff5ee;
+        --primary-soft: #ffe8d9;
+        --secondary: #06C755;
+        --secondary-dark: #05a847;
+        --text-dark: #1e293b;
+        --text-muted: #64748b;
+        --bg-color: #f3f5f9;
+        --card-bg: #ffffff;
+        --border-color: #e2e8f0;
+        --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+        --shadow-md: 0 10px 30px rgba(15, 23, 42, 0.06);
+        --shadow-lg: 0 20px 40px rgba(232, 102, 20, 0.12);
+        --radius-lg: 20px;
+        --radius-md: 14px;
+        --radius-sm: 10px;
+    }
+
+    * { box-sizing: border-box; }
+
+    /* ป้องกันมือถือ (iOS/Android) แอบขยายขนาดฟอนต์ในพื้นที่ส่งออกภาพ */
+    html, body, #capture-area, #capture-area * {
+        -webkit-text-size-adjust: 100% !important;
+        -moz-text-size-adjust: 100% !important;
+        -ms-text-size-adjust: 100% !important;
+        text-size-adjust: 100% !important;
+    }
+    #capture-area, #capture-area * {
+        max-height: 999999px; /* ปิด Font Boosting ของ Android Chrome */
+        word-break: normal !important; /* ป้องกันข้อความหลังเลขข้อตกบรรทัด */
+    }
+
+    body {
+        font-family: 'Prompt', sans-serif;
+        background-color: var(--bg-color);
+        margin: 0; padding: 0;
+        color: var(--text-dark);
+        padding-bottom: 120px;
+        word-break: keep-all;
+        overflow-wrap: break-word;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* --- Banner --- */
+    .header-banner {
+        max-width: 1140px;
+        margin: 28px auto 0;
+        padding: 0 20px;
+    }
+    .header-banner img {
+        width: 100%;
+        height: auto;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        display: block;
+        border: 1px solid rgba(255,255,255,0.8);
+    }
+
+    /* --- Main Layout --- */
+    .container {
+        max-width: 1140px;
+        margin: 28px auto 40px;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: 410px 1fr;
+        gap: 28px;
+        align-items: stretch;
+    }
+
+    .left-panel, .right-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+    }
+
+    /* --- Modern Card --- */
+    .card {
+        background: var(--card-bg);
+        border-radius: var(--radius-lg);
+        padding: 26px;
+        box-shadow: var(--shadow-md);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .section-title {
+        font-size: 19px;
+        font-weight: 700;
+        margin: 0 0 18px 0;
+        color: var(--text-dark);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .section-title .icon-badge {
+        width: 36px; height: 36px;
+        border-radius: 10px;
+        background: var(--primary-light);
+        color: var(--primary);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+    }
+    .plan-code-pill {
+        margin-left: auto;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--primary);
+        background: var(--primary-light);
+        padding: 4px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--primary-soft);
+    }
+
+    /* --- Form Controls --- */
+    .form-group { margin-bottom: 20px; }
+    .form-group:last-child { margin-bottom: 0; }
+    .form-group label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+    /* Segmented Control */
+    .btn-group {
+        display: flex;
+        background: #f1f5f9;
+        padding: 4px;
+        border-radius: var(--radius-md);
+        gap: 4px;
+    }
+    .btn-opt {
+        flex: 1;
+        padding: 11px 12px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-family: 'Prompt', sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--text-muted);
+        border-radius: 10px;
+        transition: all 0.25s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+    }
+    .btn-opt:hover:not(.active) { color: var(--text-dark); }
+    .btn-opt.active {
+        background: var(--primary);
+        color: white;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(232, 102, 20, 0.25);
+    }
+
+    /* Gender Icon Badges */
+    .gender-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 2px 9px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+    .gender-badge.male {
+        background: #fff5ee;
+        color: #e86614;
+        border: 1px solid #ffdcc4;
+    }
+    .gender-badge.female {
+        background: #fff1f2;
+        color: #e11d48;
+        border: 1px solid #fecdd3;
+    }
+
+    /* FWD Style Sticky Bar Gender Avatar */
+    .sticky-gender-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+        position: relative;
+        transition: all 0.25s ease;
+        color: white;
+        box-shadow: 0 6px 14px rgba(232, 102, 20, 0.28);
+    }
+    .sticky-gender-avatar.male {
+        background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+        border: 2px solid #e86614;
+        box-shadow: 0 6px 14px rgba(30, 41, 59, 0.2);
+    }
+    .sticky-gender-avatar.female {
+        background: linear-gradient(135deg, #e86614 0%, #f58220 100%);
+        border: 2px solid #ffdcc4;
+    }
+    .sticky-gender-avatar .mini-symbol {
+        position: absolute;
+        bottom: -2px;
+        right: -2px;
+        width: 19px;
+        height: 19px;
+        border-radius: 50%;
+        background: white;
+        color: var(--primary);
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    }
+
+    /* Age & DOB Box */
+    .age-dob-box {
+        background: #f8fafc;
+        border: 1px solid var(--border-color);
+        padding: 16px;
+        border-radius: var(--radius-md);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .age-top-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .age-divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: #94a3b8;
+        font-size: 12px;
+        font-weight: 500;
+    }
+    .age-divider::before, .age-divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px dashed #cbd5e1;
+    }
+    .age-divider::before { margin-right: 10px; }
+    .age-divider::after { margin-left: 10px; }
+
+    input[type="number"], select {
+        width: 100%;
+        padding: 11px 14px;
+        border: 1.5px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        font-family: 'Prompt', sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--text-dark);
+        background-color: white;
+        outline: none;
+        transition: all 0.2s;
+    }
+    input[type="number"]:focus, select:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(232, 102, 20, 0.12);
+    }
+
+    /* Quick Sum Selector */
+    .sum-box {
+        background: linear-gradient(135deg, #fff8f3 0%, #fff2e8 100%);
+        border-radius: var(--radius-md);
+        padding: 18px;
+        border: 1px solid #ffdcc4;
+    }
+    .sum-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 12px;
+    }
+    .sum-amount {
+        color: var(--primary);
+        font-size: 22px;
+        font-weight: 700;
+    }
+    .quick-sums {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    .quick-sums button {
+        padding: 10px 8px;
+        font-size: 14px;
+        font-family: 'Prompt', sans-serif;
+        font-weight: 500;
+        background: white;
+        border: 1.5px solid #f1d5c2;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        color: var(--text-dark);
+        transition: all 0.2s;
+    }
+    .quick-sums button:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+    }
+    .quick-sums button.active {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(232, 102, 20, 0.25);
+    }
+
+    /* --- Unified Benefits Card (Compact & Aligned Bottom) --- */
+    .left-panel .card:last-child {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 24px;
+    }
+    .left-panel .card:last-child .section-title {
+        margin-bottom: 12px;
+    }
+    .benefits-list {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        justify-content: space-between;
+    }
+    .benefit-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 9px 0;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    .benefit-item:first-child { padding-top: 0; }
+    .benefit-item:last-child { padding-bottom: 0; border-bottom: none; }
+    
+    .benefit-icon {
+        width: 36px; height: 36px;
+        border-radius: 10px;
+        background: var(--primary-light);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        flex-shrink: 0;
+    }
+    .benefit-text strong {
+        display: block;
+        font-size: 14px;
+        color: var(--text-dark);
+        font-weight: 600;
+    }
+    .benefit-text span {
+        font-size: 12px;
+        color: var(--text-muted);
+        line-height: 1.3;
+        display: block;
+    }
+    .benefit-val {
+        margin-left: auto;
+        font-weight: 700;
+        font-size: 14.5px;
+        color: var(--primary);
+        text-align: right;
+        white-space: nowrap;
+        background: var(--primary-light);
+        padding: 3px 9px;
+        border-radius: 8px;
+    }
+
+    /* --- Agent Profile Card (Horizontal for Right Panel) --- */
+    .agent-card {
+        margin-top: auto;
+        background: linear-gradient(145deg, #ffffff 0%, #fffaf6 100%);
+        border-radius: var(--radius-lg);
+        padding: 24px 28px;
+        box-shadow: var(--shadow-md);
+        border: 1px solid #ffe4d1;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+    }
+    .agent-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary), #ff944d);
+    }
+    .agent-info-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    .agent-photo {
+        width: 92px; height: 92px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid white;
+        box-shadow: 0 6px 16px rgba(232, 102, 20, 0.18);
+        flex-shrink: 0;
+    }
+    .agent-role-badge {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--primary);
+        background: var(--primary-light);
+        padding: 2px 10px;
+        border-radius: 999px;
+        margin-left: 6px;
+        vertical-align: middle;
+    }
+    .agent-meta {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-top: 6px;
+        line-height: 1.6;
+    }
+    .agent-meta strong { color: var(--text-dark); font-size: 13.5px; }
+    .btn-call {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: var(--primary);
+        color: white;
+        padding: 12px 22px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-size: 14.5px;
+        font-weight: 600;
+        white-space: nowrap;
+        transition: all 0.2s;
+        box-shadow: 0 4px 12px rgba(232, 102, 20, 0.25);
+        flex-shrink: 0;
+    }
+    .btn-call:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+    }
+
+    /* --- Right Panel: Hero Coverage Card --- */
+    .coverage-card {
+        background: white;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        overflow: hidden;
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+    .coverage-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+        border-color: #ffb88c;
+    }
+
+    .cov-hero {
+        background: linear-gradient(135deg, #e86614 0%, #f58220 100%);
+        color: white;
+        padding: 26px 28px;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }
+    .cov-hero-label {
+        font-size: 13px;
+        font-weight: 500;
+        opacity: 0.9;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255,255,255,0.18);
+        padding: 4px 12px;
+        border-radius: 999px;
+        margin-bottom: 10px;
+    }
+    .cov-hero-amount {
+        font-size: 36px;
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.5px;
+    }
+    .cov-hero-sub {
+        font-size: 13.5px;
+        opacity: 0.92;
+        margin-top: 8px;
+        line-height: 1.5;
+    }
+    .cov-click-pill {
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(6px);
+        color: white;
+        padding: 8px 14px;
+        border-radius: 12px;
+        font-size: 12.5px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+        border: 1px solid rgba(255,255,255,0.3);
+        transition: 0.2s;
+    }
+    .coverage-card:hover .cov-click-pill {
+        background: white;
+        color: var(--primary);
+    }
+
+    /* Timeline Stepper */
+    .cov-timeline {
+        padding: 26px 28px;
+        background: white;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    .timeline-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 22px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .timeline-badge {
+        background: #fef3c7;
+        color: #b45309;
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 12.5px;
+        font-weight: 600;
+    }
+    .stepper {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        margin: 0 12px;
+    }
+    .stepper::before {
+        content: '';
+        position: absolute;
+        top: 14px;
+        left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #ffcca8, var(--primary));
+        z-index: 1;
+    }
+    .step-item {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+    .step-dot {
+        width: 30px; height: 30px;
+        border-radius: 50%;
+        background: white;
+        border: 2.5px solid var(--primary);
+        color: var(--primary);
+        font-size: 12px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .step-item.final .step-dot {
+        background: var(--primary);
+        color: white;
+        box-shadow: 0 0 0 5px var(--primary-soft);
+    }
+    .step-label {
+        font-size: 12.5px;
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+    .step-item.final .step-label {
+        color: var(--primary);
+        font-weight: 700;
+    }
+
+    /* Extra Benefits Footer inside Coverage Card */
+    .cov-extras {
+        padding: 20px 28px;
+        background: #f8fafc;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+    .extra-box {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        padding: 14px 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .extra-box i {
+        width: 38px; height: 38px;
+        border-radius: 10px;
+        background: #e6f9ee;
+        color: var(--secondary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+        flex-shrink: 0;
+    }
+    .extra-box-title { font-size: 12.5px; color: var(--text-muted); }
+    .extra-box-val { font-size: 16px; font-weight: 700; color: var(--text-dark); }
+
+    /* --- Plan Selection Cards --- */
+    .plans-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+    .plan-card {
+        background: white;
+        border: 2px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        padding: 20px 24px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+    }
+    .plan-card:hover:not(.disabled) {
+        border-color: #ffb88c;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-sm);
+    }
+    .plan-card.active {
+        border-color: var(--primary);
+        background: linear-gradient(to right, #ffffff, #fff9f5);
+        box-shadow: 0 8px 24px rgba(232, 102, 20, 0.12);
+    }
+    .plan-card.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        filter: grayscale(1);
+    }
+
+    .plan-left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    .plan-radio {
+        width: 24px; height: 24px;
+        border-radius: 50%;
+        border: 2px solid #cbd5e1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: 0.2s;
+    }
+    .plan-card.active .plan-radio {
+        border-color: var(--primary);
+        background: var(--primary);
+    }
+    .plan-card.active .plan-radio::after {
+        content: '\f00c';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        color: white;
+        font-size: 11px;
+    }
+
+    .plan-info h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    .popular-tag {
+        font-size: 11px;
+        font-weight: 600;
+        background: var(--primary);
+        color: white;
+        padding: 2px 10px;
+        border-radius: 999px;
+    }
+    .plan-info p {
+        margin: 4px 0 0 0;
+        font-size: 13px;
+        color: var(--text-muted);
+    }
+
+    .plan-price {
+        text-align: right;
+        min-width: 135px;
+    }
+    .price-row {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+    }
+    .price-num {
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--text-dark);
+        line-height: 1.1;
+    }
+    .plan-card.active .price-num { color: var(--primary); }
+    .price-unit {
+        font-size: 12.5px;
+        color: var(--text-muted);
+        margin-top: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 6px;
+    }
+
+    /* --- Action Buttons (Infographic / Table) --- */
+    .brochure-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+    .btn-action-view {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        color: white;
+        padding: 16px 20px;
+        border-radius: var(--radius-md);
+        border: none;
+        font-family: 'Prompt', sans-serif;
+        font-size: 15px;
+        font-weight: 600;
+        transition: all 0.25s ease;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .btn-action-view.teal {
+        background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+        box-shadow: 0 6px 18px rgba(15, 118, 110, 0.2);
+    }
+    .btn-action-view.teal:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px rgba(15, 118, 110, 0.3);
+    }
+    .btn-action-view.blue {
+        background: linear-gradient(135deg, #0369a1 0%, #0284c7 100%);
+        box-shadow: 0 6px 18px rgba(2, 132, 199, 0.2);
+    }
+    .btn-action-view.blue:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px rgba(2, 132, 199, 0.3);
+    }
+
+    /* --- Floating Glass Sticky Bar --- */
+    .sticky-bar {
+        position: fixed;
+        bottom: 18px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 40px);
+        max-width: 1100px;
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        box-shadow: 0 12px 35px rgba(15, 23, 42, 0.14);
+        padding: 14px 24px;
+        z-index: 1000;
+        display: none;
+        border-radius: 18px;
+        border: 1px solid rgba(232, 102, 20, 0.25);
+    }
+    .sticky-bar.show {
+        display: block;
+        animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideUp {
+        from { transform: translate(-50%, 100px); opacity: 0; }
+        to { transform: translate(-50%, 0); opacity: 1; }
+    }
+
+    .sticky-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+    }
+    .sticky-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+    .btn-line {
+        background: var(--secondary);
+        color: white;
+        padding: 12px 26px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+        border: none;
+        cursor: pointer;
+        font-family: 'Prompt', sans-serif;
+        font-size: 15.5px;
+        box-shadow: 0 4px 14px rgba(6, 199, 85, 0.3);
+        transition: all 0.2s;
+    }
+    .btn-line:hover {
+        background: var(--secondary-dark);
+        transform: translateY(-1px);
+    }
+
+    /* --- Report Overlay & Lightbox --- */
+    #report-overlay {
+        display: none;
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        min-height: 100vh;
+        background: #f1f5f9;
+        z-index: 999999;
+        padding: 20px 0;
+    }
+    #report-content-wrapper {
+        width: 100%;
+        padding: 0 15px 60px 15px;
+    }
+    .report-scroll-box {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 10px;
+    }
+    .mobile-scroll-hint {
+        display: none;
+        text-align: center;
+        font-size: 12.5px;
+        color: #64748b;
+        margin-bottom: 10px;
+    }
+    .close-report-btn {
+        position: fixed;
+        top: 18px; right: 18px;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 46px; height: 46px;
+        font-size: 20px;
+        cursor: pointer;
+        z-index: 1000000;
+        box-shadow: 0 4px 14px rgba(232,102,20,0.35);
+        display: flex; align-items: center; justify-content: center;
+        transition: 0.2s;
+    }
+    .close-report-btn:hover { background: var(--primary-dark); transform: scale(1.06); }
+
+    .action-buttons {
+        text-align: center;
+        margin-top: 22px;
+        margin-bottom: 40px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        position: sticky;
+        left: 0;
+    }
+    .btn-act {
+        padding: 13px 20px;
+        border-radius: 12px;
+        font-family: 'Prompt', sans-serif;
+        cursor: pointer;
+        font-size: 15px;
+        border: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: 0.25s;
+        min-width: 170px;
+    }
+    .btn-save { background: var(--secondary); color: white; box-shadow: 0 4px 14px rgba(6, 199, 85, 0.25); }
+    .btn-share { background: #2563eb; color: white; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25); }
+    .btn-pdf { background: #dc2626; color: white; box-shadow: 0 4px 14px rgba(220, 38, 38, 0.25); }
+    .btn-act:hover:not(:disabled) { opacity: 0.92; transform: translateY(-2px); }
+    .btn-act:disabled { opacity: 0.7; cursor: not-allowed; }
+
+    #image-lightbox { display: none; position: fixed; z-index: 99999999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(15,23,42,0.92); overflow: hidden; cursor: zoom-out; }
+    #image-lightbox img { margin: auto; display: block; max-width: 96%; max-height: 96%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: contain; border-radius: 8px; }
+    .lightbox-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; z-index: 2; }
+
+    @media print {
+        body, * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+        #main-content, #sticky-bar, .action-buttons, .close-report-btn, .mobile-scroll-hint { display: none !important; }
+        body { background: white; padding: 0; }
+        #report-overlay { position: static; min-height: auto; padding: 0; display: block !important; background: white !important; }
+        #report-content-wrapper, .report-scroll-box { padding: 0 !important; overflow: visible !important; }
+        #capture-area { box-shadow: none !important; margin: 0 auto !important; }
+    }
+
+    @media (max-width: 900px) {
+        .container { grid-template-columns: 1fr; margin-top: 20px; gap: 20px; }
+        .header-banner { margin-top: 16px; }
+        .cov-hero { flex-direction: column; align-items: flex-start; padding: 22px; }
+        .cov-click-pill { align-self: flex-start; }
+        .cov-extras { grid-template-columns: 1fr; padding: 18px 22px; }
+        .brochure-wrapper { grid-template-columns: 1fr; }
+        .plan-card { flex-direction: column; align-items: flex-start; }
+        .plan-price { text-align: left; padding-left: 40px; width: 100%; }
+        .price-row, .price-unit { justify-content: flex-start; }
+        .agent-card { flex-direction: column; align-items: stretch; padding: 22px; }
+        .agent-info-wrapper { flex-direction: row; }
+        .btn-call { width: 100%; }
+        .sticky-bar { bottom: 0; width: 100%; border-radius: 18px 18px 0 0; padding: 14px 18px; }
+        .mobile-scroll-hint { display: block; }
+        .btn-act { width: 100%; max-width: 320px; }
+    }
+</style>
+</head>
+<body>
+
+<div id="main-content">
+    <div class="header-banner">
+        <img src="banner.jpg" alt="แบนเนอร์ FWD Big 3" onerror="this.src='banner.png'">
+    </div>
+
+    <div class="container">
+        <!-- Left Panel -->
+        <div class="left-panel">
+            <div class="card">
+                <h2 class="section-title">
+                    <span class="icon-badge"><i class="fa-solid fa-calculator"></i></span>
+                    คำนวณเบี้ย FWD Big 3
+                </h2>
+                
+                <div class="form-group">
+                    <label>เพศผู้เอาประกัน</label>
+                    <div class="btn-group">
+                        <button class="btn-opt active" id="m-btn" onclick="setGender('male')"><i class="fa-solid fa-person" style="font-size: 18px;"></i> ชาย</button>
+                        <button class="btn-opt" id="f-btn" onclick="setGender('female')"><i class="fa-solid fa-person-dress" style="font-size: 18px;"></i> หญิง</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>อายุรับประกัน (20 - 60 ปี)</label>
+                    <div class="age-dob-box">
+                        <div class="age-top-row">
+                            <span style="font-size: 14px; color: var(--text-muted); white-space: nowrap;">ระบุอายุ:</span>
+                            <input type="number" id="age-input" value="30" min="20" max="60" oninput="handleManualAge()" style="text-align: center; font-weight: 700; font-size: 17px;">
+                            <span style="font-size: 14px; color: var(--text-muted);">ปี</span>
+                        </div>
+                        
+                        <div class="age-divider">หรือระบุวันเดือนปีเกิด (แม่นยำกว่า)</div>
+
+                        <div>
+                            <div style="display: grid; grid-template-columns: 1fr 1.2fr 1.2fr; gap: 6px;">
+                                <select id="dob-day" style="padding: 10px 6px; cursor: pointer;" onchange="calculateAgeFromDOB()">
+                                    <option value="">วัน</option>
+                                </select>
+                                <select id="dob-month" style="padding: 10px 6px; cursor: pointer;" onchange="calculateAgeFromDOB()">
+                                    <option value="">เดือน</option>
+                                    <option value="1">ม.ค.</option><option value="2">ก.พ.</option>
+                                    <option value="3">มี.ค.</option><option value="4">เม.ย.</option>
+                                    <option value="5">พ.ค.</option><option value="6">มิ.ย.</option>
+                                    <option value="7">ก.ค.</option><option value="8">ส.ค.</option>
+                                    <option value="9">ก.ย.</option><option value="10">ต.ค.</option>
+                                    <option value="11">พ.ย.</option><option value="12">ธ.ค.</option>
+                                </select>
+                                <select id="dob-year" style="padding: 10px 6px; cursor: pointer;" onchange="calculateAgeFromDOB()">
+                                    <option value="">พ.ศ.</option>
+                                </select>
+                            </div>
+                            <div id="exact-age-display" style="font-size: 13px; color: var(--primary); margin-top: 8px; font-weight: 500; text-align: center;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="sum-box">
+                        <div class="sum-header">
+                            <label style="margin: 0; color: var(--text-dark);">แผนความคุ้มครอง</label>
+                            <div class="sum-amount"><span id="sum-display-text">1,000,000</span> <span style="font-size: 14px; font-weight: 500;">บาท</span></div>
+                        </div>
+                        <div class="quick-sums">
+                            <button id="q-500000" onclick="selectPlan(500000)">5 แสน</button>
+                            <button id="q-1000000" class="active" onclick="selectPlan(1000000)">1 ล้าน</button>
+                            <button id="q-2000000" onclick="selectPlan(2000000)">2 ล้าน</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>งวดการชำระเบี้ย</label>
+                    <div class="btn-group">
+                        <button class="btn-opt active" id="p-year" onclick="setPeriod('year')">รายปี</button>
+                        <button class="btn-opt" id="p-month" onclick="setPeriod('month')">รายเดือน</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unified Benefits Card -->
+            <div class="card">
+                <h2 class="section-title">
+                    <span class="icon-badge"><i class="fa-solid fa-shield-halved"></i></span>
+                    สิทธิประโยชน์ที่จะได้รับ
+                </h2>
+                
+                <div class="benefits-list">
+                    <div class="benefit-item">
+                        <div class="benefit-icon"><i class="fa-solid fa-ribbon"></i></div>
+                        <div class="benefit-text">
+                            <strong>โรคมะเร็งทุกชนิด</strong>
+                            <span>รวมมะเร็งผิวหนังเมลาโนมาชนิดร้ายแรง</span>
+                        </div>
+                        <div class="benefit-val"><span class="dynamic-sum">1,000,000</span></div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+                        <div class="benefit-text">
+                            <strong>กลุ่มโรคหัวใจและหลอดเลือด</strong>
+                            <span>จ่ายเงินก้อนเมื่อได้รับการวินิจฉัย</span>
+                        </div>
+                        <div class="benefit-val"><span class="dynamic-sum">1,000,000</span></div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon"><i class="fa-solid fa-brain"></i></div>
+                        <div class="benefit-text">
+                            <strong>กลุ่มโรคสมองและระบบประสาท</strong>
+                            <span>จ่ายเงินก้อนเมื่อได้รับการวินิจฉัย</span>
+                        </div>
+                        <div class="benefit-val"><span class="dynamic-sum">1,000,000</span></div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon"><i class="fa-solid fa-notes-medical"></i></div>
+                        <div class="benefit-text">
+                            <strong>มะเร็งผิวหนังอื่นๆ</strong>
+                            <span>ที่ไม่ใช่เมลาโนมาชนิดร้ายแรง (คุ้มครองต่อ)</span>
+                        </div>
+                        <div class="benefit-val">50,000</div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon"><i class="fa-solid fa-user-shield"></i></div>
+                        <div class="benefit-text">
+                            <strong>ความคุ้มครองชีวิต</strong>
+                            <span>กรณีเสียชีวิตทุกกรณี</span>
+                        </div>
+                        <div class="benefit-val">50,000</div>
+                    </div>
+                    
+                    <div class="benefit-item">
+                        <div class="benefit-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                        <div class="benefit-text">
+                            <strong>สิทธิลดหย่อนภาษี</strong>
+                            <span>นำเบี้ยฯ บางส่วนลดหย่อนภาษีได้ตามประกาศกรมสรรพากร ฉบับที่ 383</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <div>
+                <h2 class="section-title" style="margin-bottom: 14px;">
+                    <span class="icon-badge"><i class="fa-solid fa-heart-circle-check"></i></span>
+                    ผลประโยชน์และความคุ้มครอง
+                    <span class="plan-code-pill">Plan Code: T25A</span>
+                </h2>
+                
+                <div class="coverage-card" onclick="openInfographic()">
+                    <div class="cov-hero">
+                        <div>
+                            <div class="cov-hero-label"><i class="fa-solid fa-shield"></i> คุ้มครอง 3 กลุ่มโรคร้ายแรง</div>
+                            <div class="cov-hero-amount"><span class="dynamic-sum">1,000,000</span> <span style="font-size: 20px; font-weight: 500;">บาท</span></div>
+                            <div class="cov-hero-sub">
+                                1) โรคมะเร็ง (รวมเมลาโนมาชนิดร้ายแรง) • 2) กลุ่มโรคหัวใจและหลอดเลือด • 3) กลุ่มโรคสมองและระบบประสาท<br>
+                                รับเงินก้อน 100% ของแผนที่เลือก เมื่อได้รับการวินิจฉัย
+                            </div>
+                        </div>
+                        <div class="cov-click-pill">
+                            <i class="fa-solid fa-expand"></i> ดูภาพสรุป
+                        </div>
+                    </div>
+
+                    <div class="cov-timeline">
+                        <div class="timeline-header">
+                            <span>ระยะเวลาชำระเบี้ยและคุ้มครอง 5 ปี</span>
+                            <span class="timeline-badge"><i class="fa-solid fa-lock"></i> เบี้ยคงที่ตลอด 5 ปี</span>
+                        </div>
+                        <div class="stepper">
+                            <div class="step-item">
+                                <div class="step-dot">1</div>
+                                <div class="step-label">ปีที่ 1</div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-dot">2</div>
+                                <div class="step-label">ปีที่ 2</div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-dot">3</div>
+                                <div class="step-label">ปีที่ 3</div>
+                            </div>
+                            <div class="step-item">
+                                <div class="step-dot">4</div>
+                                <div class="step-label">ปีที่ 4</div>
+                            </div>
+                            <div class="step-item final">
+                                <div class="step-dot">5</div>
+                                <div class="step-label">ครบปีที่ 5</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cov-extras">
+                        <div class="extra-box">
+                            <i class="fa-solid fa-shield-heart"></i>
+                            <div>
+                                <div class="extra-box-title">คุ้มครองกรณีเสียชีวิต</div>
+                                <div class="extra-box-val">50,000 บาท</div>
+                            </div>
+                        </div>
+                        <div class="extra-box">
+                            <i class="fa-solid fa-notes-medical"></i>
+                            <div>
+                                <div class="extra-box-title">มะเร็งผิวหนังอื่นๆ (ไม่ใช่เมลาโนมา)</div>
+                                <div class="extra-box-val">50,000 บาท</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="section-title" style="margin-bottom: 14px;">
+                    <span class="icon-badge"><i class="fa-solid fa-layer-group"></i></span>
+                    เลือกแผนความคุ้มครองที่ต้องการ
+                    <span id="plan-gender-pill" class="gender-badge male" style="margin-left: auto;"><i class="fa-solid fa-person"></i> เบี้ยเพศชาย</span>
+                </h2>
+                
+                <div id="plans-list" class="plans-grid">
+                    <div class="plan-card" id="card-500000" onclick="selectPlan(500000)">
+                        <div class="plan-left">
+                            <div class="plan-radio"></div>
+                            <div class="plan-info">
+                                <h3>แผน 500,000 บาท</h3>
+                                <p>คุ้มครอง 3 กลุ่มโรคร้ายแรง 500,000 บ. | ชีวิต 50,000 บ.</p>
+                            </div>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-row">
+                                <span class="plan-g-icon gender-badge male"><i class="fa-solid fa-person"></i></span>
+                                <div class="price-num" id="price-500000">-</div>
+                            </div>
+                            <div class="price-unit" id="unit-500000">บาท/ปี</div>
+                        </div>
+                    </div>
+
+                    <div class="plan-card active" id="card-1000000" onclick="selectPlan(1000000)">
+                        <div class="plan-left">
+                            <div class="plan-radio"></div>
+                            <div class="plan-info">
+                                <h3>แผน 1,000,000 บาท <span class="popular-tag">ยอดนิยม</span></h3>
+                                <p>คุ้มครอง 3 กลุ่มโรคร้ายแรง 1,000,000 บ. | ชีวิต 50,000 บ.</p>
+                            </div>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-row">
+                                <span class="plan-g-icon gender-badge male"><i class="fa-solid fa-person"></i></span>
+                                <div class="price-num" id="price-1000000">-</div>
+                            </div>
+                            <div class="price-unit" id="unit-1000000">บาท/ปี</div>
+                        </div>
+                    </div>
+
+                    <div class="plan-card" id="card-2000000" onclick="selectPlan(2000000)">
+                        <div class="plan-left">
+                            <div class="plan-radio"></div>
+                            <div class="plan-info">
+                                <h3>แผน 2,000,000 บาท</h3>
+                                <p>คุ้มครองสูงสุด 3 กลุ่มโรคร้ายแรง 2,000,000 บ. | ชีวิต 50,000 บ.</p>
+                            </div>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-row">
+                                <span class="plan-g-icon gender-badge male"><i class="fa-solid fa-person"></i></span>
+                                <div class="price-num" id="price-2000000">-</div>
+                            </div>
+                            <div class="price-unit" id="unit-2000000">บาท/ปี</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="brochure-wrapper">
+                <button onclick="openInfographic()" class="btn-action-view teal">
+                    <i class="fa-solid fa-image"></i> ดูภาพ Infographic (แนวนอน)
+                </button>
+                <button onclick="openDetailedTable()" class="btn-action-view blue">
+                    <i class="fa-solid fa-table-list"></i> ดูตารางผลประโยชน์ (แนวตั้ง)
+                </button>
+            </div>
+
+            <!-- Agent Card -->
+            <div class="agent-card">
+                <div class="agent-info-wrapper">
+                    <img src="agent.jpg" alt="นฤมล คำใบ" class="agent-photo" onerror="this.src='agent.png'">
+                    <div>
+                        <div style="font-size: 12px; color: var(--text-muted); font-weight: 500;">ที่ปรึกษาประกันชีวิต</div>
+                        <div style="font-size: 20px; font-weight: 700; color: var(--text-dark); line-height: 1.3;">
+                            นฤมล คำใบ <span style="font-weight: 400; font-size: 16px; color: var(--text-muted);">(ต๋อย)</span>
+                            <span class="agent-role-badge">ผู้จัดการขาย FWD</span>
+                        </div>
+                        <div class="agent-meta">
+                            ใบอนุญาต: <strong>6901010926</strong> &nbsp;•&nbsp;
+                            ประสบการณ์ <strong id="exp-years">0</strong> ปี <strong id="exp-months">0</strong> เดือน
+                        </div>
+                    </div>
+                </div>
+                <a href="tel:0869017235" class="btn-call">
+                    <i class="fa-solid fa-phone"></i> โทรปรึกษา 086-901-7235
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Floating Sticky Bar -->
+<div class="sticky-bar" id="sticky-bar">
+    <div class="sticky-content">
+        <div class="sticky-left">
+            <div id="stk-gender-avatar" class="sticky-gender-avatar male">
+                <i class="fa-solid fa-user-tie"></i>
+                <span class="mini-symbol"><i class="fa-solid fa-mars"></i></span>
+            </div>
+            <div>
+                <div style="font-size: 13px; color: var(--text-muted); font-weight: 500;">
+                    FWD Big 3 แผน <span id="stk-plan" style="color: var(--text-dark); font-weight: 600;">1,000,000</span> • <span id="stk-gender-text">ชาย</span> • <span id="stk-period">รายปี</span>
+                </div>
+                <div style="font-size: 24px; font-weight: 700; color: var(--primary); line-height: 1.15;">
+                    <span id="stk-price">0</span> <span style="font-size: 14px; font-weight: 500; color: var(--text-muted);">บาท</span>
+                </div>
+            </div>
+        </div>
+        <button class="btn-line" onclick="sendToLine()">
+            <i class="fab fa-line" style="font-size: 22px;"></i> ปรึกษาตัวแทน
+        </button>
+    </div>
+</div>
+
+<div id="report-overlay"></div>
+
+<div id="image-lightbox" onclick="this.style.display='none'">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="">
+</div>
+
+<script>
+    // ตารางเบี้ยประกันภัยรายปี FWD Big 3 (T25A) ตามประกาศ ปธ.67/2566
+    const big3Rates = {
+        500000: {
+            20:{m:1048,f:1460}, 21:{m:1102,f:1549}, 22:{m:1156,f:1644}, 23:{m:1218,f:1748}, 24:{m:1300,f:1850},
+            25:{m:1400,f:1953}, 26:{m:1524,f:2068}, 27:{m:1677,f:2194}, 28:{m:1856,f:2317}, 29:{m:2080,f:2458},
+            30:{m:2354,f:2623}, 31:{m:2548,f:2765}, 32:{m:2837,f:2882}, 33:{m:3141,f:2995}, 34:{m:3396,f:3106},
+            35:{m:3679,f:3183}, 36:{m:3987,f:3266}, 37:{m:4406,f:3350}, 38:{m:4895,f:3444}, 39:{m:5539,f:3546},
+            40:{m:6245,f:3791}, 41:{m:7020,f:4192}, 42:{m:7881,f:4794}, 43:{m:8838,f:5622}, 44:{m:9895,f:6628},
+            45:{m:10887,f:7708}, 46:{m:11818,f:8644}, 47:{m:12793,f:9594}, 48:{m:13813,f:10523}, 49:{m:14816,f:11469},
+            50:{m:16017,f:12432}, 51:{m:17433,f:13676}, 52:{m:18903,f:14995}, 53:{m:20424,f:16399}, 54:{m:22043,f:17842},
+            55:{m:23760,f:19328}, 56:{m:25568,f:20846}, 57:{m:27531,f:22410}, 58:{m:29671,f:24020}, 59:{m:31844,f:25795},
+            60:{m:34053,f:27751}
+        },
+        1000000: {
+            20:{m:1851,f:2755}, 21:{m:1956,f:2932}, 22:{m:2062,f:3122}, 23:{m:2184,f:3329}, 24:{m:2346,f:3532},
+            25:{m:2545,f:3736}, 26:{m:2790,f:3965}, 27:{m:3094,f:4216}, 28:{m:3448,f:4461}, 29:{m:3893,f:4741},
+            30:{m:4435,f:5069}, 31:{m:4830,f:5352}, 32:{m:5402,f:5583}, 33:{m:6002,f:5806}, 34:{m:6504,f:6025},
+            35:{m:7060,f:6174}, 36:{m:7667,f:6335}, 37:{m:8494,f:6499}, 38:{m:9461,f:6680}, 39:{m:10735,f:6878},
+            40:{m:12135,f:7361}, 41:{m:13668,f:8154}, 42:{m:15374,f:9350}, 43:{m:17270,f:10996}, 44:{m:19362,f:12998},
+            45:{m:21324,f:15148}, 46:{m:23161,f:17009}, 47:{m:25084,f:18894}, 48:{m:27096,f:20738}, 49:{m:29070,f:22613},
+            50:{m:31438,f:24521}, 51:{m:34234,f:26989}, 52:{m:37134,f:29603}, 53:{m:40130,f:32383}, 54:{m:43320,f:35238},
+            55:{m:46700,f:38175}, 56:{m:50252,f:41173}, 57:{m:54109,f:44256}, 58:{m:58308,f:47427}, 59:{m:62566,f:50920},
+            60:{m:66881,f:54769}
+        },
+        2000000: {
+            20:{m:3457,f:5346}, 21:{m:3664,f:5698}, 22:{m:3874,f:6077}, 23:{m:4116,f:6490}, 24:{m:4438,f:6895},
+            25:{m:4835,f:7302}, 26:{m:5323,f:7759}, 27:{m:5928,f:8260}, 28:{m:6633,f:8749}, 29:{m:7518,f:9307},
+            30:{m:8597,f:9962}, 31:{m:9395,f:10526}, 32:{m:10532,f:10985}, 33:{m:11723,f:11428}, 34:{m:12720,f:11862},
+            35:{m:13823,f:12156}, 36:{m:15028,f:12474}, 37:{m:16671,f:12796}, 38:{m:18592,f:13152}, 39:{m:21128,f:13542},
+            40:{m:23914,f:14501}, 41:{m:26965,f:16079}, 42:{m:30361,f:18462}, 43:{m:34132,f:21745}, 44:{m:38296,f:25739},
+            45:{m:42197,f:30028}, 46:{m:45847,f:33738}, 47:{m:49666,f:37495}, 48:{m:53662,f:41168}, 49:{m:57577,f:44902},
+            50:{m:62281,f:48699}, 51:{m:67835,f:53614}, 52:{m:73595,f:58818}, 53:{m:79544,f:64351}, 54:{m:85873,f:70030},
+            55:{m:92578,f:75870}, 56:{m:99621,f:81827}, 57:{m:107265,f:87949}, 58:{m:115583,f:94241}, 59:{m:124008,f:101171},
+            60:{m:132538,f:108804}
+        }
+    };
+
+    let currentGender = 'male';
+    let currentPlan = 1000000;
+    let currentPeriod = 'year'; 
+    let computedPremiumYr = 0;
+    let lastScrollY = 0;
+
+    function formatNum(n) { return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+
+    function updateGenderIcons() {
+        const isMale = currentGender === 'male';
+        const iconClass = isMale ? 'fa-solid fa-person' : 'fa-solid fa-person-dress';
+        const genderClass = isMale ? 'male' : 'female';
+        const genderText = isMale ? 'ชาย' : 'หญิง';
+
+        const pill = document.getElementById('plan-gender-pill');
+        if (pill) {
+            pill.className = `gender-badge ${genderClass}`;
+            pill.innerHTML = `<i class="${iconClass}"></i> เบี้ยเพศ${genderText}`;
+        }
+
+        document.querySelectorAll('.plan-g-icon').forEach(el => {
+            el.className = `plan-g-icon gender-badge ${genderClass}`;
+            el.innerHTML = `<i class="${iconClass}"></i>`;
+        });
+
+        const stkAvatar = document.getElementById('stk-gender-avatar');
+        if (stkAvatar) {
+            stkAvatar.className = `sticky-gender-avatar ${genderClass}`;
+            if (isMale) {
+                stkAvatar.innerHTML = `<i class="fa-solid fa-user-tie"></i><span class="mini-symbol"><i class="fa-solid fa-mars"></i></span>`;
+            } else {
+                stkAvatar.innerHTML = `<i class="fa-solid fa-person-dress" style="font-size: 22px;"></i><span class="mini-symbol"><i class="fa-solid fa-venus"></i></span>`;
+            }
+        }
+        const stkGenderText = document.getElementById('stk-gender-text');
+        if (stkGenderText) {
+            stkGenderText.innerText = genderText;
+        }
+    }
+
+    function setGender(g) {
+        currentGender = g;
+        document.getElementById('m-btn').classList.toggle('active', g === 'male');
+        document.getElementById('f-btn').classList.toggle('active', g === 'female');
+        updateGenderIcons();
+        calculate();
+    }
+
+    function setPeriod(p) {
+        currentPeriod = p;
+        document.getElementById('p-year').classList.toggle('active', p === 'year');
+        document.getElementById('p-month').classList.toggle('active', p === 'month');
+        calculate();
+    }
+
+    function selectPlan(p) {
+        if(document.getElementById(`card-${p}`).classList.contains('disabled')) return;
+        currentPlan = p;
+        document.getElementById('sum-display-text').innerText = formatNum(p);
+        
+        document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
+        document.getElementById(`card-${p}`).classList.add('active');
+
+        document.querySelectorAll('.quick-sums button').forEach(b => b.classList.remove('active'));
+        document.getElementById(`q-${p}`).classList.add('active');
+
+        calculate();
+    }
+
+    function calculate() {
+        const ageInput = document.getElementById('age-input');
+        let age = parseInt(ageInput.value);
+        
+        document.querySelectorAll('.dynamic-sum').forEach(el => el.innerText = formatNum(currentPlan));
+
+        const plans = [500000, 1000000, 2000000];
+        let periodText = currentPeriod === 'year' ? 'บาท/ปี' : 'บาท/เดือน';
+        let multiplier = currentPeriod === 'year' ? 1 : 0.09;
+
+        plans.forEach(p => {
+            const card = document.getElementById(`card-${p}`);
+            const priceEl = document.getElementById(`price-${p}`);
+            const unitEl = document.getElementById(`unit-${p}`);
+
+            if (isNaN(age) || age < 20 || age > 60) {
+                card.classList.add('disabled');
+                priceEl.innerText = "ไม่รองรับ";
+                unitEl.innerText = "(อายุ 20-60 ปี)";
+                if (p === currentPlan) {
+                    document.getElementById('stk-price').innerText = "-";
+                }
+            } else {
+                card.classList.remove('disabled');
+                const annualPremium = big3Rates[p][age][currentGender === 'male' ? 'm' : 'f'];
+                const finalPremium = Math.ceil(annualPremium * multiplier);
+                
+                if(p === currentPlan) computedPremiumYr = annualPremium;
+
+                priceEl.innerText = formatNum(finalPremium);
+                unitEl.innerText = periodText;
+
+                if (p === currentPlan) {
+                    document.getElementById('stk-price').innerText = formatNum(finalPremium);
+                    document.getElementById('stk-plan').innerText = formatNum(p);
+                    document.getElementById('stk-period').innerText = currentPeriod === 'year' ? 'รายปี' : 'รายเดือน';
+                }
+            }
+        });
+    }
+
+    function sendToLine() {
+        const age = document.getElementById('age-input').value;
+        const price = document.getElementById('stk-price').innerText;
+        const msg = `สนใจแผน FWD Big 3 (T25A)\nแผนความคุ้มครอง: ${formatNum(currentPlan)} บาท\nเพศ: ${currentGender==='male'?'ชาย':'หญิง'}\nอายุ: ${age} ปี\nงวดชำระ: ${document.getElementById('stk-period').innerText}\nค่าเบี้ย: ${price} บาท`;
+        window.open("https://line.me/R/oaMessage/@toifwd/?" + encodeURIComponent(msg), '_blank');
+    }
+
+    // 1. ฟังก์ชันสร้างภาพแผนภูมิ Infographic แนวนอน
+    function openInfographic() {
+        const age = parseInt(document.getElementById('age-input').value);
+        if (isNaN(age) || age < 20 || age > 60) {
+            alert("กรุณาระบุอายุระหว่าง 20 - 60 ปี");
+            return;
+        }
+        
+        const txtGender = currentGender === 'male' ? 'ชาย' : 'หญิง';
+        const annualPrem = big3Rates[currentPlan][age][currentGender === 'male' ? 'm' : 'f'];
+        const total5Yr = annualPrem * 5;
+        const monthlyPrem = Math.ceil(annualPrem * 0.09);
+
+        let htmlContent = `
+            <button class="close-report-btn" onclick="closeReport()"><i class="fa-solid fa-xmark"></i></button>
+            <div id="report-content-wrapper">
+                <div class="mobile-scroll-hint"><i class="fa-solid fa-arrows-left-right"></i> เลื่อนซ้าย-ขวาเพื่อดูภาพเต็ม หรือกดปุ่มด้านล่างเพื่อบันทึก/แชร์</div>
+                <div class="report-scroll-box">
+                    <div id="capture-area" style="margin: 0 auto; width: 1100px; min-width: 1100px; background: white; padding: 40px; border-radius: 16px; position: relative; box-sizing: border-box; font-family: 'Prompt';">
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px;">
+                            <div>
+                                <h1 style="color: #e86614; font-size: 38px; margin: 0; font-weight: 700; line-height: 1;">เอฟดับบลิวดี บิ๊ก ทรี (FWD Big 3)</h1>
+                                <div style="color: #64748b; font-size: 16px; margin-top: 8px;">แผน ${formatNum(currentPlan)} บาท | อายุรับประกัน: ${age} ปี | เพศ: ${txtGender} | ระยะเวลาคุ้มครอง 5 ปี</div>
+                            </div>
+                            <div>
+                                <img src="logo.png" alt="FWD Insurance" style="height: 75px; object-fit: contain;" onerror="this.style.display='none'">
+                            </div>
+                        </div>
+
+                        <div style="display: flex; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #fce4d6;">
+                            <div style="background: #fceea9; width: 190px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 700; font-size: 22px; color: #1e3b2b; text-align: center; padding: 15px;">
+                                ความคุ้มครอง<br>หลัก
+                            </div>
+                            
+                            <div style="flex: 1; display: flex; flex-direction: column;">
+                                <div style="background: linear-gradient(135deg, #e86614 0%, #f58220 100%); padding: 25px; text-align: center; color: white;">
+                                    <div style="font-size: 22px; font-weight: 600; line-height: 1.4;">
+                                        คุ้มครอง 3 กลุ่มโรคร้ายแรงยอดฮิต รับเงินก้อนเต็มจำนวน
+                                    </div>
+                                    <div style="display: flex; justify-content: center; gap: 15px; margin-top: 15px; flex-wrap: wrap;">
+                                        <div style="background: rgba(255,255,255,0.18); padding: 8px 16px; border-radius: 8px; font-size: 16px;">1. โรคมะเร็ง (รวมเมลาโนมาชนิดร้ายแรง)</div>
+                                        <div style="background: rgba(255,255,255,0.18); padding: 8px 16px; border-radius: 8px; font-size: 16px;">2. กลุ่มโรคหัวใจและหลอดเลือด</div>
+                                        <div style="background: rgba(255,255,255,0.18); padding: 8px 16px; border-radius: 8px; font-size: 16px;">3. กลุ่มโรคสมองและระบบประสาท</div>
+                                    </div>
+                                    <div style="font-size: 34px; font-weight: 700; color: #fffde7; margin-top: 15px; background: rgba(0,0,0,0.18); display: inline-block; padding: 6px 30px; border-radius: 50px;">
+                                        ${formatNum(currentPlan)} บาท
+                                    </div>
+                                </div>
+                                <div style="background: #fff5ee; padding: 18px 25px; display: flex; justify-content: center; align-items: center; border-top: 1px solid #ffdcc4;">
+                                    <div style="font-size: 17px; color: #1e293b; font-weight: 600;">
+                                        • กรณีเสียชีวิต: <strong style="color:#e86614;">50,000 บาท</strong> &nbsp;&nbsp;|&nbsp;&nbsp; • มะเร็งผิวหนังอื่นๆ (ที่ไม่ใช่เมลาโนมาชนิดร้ายแรง): <strong style="color:#e86614;">50,000 บาท</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="position: relative; margin-top: 40px; margin-bottom: 20px; padding-left: 190px; padding-right: 40px;">
+                            <div style="position: absolute; left: 0; top: 5px; font-size: 20px; font-weight: 700; color: #1e293b;">ระยะเวลา 5 ปี</div>
+                            
+                            <div style="display: flex; justify-content: space-between; align-items: center; position: relative;">
+                                <div style="position: absolute; top: 50%; left: 15px; right: 15px; height: 3px; background: #e86614; z-index: 1; transform: translateY(-50%);"></div>
+                                <div style="z-index: 2; width: 40px; height: 40px; background: white; border: 3px solid #e86614; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; color: #e86614;">ปี 1</div>
+                                <div style="z-index: 2; width: 40px; height: 40px; background: white; border: 3px solid #e86614; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; color: #e86614;">ปี 2</div>
+                                <div style="z-index: 2; width: 40px; height: 40px; background: white; border: 3px solid #e86614; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; color: #e86614;">ปี 3</div>
+                                <div style="z-index: 2; width: 40px; height: 40px; background: white; border: 3px solid #e86614; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; color: #e86614;">ปี 4</div>
+                                <div style="z-index: 2; width: 40px; height: 40px; background: #e86614; border: 3px solid #e86614; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; color: white;">ปี 5</div>
+                            </div>
+
+                            <div style="margin-top: 25px; display: flex; gap: 20px;">
+                                <div style="flex: 1; background: #fff5ee; border: 1px solid #ffdcc4; border-radius: 14px; padding: 16px 20px; text-align: center;">
+                                    <div style="font-size: 14px; color: #64748b;">เบี้ยประกันภัยรายปี</div>
+                                    <div style="font-size: 26px; font-weight: 700; color: #e86614;">${formatNum(annualPrem)} บาท/ปี</div>
+                                </div>
+                                <div style="flex: 1; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 14px; padding: 16px 20px; text-align: center;">
+                                    <div style="font-size: 14px; color: #64748b;">หรือเลือกชำระรายเดือน (ประมาณ)</div>
+                                    <div style="font-size: 26px; font-weight: 700; color: #06C755;">${formatNum(monthlyPrem)} บาท/เดือน</div>
+                                </div>
+                                <div style="flex: 1; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px 20px; text-align: center;">
+                                    <div style="font-size: 14px; color: #64748b;">รวมเบี้ยชำระตลอด 5 ปี (รายปี)</div>
+                                    <div style="font-size: 26px; font-weight: 700; color: #1e293b;">${formatNum(total5Yr)} บาท</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 28px; padding-top: 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: flex-end; gap: 28px;">
+                            <div style="flex: 1; font-size: 12px; color: #64748b; line-height: 1.6;">
+                                <strong style="color: #1e293b;">หมายเหตุและเงื่อนไขสำคัญ (FWD Big 3 - T25A):</strong><br>
+                                • เมื่อบริษัทจ่ายผลประโยชน์กรณีเสียชีวิต หรือโรคมะเร็ง (รวมเมลาโนมาชนิดร้ายแรง) หรือกลุ่มโรคเกี่ยวกับหัวใจและหลอดเลือด หรือกลุ่มโรคเกี่ยวกับสมองและระบบประสาท กรมธรรม์จะสิ้นผลบังคับทันที<br>
+                                • รับประกันภัยเฉพาะขั้นอาชีพ 1-2 | พิจารณารับประกันแบบมาตรฐานหรือปฏิเสธการรับประกันเท่านั้น | ไม่สามารถแนบสัญญาเพิ่มเติมอื่นๆ ได้<br>
+                                • แบบประกันภัยนี้สามารถนำเบี้ยประกันภัยบางส่วนไปหักลดหย่อนภาษีเงินได้บุคคลธรรมดาตามเกณฑ์ที่กฎหมายกำหนด (ประกาศอธิบดีกรมสรรพากร ฉบับที่ 383)
+                            </div>
+                            
+                            <div style="flex-shrink: 0; display: flex; align-items: center; gap: 14px; background: #fffaf6; border: 1px solid #ffdcc4; border-radius: 14px; padding: 12px 18px;">
+                                <img src="agent.jpg" alt="นฤมล คำใบ" style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid #e86614;" onerror="this.style.display='none'">
+                                <div style="line-height: 1.4;">
+                                    <div style="font-size: 11px; color: #64748b;">ดูแลและให้คำปรึกษาโดย</div>
+                                    <div style="font-size: 15px; font-weight: 700; color: #1e293b;">นฤมล คำใบ <span style="font-weight: 400; font-size: 13px; color: #64748b;">(ต๋อย)</span></div>
+                                    <div style="font-size: 12px; color: #e86614; font-weight: 600;">ผู้จัดการขาย FWD • ใบอนุญาต 6901010926</div>
+                                    <div style="font-size: 13px; font-weight: 700; color: #1e293b; margin-top: 2px;"><i class="fa-solid fa-phone" style="color: #e86614; font-size: 11px;"></i> 086-901-7235</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button onclick="exportHighResImage('l', 'download')" class="btn-act btn-save" id="save-btn-info"><i class="fa-solid fa-download"></i> บันทึกรูปภาพ (Ultra HD)</button>
+                    <button onclick="exportHighResImage('l', 'share')" class="btn-act btn-share" id="share-btn-info"><i class="fa-solid fa-share-nodes"></i> แชร์รูปภาพ</button>
+                    <button onclick="saveAsPDF('l')" class="btn-act btn-pdf" id="pdf-btn-info"><i class="fa-solid fa-file-pdf"></i> บันทึก PDF (Ultra HD)</button>
+                </div>
+            </div>
+        `;
+
+        lastScrollY = window.scrollY;
+        document.getElementById('main-content').style.display = 'none';
+        document.getElementById('sticky-bar').style.display = 'none';
+        
+        const overlay = document.getElementById('report-overlay');
+        overlay.innerHTML = htmlContent;
+        overlay.style.display = 'block';
+        window.scrollTo(0,0);
+    }
+
+    // 2. ฟังก์ชันสร้างตารางผลประโยชน์แนวตั้ง (ล็อกขนาด 900px และล็อกฟอนต์ไม่ให้เพี้ยนบนมือถือ)
+    function openDetailedTable() {
+        const age = parseInt(document.getElementById('age-input').value);
+        if (isNaN(age) || age < 20 || age > 60) {
+            alert("กรุณาระบุอายุระหว่าง 20 - 60 ปี");
+            return;
+        }
+
+        const txtGender = currentGender === 'male' ? 'ชาย' : 'หญิง';
+        const txtPeriod = currentPeriod === 'year' ? 'รายปี' : 'รายเดือน';
+        const priceDisplay = document.getElementById(`price-${currentPlan}`).innerText;
+        const annualPrem = big3Rates[currentPlan][age][currentGender === 'male' ? 'm' : 'f'];
+        const total5Yr = annualPrem * 5;
+
+        let htmlContent = `
+            <button class="close-report-btn" onclick="closeReport()"><i class="fa-solid fa-xmark"></i></button>
+            <div id="report-content-wrapper">
+                <div class="mobile-scroll-hint"><i class="fa-solid fa-arrows-left-right"></i> เลื่อนซ้าย-ขวาเพื่อดูตารางเต็ม หรือกดปุ่มด้านล่างเพื่อบันทึก/แชร์</div>
+                <div class="report-scroll-box">
+                    <div id="capture-area" style="margin: 0 auto; width: 900px; min-width: 900px; background: white; padding: 40px 36px; border-radius: 16px; position: relative; box-sizing: border-box; font-family: 'Prompt';">
+                        <style>
+                            .rp-header { margin-bottom: 25px; }
+                            .rp-header h2 { color: #e86614; font-size: 26px; margin: 0 0 4px; font-weight: 700; }
+                            .rp-header p { color: #64748b; font-size: 15px; margin: 0; }
+                            .rp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; background: #fffaf5; padding: 20px 24px; border-radius: 14px; border: 1px solid #ffdcc4; margin-bottom: 25px; }
+                            .rp-row { display: flex; justify-content: space-between; font-size: 15px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 8px; margin-bottom: 8px; }
+                            .rp-row:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+                            .rp-row span.val { font-weight: 700; color: #e86614; }
+                            
+                            #capture-area table { width: 100%; border-collapse: collapse; text-align: center; font-size: 14px !important; margin-bottom: 25px; table-layout: fixed; }
+                            #capture-area th { background: #e86614; color: white; padding: 12px 8px; border: 1px solid #c8540d; font-weight: 500; white-space: nowrap; }
+                            #capture-area td { padding: 10px 12px; border: 1px solid #e2e8f0; color: #1e293b; font-size: 14px !important; line-height: 1.45; }
+                            #capture-area tr:nth-child(even) td { background: #f8fafc; }
+                            .fw-bold { font-weight: 700; color: #e86614; }
+                            .text-left { text-align: left; }
+                        </style>
+                        
+                        <div class="rp-header" style="display: flex; align-items: center; gap: 45px; text-align: left; padding-bottom: 18px; border-bottom: 2px solid #fff2e8;">
+                            <img src="logo.png" alt="FWD Insurance" style="height: 72px; object-fit: contain; flex-shrink: 0;" onerror="this.style.display='none'">
+                            <div>
+                                <h2>ตารางสรุปผลประโยชน์ เอฟดับบลิวดี บิ๊ก ทรี (FWD Big 3)</h2>
+                                <p>แผนความคุ้มครอง ${formatNum(currentPlan)} บาท | ชำระเบี้ย 5 ปี คุ้มครอง 5 ปี (Plan Code: T25A)</p>
+                            </div>
+                        </div>
+
+                        <div class="rp-grid">
+                            <div>
+                                <div class="rp-row"><span>เพศผู้เอาประกัน:</span> <span class="val">${txtGender}</span></div>
+                                <div class="rp-row"><span>อายุเริ่มสัญญา:</span> <span class="val">${age} ปี</span></div>
+                                <div class="rp-row"><span>ระยะเวลาคุ้มครอง / ชำระเบี้ย:</span> <span class="val">5 ปี / 5 ปี</span></div>
+                            </div>
+                            <div>
+                                <div class="rp-row"><span>แผนความคุ้มครอง:</span> <span class="val">${formatNum(currentPlan)} บาท</span></div>
+                                <div class="rp-row"><span>งวดการชำระ:</span> <span class="val">${txtPeriod}</span></div>
+                                <div class="rp-row"><span>เบี้ยประกันภัยต่องวด:</span> <span class="val">${priceDisplay} บาท</span></div>
+                            </div>
+                        </div>
+
+                        <h3 style="color: #1e293b; font-size: 18px; margin-bottom: 10px; border-left: 4px solid #e86614; padding-left: 10px;">รายละเอียดผลประโยชน์ความคุ้มครอง</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 72%;">รายการผลประโยชน์</th>
+                                    <th style="width: 28%;">ความคุ้มครอง (บาท)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-left">1) กรณีเสียชีวิต</td>
+                                    <td class="fw-bold">50,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">2) กรณีได้รับการวินิจฉัยว่าเจ็บป่วยด้วยโรคมะเร็ง รวมถึงโรคมะเร็งผิวหนังเมลาโนมาชนิดร้ายแรง</td>
+                                    <td class="fw-bold">${formatNum(currentPlan)}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">3) กรณีได้รับการวินิจฉัยว่าเจ็บป่วยด้วยโรคมะเร็งผิวหนังอื่นๆ ที่ไม่ใช่ผิวหนังเมลาโนมาชนิดร้ายแรง</td>
+                                    <td class="fw-bold">50,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">4) กรณีได้รับการวินิจฉัยว่าเจ็บป่วยด้วยโรคในกลุ่มโรคเกี่ยวกับหัวใจและหลอดเลือด</td>
+                                    <td class="fw-bold">${formatNum(currentPlan)}</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">5) กรณีได้รับการวินิจฉัยว่าเจ็บป่วยด้วยโรคในกลุ่มโรคเกี่ยวกับสมองและระบบประสาท</td>
+                                    <td class="fw-bold">${formatNum(currentPlan)}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3 style="color: #1e293b; font-size: 18px; margin-bottom: 10px; border-left: 4px solid #e86614; padding-left: 10px;">ตารางเบี้ยประกันภัยรายปีตลอดสัญญา 5 ปี</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 14%;">ปีกรมธรรม์ที่</th>
+                                    <th style="width: 12%;">อายุ (ปี)</th>
+                                    <th style="width: 22%;">เบี้ยประกันภัยรายปี (บาท)</th>
+                                    <th style="width: 22%;">เบี้ยประกันภัยสะสม (บาท)</th>
+                                    <th style="width: 30%;">ความคุ้มครอง 3 กลุ่มโรคร้ายแรง (บาท)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+        `;
+
+        for(let yr = 1; yr <= 5; yr++) {
+            let displayAge = age + yr - 1;
+            let premPaidSoFar = annualPrem * yr;
+            htmlContent += `
+                <tr>
+                    <td>${yr}</td>
+                    <td>${displayAge}</td>
+                    <td>${formatNum(annualPrem)}</td>
+                    <td>${formatNum(premPaidSoFar)}</td>
+                    <td class="fw-bold">${formatNum(currentPlan)}</td>
+                </tr>
+            `;
+        }
+
+        htmlContent += `
+                            </tbody>
+                        </table>
+
+                        <div style="display: flex; gap: 15px; margin-top: 20px;">
+                            <div style="flex:1; background:#fff5ee; padding: 20px; border-radius:14px; text-align:center; border: 1px solid #ffdcc4;">
+                                <div style="font-size:14px; color:#64748b; margin-bottom:5px;">รวมเบี้ยประกันภัยรายปีตลอด 5 ปี</div>
+                                <div style="font-size:24px; font-weight:700; color:#e86614;">${formatNum(total5Yr)} บาท</div>
+                            </div>
+                            <div style="flex:1; background:#f0fdf4; padding: 20px; border-radius:14px; text-align:center; border: 1px solid #bbf7d0;">
+                                <div style="font-size:14px; color:#64748b; margin-bottom:5px;">วงเงินคุ้มครอง 3 กลุ่มโรคร้ายแรง</div>
+                                <div style="font-size:24px; font-weight:700; color:#06C755;">${formatNum(currentPlan)} บาท</div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 26px; padding-top: 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px;">
+                            <div style="flex: 1; font-size: 12px; color: #64748b; text-align: left; line-height: 1.6;">
+                                <strong style="color: #1e293b;">หมายเหตุ:</strong><br>
+                                • เมื่อบริษัทจ่ายผลประโยชน์ข้อ 1), 2), 4) หรือ 5) กรมธรรม์จะสิ้นผลบังคับทันที<br>
+                                • ตารางผลประโยชน์นี้จัดทำขึ้นเพื่อความเข้าใจเบื้องต้น การรับประกันและผลประโยชน์เป็นไปตามเงื่อนไขที่ระบุในกรมธรรม์
+                            </div>
+
+                            <div style="flex-shrink: 0; display: flex; align-items: center; gap: 14px; background: #fffaf6; border: 1px solid #ffdcc4; border-radius: 14px; padding: 12px 18px;">
+                                <img src="agent.jpg" alt="นฤมล คำใบ" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #e86614;" onerror="this.style.display='none'">
+                                <div style="line-height: 1.4; text-align: left;">
+                                    <div style="font-size: 11px; color: #64748b;">ดูแลและให้คำปรึกษาโดย</div>
+                                    <div style="font-size: 15px; font-weight: 700; color: #1e293b;">นฤมล คำใบ <span style="font-weight: 400; font-size: 13px; color: #64748b;">(ต๋อย)</span></div>
+                                    <div style="font-size: 12px; color: #e86614; font-weight: 600;">ผู้จัดการขาย FWD • ใบอนุญาต 6901010926</div>
+                                    <div style="font-size: 13px; font-weight: 700; color: #1e293b; margin-top: 2px;"><i class="fa-solid fa-phone" style="color: #e86614; font-size: 11px;"></i> 086-901-7235</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button onclick="exportHighResImage('p', 'download')" class="btn-act btn-save" id="save-btn-tbl"><i class="fa-solid fa-download"></i> บันทึกรูปภาพ (Ultra HD)</button>
+                    <button onclick="exportHighResImage('p', 'share')" class="btn-act btn-share" id="share-btn-tbl"><i class="fa-solid fa-share-nodes"></i> แชร์รูปภาพ</button>
+                    <button onclick="saveAsPDF('p')" class="btn-act btn-pdf" id="pdf-btn-tbl"><i class="fa-solid fa-file-pdf"></i> บันทึก PDF (Ultra HD)</button>
+                </div>
+            </div>
+        `;
+
+        lastScrollY = window.scrollY;
+        document.getElementById('main-content').style.display = 'none';
+        document.getElementById('sticky-bar').style.display = 'none';
+        
+        const overlay = document.getElementById('report-overlay');
+        overlay.innerHTML = htmlContent;
+        overlay.style.display = 'block';
+        window.scrollTo(0,0);
+    }
+
+    function closeReport() {
+        document.getElementById('report-overlay').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+        const stickyBar = document.getElementById('sticky-bar');
+        stickyBar.style.display = '';
+        window.scrollTo(0, lastScrollY);
+        stickyBar.classList.toggle('show', lastScrollY > 200);
+    }
+
+    // ฟังก์ชันกลางสำหรับสร้าง Canvas ความละเอียดสูงสุดระดับ 4K-5K (Smart Ultra HD)
+    async function renderHighResCanvas() {
+        const target = document.getElementById("capture-area");
+        const scrollBox = document.querySelector(".report-scroll-box");
+        if (scrollBox) scrollBox.scrollLeft = 0;
+        window.scrollTo(0, 0);
+
+        if (document.fonts && document.fonts.ready) {
+            await document.fonts.ready;
+        }
+        await new Promise(r => setTimeout(r, 300));
+
+        const width = target.scrollWidth;
+        const height = target.scrollHeight;
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        let optimalScale = 5; // บนคอมพิวเตอร์จัดเต็มระดับ 5K (5x)
+        if (isMobile) {
+            const maxSafePixels = 15500000;
+            const maxSafeScale = Math.sqrt(maxSafePixels / (width * height));
+            optimalScale = Math.min(4, Math.floor(maxSafeScale * 10) / 10);
+        }
+
+        return await html2canvas(target, {
+            scale: optimalScale,
+            backgroundColor: "#ffffff",
+            useCORS: true,
+            allowTaint: false,
+            imageTimeout: 15000,
+            logging: false,
+            scrollX: 0,
+            scrollY: 0,
+            windowWidth: width,
+            windowHeight: height
+        });
+    }
+
+    // ฟังก์ชันบันทึกและแชร์รูปภาพระดับ 4K-5K (PNG Lossless)
+    async function exportHighResImage(orientation, mode) {
+        const btnId = mode === 'share'
+            ? (orientation === 'l' ? 'share-btn-info' : 'share-btn-tbl')
+            : (orientation === 'l' ? 'save-btn-info' : 'save-btn-tbl');
+        const btn = document.getElementById(btnId);
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> กำลังสร้างภาพ Ultra HD...';
+        btn.disabled = true;
+
+        const fileName = `FWD_Big3_${orientation === 'l' ? 'Info' : 'Table'}_Plan${currentPlan}_Age${document.getElementById('age-input').value}_4K.png`;
+
+        try {
+            const canvas = await renderHighResCanvas();
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png', 1.0));
+            const file = new File([blob], fileName, { type: 'image/png' });
+
+            if (mode === 'share' && navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                    files: [file],
+                    title: 'สรุปแผนประกัน FWD Big 3',
+                    text: `แผนความคุ้มครอง ${formatNum(currentPlan)} บาท`
+                });
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
+                return;
+            }
+
+            const blobUrl = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            if (isIOS || mode === 'share') {
+                const imgData = canvas.toDataURL("image/png", 1.0);
+                const wrapper = document.getElementById('report-content-wrapper');
+                wrapper.innerHTML = `
+                    <div style="text-align:center; padding: 20px; max-width: 900px; margin: 0 auto;">
+                        <h2 style="color: #06C755; margin:0 0 10px 0;"><i class="fa-solid fa-circle-check"></i> สร้างภาพ Ultra HD (${canvas.width} × ${canvas.height} px) สำเร็จ!</h2>
+                        <div style="background: #fef3c7; color: #92400e; padding: 14px 18px; border-radius: 12px; margin-bottom: 18px; font-size: 14px; text-align:left; line-height: 1.5;">
+                            • <b>บนมือถือ (iPhone/Android):</b> แตะค้างที่รูปภาพด้านล่างแล้วเลือก <b>"บันทึกลงแอปรูปภาพ"</b> หรือกดปุ่มแชร์<br>
+                            • <b>บนคอมพิวเตอร์:</b> ไฟล์ถูกดาวน์โหลดลงเครื่องแล้ว หรือคลิกขวาที่รูปเลือก Save image as...
+                        </div>
+                        <img src="${imgData}" onclick="document.getElementById('lightbox-img').src=this.src; document.getElementById('image-lightbox').style.display='block';" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); cursor: zoom-in; border:1px solid #e2e8f0;">
+                        <div style="margin-top: 22px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                            <a href="${blobUrl}" download="${fileName}" class="btn-act btn-save" style="text-decoration:none;"><i class="fa-solid fa-download"></i> ดาวน์โหลดอีกครั้ง</a>
+                            <button onclick="closeReport()" class="btn-act" style="background:#1e293b; color:white;"><i class="fa-solid fa-arrow-left"></i> กลับสู่หน้าหลัก</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                btn.innerHTML = `<i class="fa-solid fa-check"></i> บันทึกสำเร็จ (${canvas.width}px)`;
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.disabled = false;
+                }, 2000);
+            }
+        } catch (err) {
+            if (err.name !== 'AbortError') {
+                alert("เกิดข้อผิดพลาดในการสร้างภาพ: " + err.message);
+            }
+            btn.innerHTML = originalHTML;
+            btn.disabled = false;
+        }
+    }
+
+    // ฟังก์ชันบันทึก PDF แบบไร้การบีบอัด (Lossless Ultra HD)
+    async function saveAsPDF(orientation) {
+        const btnId = orientation === 'l' ? 'pdf-btn-info' : 'pdf-btn-tbl';
+        const btn = document.getElementById(btnId);
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> สร้าง PDF Ultra HD...';
+        btn.disabled = true;
+
+        try {
+            const canvas = await renderHighResCanvas();
+            const imgData = canvas.toDataURL('image/png', 1.0);
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({
+                orientation: orientation,
+                unit: 'mm',
+                format: 'a4',
+                compress: false
+            });
+
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+            
+            const margin = 8;
+            let imgW = pdfWidth - (margin * 2);
+            let imgH = (canvas.height * imgW) / canvas.width;
+
+            if (imgH > pdfHeight - (margin * 2)) {
+                imgH = pdfHeight - (margin * 2);
+                imgW = (canvas.width * imgH) / canvas.height;
+            }
+            const xOffset = (pdfWidth - imgW) / 2;
+            const yOffset = (pdfHeight - imgH) / 2;
+            
+            pdf.addImage(imgData, 'PNG', xOffset, yOffset, imgW, imgH, undefined, 'NONE');
+            
+            const fileName = `FWD_Big3_Plan${currentPlan}_Age${document.getElementById('age-input').value}_UltraHD.pdf`;
+            pdf.save(fileName);
+        } catch (err) {
+            alert("เกิดข้อผิดพลาดในการสร้าง PDF: " + err.message);
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = originalHTML;
+        }
+    }
+
+    window.addEventListener('scroll', () => {
+        const stickyBar = document.getElementById('sticky-bar');
+        if (document.getElementById('report-overlay').style.display === 'block') {
+            stickyBar.style.display = 'none';
+            return;
+        }
+        lastScrollY = window.scrollY;
+        stickyBar.style.display = '';
+        stickyBar.classList.toggle('show', window.scrollY > 200);
+    });
+
+    function calculateExperience() {
+        const startDate = new Date(2006, 5, 28); 
+        const today = new Date();
+        let years = today.getFullYear() - startDate.getFullYear();
+        let months = today.getMonth() - startDate.getMonth();
+        let days = today.getDate() - startDate.getDate();
+        
+        if (days < 0) {
+            months--;
+            const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+            days += prevMonth.getDate();
+        }
+        if (months < 0) { years--; months += 12; }
+        
+        const expY = document.getElementById('exp-years');
+        const expM = document.getElementById('exp-months');
+        if(expY && expM) {
+            expY.innerText = years; expM.innerText = months;
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const daySelect = document.getElementById('dob-day');
+        if (daySelect && daySelect.options.length <= 1) { 
+            for(let i = 1; i <= 31; i++) daySelect.add(new Option(i, i));
+        }
+        const yearSelect = document.getElementById('dob-year');
+        if (yearSelect && yearSelect.options.length <= 1) {
+            const currentYearBE = new Date().getFullYear() + 543;
+            for(let i = currentYearBE; i >= currentYearBE - 70; i--) yearSelect.add(new Option(i, i));
+        }
+        calculateExperience();
+        updateGenderIcons();
+    });
+
+    function handleManualAge() {
+        document.getElementById('dob-day').value = ""; document.getElementById('dob-month').value = ""; document.getElementById('dob-year').value = ""; document.getElementById('exact-age-display').innerText = ""; calculate(); 
+    }
+
+    function calculateAgeFromDOB() {
+        const d = document.getElementById('dob-day').value;
+        const m = document.getElementById('dob-month').value;
+        const y = document.getElementById('dob-year').value;
+        const exactAgeDisplay = document.getElementById('exact-age-display');
+
+        if(!d || !m || !y) { exactAgeDisplay.innerText = ""; return; }
+        
+        const birthYearCE = parseInt(y) - 543;
+        const birthDate = new Date(birthYearCE, parseInt(m) - 1, parseInt(d));
+        const today = new Date();
+        
+        let years = today.getFullYear() - birthDate.getFullYear();
+        let months = today.getMonth() - birthDate.getMonth();
+        let days = today.getDate() - birthDate.getDate();
+        
+        if (days < 0) { months--; const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0); days += prevMonth.getDate(); }
+        if (months < 0) { years--; months += 12; }
+        
+        exactAgeDisplay.innerText = `(อายุ ${years} ปี ${months} เดือน ${days} วัน)`;
+        document.getElementById('age-input').value = years;
+        calculate(); 
+    }
+
+    calculate();
+</script>
+</body>
+</html>
