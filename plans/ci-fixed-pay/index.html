@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ซีไอ ฟิกซ์ เปย์ ตลอดชีพ รับมือโรคร้ายแรง</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+    :root {
+        --primary: #e86614; 
+        --primary-light: #fff2e8;
+        --secondary: #06C755;
+        --text-dark: #333333;
+        --text-grey: #666666;
+        --bg-color: #f8f9fa;
+        --border-color: #e5e5e5;
+    }
+
+    body {
+        font-family: 'Prompt', sans-serif;
+        background-color: var(--bg-color);
+        margin: 0; padding: 0; color: var(--text-dark);
+        padding-bottom: 110px; 
+        word-break: keep-all;
+        overflow-wrap: break-word;
+    }
+
+    /* --- Banner Style --- */
+    .header-banner {
+        max-width: 1100px;
+        margin: 30px auto 0;
+        padding: 0 20px;
+    }
+    .header-banner img {
+        width: 100%; 
+        height: auto; 
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        display: block;
+    }
+
+    .container {
+        max-width: 1100px; margin: 30px auto 40px; padding: 0 20px;
+        display: flex; gap: 30px; align-items: stretch;
+    }
+
+    /* --- Left Panel --- */
+    .left-panel {
+        width: 420px; flex-shrink: 0;
+        display: flex; flex-direction: column;
+    }
+
+    .card {
+        background: white; border-radius: 16px; padding: 25px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px;
+    }
+
+    .agent-card {
+        margin-top: auto;
+        margin-bottom: 0;
+        padding: 20px; 
+        background: white; border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .card h2 { font-size: 20px; margin: 0 0 20px 0; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: var(--text-grey); }
+
+    .btn-group { display: flex; border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; }
+    .btn-opt {
+        flex: 1; padding: 12px; border: none; background: white; cursor: pointer;
+        font-family: 'Prompt'; font-size: 15px; transition: 0.3s;
+    }
+    .btn-opt.active { background: var(--primary); color: white; font-weight: 600; }
+
+    input[type="number"], select {
+        width: 100%; padding: 12px 15px; border: 1px solid var(--border-color);
+        border-radius: 12px; font-family: 'Prompt'; font-size: 15px; box-sizing: border-box;
+        background-color: white; outline: none; transition: border 0.3s;
+    }
+    input[type="number"]:focus, select:focus { border-color: var(--primary); }
+
+    .sum-box { background: var(--primary-light); border-radius: 12px; padding: 20px; border: 1px solid #ffdec7; }
+    
+    /* --- Range Slider --- */
+    input[type=range] {
+        -webkit-appearance: none; width: 100%; height: 8px; background: #e0e0e0;
+        border-radius: 4px; outline: none; margin: 20px 0;
+    }
+    input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none; appearance: none;
+        width: 40px; height: 40px; border-radius: 50%;
+        background-color: white; border: 2px solid var(--primary);
+        cursor: pointer; box-shadow: 0 2px 6px rgba(232, 102, 20, 0.3);
+        background-position: center; background-repeat: no-repeat; background-size: 24px;
+    }
+    input[type=range].gender-m::-webkit-slider-thumb { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-size='22'%3E👨%3C/text%3E%3C/svg%3E"); }
+    input[type=range].gender-f::-webkit-slider-thumb { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-size='22'%3E👩%3C/text%3E%3C/svg%3E"); }
+
+    .quick-sums { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 5px; }
+    .quick-sums button {
+        padding: 8px; font-size: 13px; font-family: 'Prompt'; background: white;
+        border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer; color: var(--text-dark);
+    }
+    .quick-sums button:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* --- Right Panel --- */
+    .right-panel { flex: 1; display: flex; flex-direction: column; }
+
+    /* --- Benefits List Style --- */
+    .benefit-item {
+        display: flex; align-items: center; gap: 15px; background: white;
+        padding: 18px 20px; border-radius: 12px; margin-bottom: 12px; border-left: 5px solid var(--primary);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    }
+    .benefit-item i { color: var(--primary); font-size: 24px; width: 30px; text-align: center; }
+    .benefit-val { margin-left: auto; font-weight: 700; font-size: 18px; color: var(--primary); text-align: right; }
+
+    /* --- Coverage Table Style (Clickable to Infographic) --- */
+    .coverage-card {
+        background: white; border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px;
+        overflow: hidden; border: 1px solid var(--border-color);
+        display: flex; flex-direction: column;
+        cursor: pointer; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .coverage-card:hover {
+        transform: translateY(-3px); box-shadow: 0 15px 35px rgba(232, 102, 20, 0.15); border-color: var(--primary);
+    }
+    .cov-row { display: flex; }
+    
+    .cov-left {
+        background: var(--primary); color: white; flex: 0 0 170px;
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 700; font-size: 16px; text-align: center; padding: 20px 15px;
+        box-sizing: border-box; flex-direction: column;
+    }
+    
+    .cov-right { flex: 1; padding: 20px 25px; box-sizing: border-box; position: relative; }
+    .cov-right-top { background: var(--primary-light); }
+    .cov-val-num { font-size: 24px; font-weight: 700; color: var(--primary); margin-bottom: 2px; }
+    .cov-val-sub { font-size: 13px; color: var(--text-grey); line-height: 1.4; }
+    .cov-click-hint { position: absolute; right: 20px; top: 20px; color: var(--primary); font-size: 20px; opacity: 0.5; transition: 0.3s; }
+    .coverage-card:hover .cov-click-hint { opacity: 1; transform: scale(1.1); }
+
+    .cov-timeline { padding: 35px 25px 25px; background: white; }
+    .timeline-track {
+        position: relative; height: 2px; border-top: 2px dashed #d1d1d1;
+        margin-bottom: 35px; margin-top: 5px; margin-left: 5px; margin-right: 5px;
+    }
+    .t-dot {
+        position: absolute; top: -6px; width: 10px; height: 10px;
+        background: #d1d1d1; border-radius: 50%; transform: translateX(-50%);
+    }
+    .t-dot.highlight { background: var(--primary); width: 14px; height: 14px; top: -8px; }
+    .t-dot span {
+        position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
+        font-size: 13px; color: var(--text-grey); white-space: nowrap;
+    }
+    .t-dot.highlight span { color: var(--primary); font-weight: 700; }
+    
+    .pay-bar {
+        padding: 8px 15px; border-radius: 6px; font-size: 13px;
+        font-weight: 600; margin-bottom: 10px; color: #333; position: relative;
+    }
+    .bar-5 { background: #ffeaa7; width: 25%; }
+    .bar-10 { background: #a8e6cf; width: 50%; }
+    .bar-20 { background: #a4cbe6; width: 75%; }
+
+    .cov-row-bot { border-top: 1px solid var(--border-color); }
+    .cov-bot-right { display: flex; justify-content: space-between; align-items: center; background: white; }
+    .bot-text-main { font-size: 16px; font-weight: 700; color: var(--text-dark); }
+    .bot-text-sub { font-size: 14px; color: var(--text-grey); margin-top: 3px; }
+    .cashback-circle {
+        background: var(--primary); color: white; border-radius: 50%;
+        width: 125px; height: 125px; 
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        box-shadow: 0 0 0 5px white, 0 0 0 7px var(--primary-light), 0 5px 15px rgba(232, 102, 20, 0.3);
+        flex-shrink: 0; margin-right: 15px; 
+    }
+    .cashback-circle i { font-size: 26px; margin-bottom: 2px; } 
+    .cashback-circle .txt-1 { font-size: 14px; font-weight: 600; } 
+    .cashback-circle .txt-2 { font-size: 20px; font-weight: 700; margin-top: -2px; } 
+
+    /* -------------------------------------- */
+
+    .plan-card {
+        background: white; border: 2px solid transparent; border-radius: 16px; padding: 20px;
+        margin-bottom: 15px; cursor: pointer; transition: 0.3s; position: relative;
+        display: flex; justify-content: space-between; align-items: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03); gap: 15px; flex-wrap: wrap;
+    }
+    .plan-card.active { border-color: var(--primary); background: #fffaf7; }
+    .plan-card.disabled { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); }
+    
+    .plan-info h3 { margin: 0; font-size: 18px; }
+    .plan-info p { margin: 5px 0 0 0; font-size: 13px; color: var(--text-grey); }
+
+    .plan-price { text-align: right; min-width: 120px; }
+    .price-num { font-size: 24px; font-weight: 700; color: var(--text-dark); }
+    .price-unit { font-size: 13px; color: var(--text-grey); }
+
+    .brochure-wrapper {
+        margin-top: auto; width: 100%;
+        display: flex; flex-direction: column; gap: 12px;
+    }
+    
+    /* สไตล์ปุ่มแบบแยกแถบ */
+    .btn-action-view {
+        display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%;
+        color: white; padding: 18px; border-radius: 16px; border: none;
+        font-family: 'Prompt', sans-serif; font-size: 16px; font-weight: 600; box-sizing: border-box; 
+        transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; text-decoration: none;
+    }
+    .btn-action-view.teal { background: #398e98; box-shadow: 0 4px 15px rgba(57, 142, 152, 0.2); }
+    .btn-action-view.teal:hover { background: #2f7780; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(57, 142, 152, 0.3); }
+    
+    .btn-action-view.blue { background: #0288d1; box-shadow: 0 4px 15px rgba(2, 136, 209, 0.2); }
+    .btn-action-view.blue:hover { background: #0277bd; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(2, 136, 209, 0.3); }
+
+    .btn-brochure-css {
+        display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%;
+        background-color: var(--primary); color: white; padding: 18px; border-radius: 16px;
+        font-size: 16px; font-weight: 600; box-sizing: border-box; box-shadow: 0 4px 15px rgba(232, 102, 20, 0.2);
+        text-decoration: none; transition: transform 0.3s; cursor: pointer; border: none;
+    }
+    .btn-brochure-css:hover { transform: translateY(-2px); background-color: #d15a10; }
+    
+    .sticky-bar {
+        position: fixed; bottom: 0; left: 0; width: 100%; background: white;
+        box-shadow: 0 -5px 25px rgba(0,0,0,0.1); padding: 15px 0; z-index: 1000;
+        display: none; border-top: 3px solid var(--primary);
+    }
+    .sticky-bar.show { display: block; animation: slideUp 0.4s ease; }
+
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+    .sticky-content { max-width: 1100px; margin: auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+    .btn-line {
+        background: var(--secondary); color: white; padding: 12px 25px; border-radius: 12px;
+        text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 8px; white-space: nowrap; border: none; cursor: pointer; font-family: 'Prompt'; font-size: 16px;
+    }
+
+    .age-dob-box { background-color: #fafafa; border: 1px solid var(--border-color); padding: 15px; border-radius: 12px; display: flex; flex-wrap: wrap; gap: 15px; align-items: center; }
+
+    /* --- Agent Profile Style --- */
+    .agent-profile { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; text-align: left; }
+    .agent-info-wrapper { display: flex; align-items: center; justify-content: center; gap: 35px; flex-wrap: wrap; }
+    .agent-photo { width: 115px !important; height: 115px !important; min-width: 115px; border-radius: 50%; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: block; }
+    .btn-call { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: white; padding: 8px 18px; border-radius: 999px; text-decoration: none; font-size: 15px; font-weight: 600; margin-top: 10px; box-shadow: 0 4px 15px rgba(232,102,20,0.2); }
+
+    /* --- Report Overlay & Lightbox --- */
+    #report-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; min-height: 100vh; background: #f4f6f8; z-index: 999999; padding: 20px 0; box-sizing: border-box; }
+    #report-content-wrapper { width: 100%; overflow-x: auto; padding: 0 20px 50px 20px; }
+    .close-report-btn { position: fixed; top: 15px; right: 15px; background: #e86614; color: white; border: none; border-radius: 50%; width: 45px; height: 45px; font-size: 20px; cursor: pointer; z-index: 1000000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+    .close-report-btn:hover { background: #d15a10; transform: scale(1.05); }
+
+    .action-buttons { text-align: center; margin-top: 30px; margin-bottom: 50px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+    .btn-act { padding: 12px 15px; border-radius: 8px; font-family: 'Prompt'; cursor: pointer; font-size: 15px; border: none; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s; width: 150px; }
+    .btn-print { background: #333; color: white; }
+    .btn-save { background: #06C755; color: white; box-shadow: 0 4px 15px rgba(6, 199, 85, 0.3); }
+    .btn-pdf { background: #e74c3c; color: white; box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3); }
+    .btn-act:hover:not(:disabled) { opacity: 0.9; transform: translateY(-2px); }
+    .btn-act:disabled { opacity: 0.7; cursor: not-allowed; }
+
+    #image-lightbox { display: none; position: fixed; z-index: 99999999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); overflow: hidden; cursor: zoom-out; }
+    #image-lightbox img { margin: auto; display: block; max-width: 100%; max-height: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: contain; }
+    .lightbox-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; z-index: 2; }
+
+    @media print {
+        body, * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+        #main-content, #sticky-bar, .action-buttons, .close-report-btn { display: none !important; }
+        body { background: white; padding: 0; }
+        #report-overlay { position: static; min-height: auto; padding: 0; display: block !important; background: white !important; }
+        #report-content-wrapper { padding: 0 !important; overflow: visible !important; }
+        #capture-area { box-shadow: none !important; margin: 0 auto !important; }
+    }
+
+    @media (max-width: 850px) {
+        .container { flex-direction: column; align-items: stretch; margin-top: 20px; }
+        .left-panel { width: 100%; }
+        .header-banner { margin-top: 20px; }
+        .cov-row { flex-direction: column; }
+        .cov-left { width: 100%; flex: auto; padding: 12px; border-bottom: 1px solid rgba(0,0,0,0.05); flex-direction: row; gap: 10px; }
+        .cov-bot-right { flex-direction: column; text-align: center; gap: 20px; }
+        .cashback-circle { margin-right: 0; margin-top: 10px; }
+        .brochure-wrapper { margin-top: 15px; }
+        .plan-price { text-align: left; margin-top: 10px; }
+        .agent-profile { text-align: center; }
+        .agent-info-wrapper { flex-direction: column; text-align: center; gap: 15px; }
+        .btn-call { width: 100%; justify-content: center; }
+        .cov-click-hint { display: none; }
+    }
+</style>
+</head>
+<body>
+
+<div id="main-content">
+    <div class="header-banner">
+        <img src="banner.jpg" alt="แบนเนอร์ประกันโรคร้ายแรง" onerror="this.src='https://images.unsplash.com/photo-1579621970588-a35d0e7ab9b6?auto=format&fit=crop&q=80&w=1200&h=400'">
+    </div>
+
+    <div class="container">
+        <div class="left-panel">
+            <div class="card">
+                <h2><i class="fa-solid fa-calculator"></i> คำนวณเบี้ยประกัน</h2>
+                
+                <div class="form-group">
+                    <label>เพศ</label>
+                    <div class="btn-group">
+                        <button class="btn-opt active" id="m-btn" onclick="setGender('male')">ชาย</button>
+                        <button class="btn-opt" id="f-btn" onclick="setGender('female')">หญิง</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="age-dob-box">
+                        <div style="flex: 1; min-width: 90px;">
+                            <label style="margin-bottom: 5px;">อายุ (ปี)</label>
+                            <input type="number" id="age-input" value="30" min="16" max="60" oninput="handleManualAge()" style="text-align: center;">
+                        </div>
+                        
+                        <div style="font-size: 13px; color: var(--text-grey); font-weight: 500;">
+                            หรือ
+                        </div>
+
+                        <div style="flex: 2; min-width: 180px;">
+                            <label style="color: var(--primary); margin-bottom: 5px; text-align: center;">ระบุวันเกิด (แม่นยำกว่า)</label>
+                            <div style="display: flex; gap: 5px; justify-content: center;">
+                                <select id="dob-day" style="padding: 12px 5px; cursor: pointer;" onchange="calculateAgeFromDOB()">
+                                    <option value="">วัน</option>
+                                </select>
+                                <select id="dob-month" style="padding: 12px 5px; cursor: pointer;" onchange="calculateAgeFromDOB()">
+                                    <option value="">เดือน</option>
+                                    <option value="1">ม.ค.</option><option value="2">ก.พ.</option>
+                                    <option value="3">มี.ค.</option><option value="4">เม.ย.</option>
+                                    <option value="5">พ.ค.</option><option value="6">มิ.ย.</option>
+                                    <option value="7">ก.ค.</option><option value="8">ส.ค.</option>
+                                    <option value="9">ก.ย.</option><option value="10">ต.ค.</option>
+                                    <option value="11">พ.ย.</option><option value="12">ธ.ค.</option>
+                                </select>
+                                <select id="dob-year" style="padding: 12px 5px; cursor: pointer;" onchange="calculateAgeFromDOB()">
+                                    <option value="">พ.ศ.</option>
+                                </select>
+                            </div>
+                            <div id="exact-age-display" style="font-size: 13px; color: var(--primary); margin-top: 8px; font-weight: 500; min-height: 18px; text-align: center;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="sum-box">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
+                            <label style="margin: 0;">ทุนประกันความคุ้มครอง</label>
+                            <strong style="color: var(--primary); font-size: 20px;"><span id="sum-display-text">1,000,000</span> บาท</strong>
+                        </div>
+                        
+                        <input type="range" id="sum-slider" class="gender-m" min="150000" max="16000000" step="50000" value="1000000" oninput="handleSlider(this.value)">
+                        
+                        <div class="quick-sums">
+                            <button onclick="setSum(300000)">3 แสน</button>
+                            <button onclick="setSum(500000)">5 แสน</button>
+                            <button onclick="setSum(1000000)">1 ล้าน</button>
+                            <button onclick="setSum(2000000)">2 ล้าน</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>งวดการชำระ</label>
+                    <div class="btn-group">
+                        <button class="btn-opt active" id="p-year" onclick="setPeriod('year')">รายปี</button>
+                        <button class="btn-opt" id="p-half" onclick="setPeriod('half')">6 เดือน</button>
+                        <button class="btn-opt" id="p-month" onclick="setPeriod('month')">รายเดือน</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <h2 style="font-size: 20px; margin: 0 0 15px 0; color: var(--text-dark);">สิทธิประโยชน์ที่จะได้รับ</h2>
+                
+                <div class="benefit-item">
+                    <i class="fa-solid fa-shield-heart"></i>
+                    <div>
+                        <strong style="color: var(--text-dark);">คุ้มครองโรคร้ายแรง/เสียชีวิต</strong>
+                        <div style="font-size: 13px; color: var(--text-grey);">ครอบคลุม 19 โรคร้ายแรงทุกระยะ</div>
+                    </div>
+                    <div class="benefit-val"><span class="dynamic-sum">1,000,000</span></div>
+                </div>
+
+                <div class="benefit-item">
+                    <i class="fa-solid fa-user-shield"></i>
+                    <div>
+                        <strong style="color: var(--text-dark);">ความคุ้มครองชีวิต</strong>
+                        <div style="font-size: 13px; color: var(--text-grey);">เสียชีวิตทุกกรณีจ่าย*</div>
+                    </div>
+                    <div class="benefit-val"><span class="dynamic-sum">1,000,000</span></div>
+                </div>
+
+                <div class="benefit-item">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                    <div>
+                        <strong style="color: var(--text-dark);">เงินก้อนคืนเมื่อครบสัญญา</strong>
+                        <div style="font-size: 13px; color: var(--text-grey);">รับเงินคืน 100% เมื่ออายุครบ 90 ปี</div>
+                    </div>
+                    <div class="benefit-val"><span class="dynamic-sum">1,000,000</span></div>
+                </div>
+                
+                <div class="benefit-item">
+                    <i class="fa-solid fa-file-invoice-dollar"></i>
+                    <div>
+                        <strong style="color: var(--text-dark);">สิทธิลดหย่อนภาษี</strong>
+                        <div style="font-size: 13px; color: var(--text-grey);">ลดหย่อนภาษีเงินได้บุคคลธรรมดาสูงสุด 100,000 บาท</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="agent-card">
+                <div class="agent-profile">
+                    <div class="agent-info-wrapper">
+                        <img src="agent.png" alt="นฤมล คำใบ" class="agent-photo" onerror="this.src='https://placehold.co/300x300/f5f5f5/999?text=Agent'">
+                        <div>
+                            <div style="font-size: 14px; color: var(--text-grey); margin-bottom: 2px;">ดูแลโดย:</div>
+                            <div style="font-size: 22px; font-weight: 700; color: var(--text-dark); line-height: 1.2;">
+                                นฤมล คำใบ <span style="font-weight: 400; font-size: 18px;">(ต๋อย)</span>
+                            </div>
+                            <div style="font-size: 15px; font-weight: 500; color: var(--primary); margin-top: 2px;">(ผู้จัดการขาย)</div>
+                            
+                            <div style="font-size: 13px; color: var(--text-grey); margin-top: 8px; line-height: 1.5;">
+                                ใบอนุญาต: <span style="font-size: 16px; font-weight: 600; color: var(--text-dark);">6901010926</span><br>
+                                ประสบการณ์ <span id="exp-years">0</span> ปี <span id="exp-months">0</span> เดือน
+                            </div>
+
+                            <a href="tel:0869017235" class="btn-call">
+                                <i class="fa-solid fa-phone"></i> โทร 086-901-7235
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            
+            <h2 style="margin-top: 0; color: var(--primary);">ผลประโยชน์และความคุ้มครอง</h2>
+            
+            <div class="coverage-card" onclick="openInfographic()">
+                
+                <div class="cov-row">
+                    <div class="cov-left"><div>ความคุ้มครอง</div><div style="font-size: 20px;">100%</div></div>
+                    <div class="cov-right cov-right-top">
+                        <i class="fa-solid fa-image cov-click-hint"></i>
+                        <div class="cov-val-num"><span class="dynamic-sum">1,000,000</span> บาท</div>
+                        <div class="cov-val-sub">
+                            คุ้มครองชีวิต และครอบคลุม 19 โรคร้ายแรงทุกระยะ 100%<br>
+                            <span style="font-size: 12px; opacity: 0.8;">(หรือจ่าย 25% กรณีเจ็บป่วยโรคร้ายแรงระยะเริ่มต้น และ 75% ระยะรุนแรงตามเงื่อนไขกรมธรรม์)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cov-timeline">
+                    <div class="timeline-track">
+                        <div class="t-dot" style="left: 0%;"><span>ปีที่ 1</span></div>
+                        <div class="t-dot" style="left: 25%;"><span>ปีที่ 5</span></div>
+                        <div class="t-dot" style="left: 50%;"><span>ปีที่ 10</span></div>
+                        <div class="t-dot" style="left: 75%;"><span>ปีที่ 20</span></div>
+                        <div class="t-dot highlight" style="left: 100%;"><span>อายุ 90 ปี</span></div>
+                    </div>
+                    
+                    <div class="pay-bar bar-5">ชำระเบี้ย 5 ปี</div>
+                    <div class="pay-bar bar-10">ชำระเบี้ย 10 ปี</div>
+                    <div class="pay-bar bar-20">ชำระเบี้ย 20 ปี</div>
+                </div>
+
+                <div class="cov-row cov-row-bot">
+                    <div class="cov-left" style="background:#06C755;"><div>เงินคืน</div><div style="font-size: 20px;">100%</div></div>
+                    <div class="cov-right cov-bot-right">
+                        <div>
+                            <div class="bot-text-main">รับเงินก้อนคืน 100% เมื่อครบสัญญา</div>
+                            <div class="bot-text-sub">(ผู้เอาประกันภัยมีชีวิตอยู่ครบอายุ 90 ปี)</div>
+                        </div>
+                        <div class="cashback-circle">
+                            <i class="fa-solid fa-sack-dollar"></i>
+                            <div class="txt-1">รับเงิน 100%</div>
+                            <div class="txt-2"><span class="dynamic-sum">1,000,000</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <h2 style="margin-top: 15px;">เลือกแผนการชำระที่ต้องการ</h2>
+            
+            <div id="plans-list">
+                <div class="plan-card" id="card-905" onclick="selectPlan('90/5')">
+                    <div class="plan-info">
+                        <h3>แผน 90/5 (ชำระสั้น 5 ปี)</h3>
+                        <p>เน้นชำระหมดไว คุ้มครองยาวถึงอายุ 90</p>
+                    </div>
+                    <div class="plan-price">
+                        <div class="price-num" id="price-905">-</div>
+                        <div class="price-unit" id="unit-905">บาท/ปี</div>
+                    </div>
+                </div>
+
+                <div class="plan-card active" id="card-9010" onclick="selectPlan('90/10')">
+                    <div class="plan-info">
+                        <h3>แผน 90/10 (ชำระ 10 ปี)</h3>
+                        <p>แผนยอดนิยม สมดุลระหว่างเบี้ยและระยะเวลา</p>
+                    </div>
+                    <div class="plan-price">
+                        <div class="price-num" id="price-9010">-</div>
+                        <div class="price-unit" id="unit-9010">บาท/ปี</div>
+                    </div>
+                </div>
+
+                <div class="plan-card" id="card-9020" onclick="selectPlan('90/20')">
+                    <div class="plan-info">
+                        <h3>แผน 90/20 (ชำระ 20 ปี)</h3>
+                        <p>เน้นเบี้ยประกันต่อปีที่สบายกระเป๋าที่สุด</p>
+                    </div>
+                    <div class="plan-price">
+                        <div class="price-num" id="price-9020">-</div>
+                        <div class="price-unit" id="unit-9020">บาท/ปี</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="brochure-wrapper">
+                <button onclick="openInfographic()" class="btn-action-view teal">
+                    <i class="fa-solid fa-image"></i> ดูภาพแผนภูมิ Infographic (แนวนอน)
+                </button>
+                <button onclick="openDetailedTable()" class="btn-action-view blue">
+                    <i class="fa-solid fa-table-list"></i> ดูตารางผลประโยชน์ (แนวตั้ง)
+                </button>
+                <a href="https://www.fwd.co.th/files/v3/assets/blt331c1aa12dcfd37a/blt54757138f1248964/6944b254db9906a59aeb59d0/TH_Brochure_CI_Fixed_Pay_Omne.pdf" target="_blank" class="btn-brochure-css">
+                    <i class="fa-solid fa-file-pdf"></i> ดาวน์โหลดโบรชัวร์ (PDF)
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="sticky-bar" id="sticky-bar">
+    <div class="sticky-content">
+        <div>
+            <div style="font-size: 14px; color: var(--text-grey);">แผน <span id="stk-plan">90/10</span> • <span id="stk-period">รายปี</span></div>
+            <div style="font-size: 22px; font-weight: 700; color: var(--primary);"><span id="stk-price">0</span> <span style="font-size: 14px; font-weight: 400; color: #333;">บาท</span></div>
+        </div>
+        <button class="btn-line" onclick="sendToLine()">
+            <i class="fab fa-line" style="font-size: 20px;"></i> ปรึกษาตัวแทน
+        </button>
+    </div>
+</div>
+
+<div id="report-overlay"></div>
+
+<div id="image-lightbox" onclick="this.style.display='none'">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="">
+</div>
+
+<script>
+    const rates = {
+        "90/5": { 16:{m:91,f:84}, 20:{m:97,f:89}, 25:{m:105,f:97}, 30:{m:115,f:105}, 35:{m:127,f:115}, 40:{m:141,f:127}, 45:{m:156,f:141}, 50:{m:172,f:155}, 55:{m:191,f:172}, 60:{m:198,f:192} },
+        "90/10": { 16:{m:47,f:43}, 20:{m:50,f:46}, 25:{m:54,f:50}, 30:{m:59,f:54}, 35:{m:65,f:59}, 40:{m:72,f:65}, 45:{m:79,f:72}, 50:{m:88,f:79}, 55:{m:97,f:88}, 60:{m:99,f:98} },
+        "90/20": { 16:{m:26,f:23}, 20:{m:28,f:25}, 25:{m:30,f:27}, 30:{m:33,f:30}, 35:{m:36,f:33}, 40:{m:41,f:37}, 45:{m:46,f:41}, 50:{m:49,f:45}, 55:{m:49,f:49} }
+    };
+
+    let currentGender = 'male';
+    let currentPlan = '90/10';
+    let currentPeriod = 'year'; 
+    let sumInsured = 1000000;
+    let computedPremiumYr = 0;
+
+    function formatNum(n) { return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+
+    function setGender(g) {
+        currentGender = g;
+        document.getElementById('m-btn').classList.toggle('active', g === 'male');
+        document.getElementById('f-btn').classList.toggle('active', g === 'female');
+        
+        const slider = document.getElementById('sum-slider');
+        if (g === 'male') {
+            slider.classList.remove('gender-f'); slider.classList.add('gender-m');
+        } else {
+            slider.classList.remove('gender-m'); slider.classList.add('gender-f');
+        }
+        calculate();
+    }
+
+    function setPeriod(p) {
+        currentPeriod = p;
+        document.getElementById('p-year').classList.toggle('active', p === 'year');
+        document.getElementById('p-half').classList.toggle('active', p === 'half');
+        document.getElementById('p-month').classList.toggle('active', p === 'month');
+        calculate();
+    }
+
+    function handleSlider(val) {
+        sumInsured = parseInt(val);
+        document.getElementById('sum-display-text').innerText = formatNum(sumInsured);
+        calculate();
+    }
+
+    function setSum(v) {
+        sumInsured = v;
+        document.getElementById('sum-slider').value = v;
+        document.getElementById('sum-display-text').innerText = formatNum(v);
+        calculate();
+    }
+
+    function selectPlan(p) {
+        if(document.getElementById(`card-${p.replace('/','')}`).classList.contains('disabled')) return;
+        currentPlan = p;
+        document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
+        document.getElementById(`card-${p.replace('/','')}`).classList.add('active');
+        calculate();
+    }
+
+    function calculate() {
+        const ageInput = document.getElementById('age-input');
+        let age = parseInt(ageInput.value) || 16;
+        if(age > 60) age = 60;
+        
+        document.querySelectorAll('.dynamic-sum').forEach(el => el.innerText = formatNum(sumInsured));
+
+        const plans = ["90/5", "90/10", "90/20"];
+        let periodText = currentPeriod === 'year' ? 'บาท/ปี' : (currentPeriod === 'half' ? 'บาท/6 เดือน' : 'บาท/เดือน');
+        let multiplier = currentPeriod === 'year' ? 1 : (currentPeriod === 'half' ? 0.52 : 0.09);
+
+        plans.forEach(p => {
+            const card = document.getElementById(`card-${p.replace('/','')}`);
+            const priceEl = document.getElementById(`price-${p.replace('/','')}`);
+            const unitEl = document.getElementById(`unit-${p.replace('/','')}`);
+            
+            let minSum = (p === '90/5') ? 150000 : 200000;
+            let maxAge = (p === '90/20') ? 55 : 60;
+
+            if (age < 16 || age > maxAge || sumInsured < minSum) {
+                card.classList.add('disabled');
+                priceEl.innerText = "ไม่รองรับ";
+            } else {
+                card.classList.remove('disabled');
+                const ages = Object.keys(rates[p]).map(Number);
+                const closest = ages.reduce((a, b) => Math.abs(b - age) < Math.abs(a - age) ? b : a);
+                const rate = rates[p][closest][currentGender === 'male' ? 'm' : 'f'];
+                
+                const annualPremium = (rate * sumInsured) / 1000;
+                const finalPremium = Math.ceil(annualPremium * multiplier);
+                
+                if(p === currentPlan) computedPremiumYr = annualPremium;
+
+                priceEl.innerText = formatNum(finalPremium);
+                unitEl.innerText = periodText;
+
+                if (p === currentPlan) {
+                    document.getElementById('stk-price').innerText = formatNum(finalPremium);
+                    document.getElementById('stk-plan').innerText = p;
+                    document.getElementById('stk-period').innerText = currentPeriod === 'year' ? 'รายปี' : (currentPeriod === 'half' ? 'ราย 6 เดือน' : 'รายเดือน');
+                }
+            }
+        });
+    }
+
+    function sendToLine() {
+        const age = document.getElementById('age-input').value;
+        const price = document.getElementById('stk-price').innerText;
+        const msg = `สนใจแผน CI Fixed Pay ${currentPlan}\nเพศ: ${currentGender==='male'?'ชาย':'หญิง'}\nอายุ: ${age} ปี\nทุนประกัน: ${formatNum(sumInsured)} บาท\nงวดชำระ: ${document.getElementById('stk-period').innerText}\nค่าเบี้ย: ${price} บาท`;
+        window.open("https://line.me/R/oaMessage/@toifwd/?" + encodeURIComponent(msg), '_blank');
+    }
+
+    // ==========================================
+    // 1. ฟังก์ชันสร้างภาพแผนภูมิ Infographic แนวนอน
+    // ==========================================
+    function openInfographic() {
+        const age = parseInt(document.getElementById('age-input').value) || 16;
+        const planStr = currentPlan; 
+        const payYears = parseInt(planStr.split('/')[1]); 
+        
+        const sum25 = sumInsured * 0.25;
+        const sum100 = sumInsured;
+
+        // ฟังก์ชันคำนวณเบี้ยรวมแต่ละแผนเพื่อนำไปแสดงท้ายแถบ
+        function getPremiumForPlan(p, years) {
+            let minSum = (p === '90/5') ? 150000 : 200000;
+            let maxAge = (p === '90/20') ? 55 : 60;
+            if (age < 16 || age > maxAge || sumInsured < minSum) return "-";
+            
+            const agesObj = Object.keys(rates[p]).map(Number);
+            const closest = agesObj.reduce((a, b) => Math.abs(b - age) < Math.abs(a - age) ? b : a);
+            const rate = rates[p][closest][currentGender === 'male' ? 'm' : 'f'];
+            const annualPremium = (rate * sumInsured) / 1000;
+            const total = Math.ceil(annualPremium) * years;
+            return formatNum(total) + " บาท";
+        }
+
+        let total5 = getPremiumForPlan("90/5", 5);
+        let total10 = getPremiumForPlan("90/10", 10);
+        let total20 = getPremiumForPlan("90/20", 20);
+
+        let htmlContent = `
+            <button class="close-report-btn" onclick="closeReport()"><i class="fa-solid fa-xmark"></i></button>
+            <div id="report-content-wrapper">
+                <div id="capture-area" style="margin: 0 auto; width: 1100px; max-width: 1100px; background: white; padding: 40px; border-radius: 12px; position: relative; box-sizing: border-box; font-family: 'Prompt';">
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px;">
+                        <div>
+                            <h1 style="color: #e86614; font-size: 38px; margin: 0; font-weight: 700; line-height: 1;">ซีไอ ฟิกซ์ เปย์</h1>
+                            <div style="color: #666; font-size: 16px; margin-top: 5px;">แผน ${planStr} | อายุรับประกัน: ${age} ปี | เพศ: ${currentGender==='male'?'ชาย':'หญิง'}</div>
+                        </div>
+                        <div>
+                            <img src="logo.png" alt="FWD Insurance" style="height: 60px; object-fit: contain;">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #fce4d6;">
+                        
+                        <div style="background: #fceea9; width: 180px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 22px; color: #1e3b2b;">
+                            ความคุ้มครอง
+                        </div>
+                        
+                        <div style="flex: 1; display: flex; flex-direction: column;">
+                            <div style="background: #f7ba7e; padding: 20px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05);">
+                                <div style="font-size: 20px; color: #222; font-weight: 700;">
+                                    เจ็บป่วยด้วย 1 ใน 4 โรคร้ายแรงระดับเริ่มต้น <span style="color:#000;">รับ 25%</span> ของทุนประกันภัย
+                                </div>
+                                <div style="font-size: 24px; font-weight: 700; color: #c04900; background: rgba(255,255,255,0.4); padding: 5px 15px; border-radius: 8px;">
+                                    ${formatNum(sum25)} บาท
+                                </div>
+                            </div>
+                            <div style="background: #e36d22; padding: 25px; text-align: center; color: white;">
+                                <div style="font-size: 24px; font-weight: 600; line-height: 1.4; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                                    เสียชีวิต หรือ เจ็บป่วยด้วย 1 ใน 15 โรคร้ายแรงระดับรุนแรง**<br>
+                                    รับ 100% ของทุนประกันภัย หรือ เบี้ยประกันภัยที่ชำระมาแล้วทั้งหมด แล้วแต่จำนวนใดมากกว่า
+                                </div>
+                                <div style="font-size: 32px; font-weight: 700; color: #fffde7; margin-top: 10px; background: rgba(0,0,0,0.15); display: inline-block; padding: 5px 25px; border-radius: 50px;">
+                                    ${formatNum(sum100)} บาท
+                                </div>
+                                <div style="font-size: 15px; font-weight: 400; margin-top: 10px; opacity: 0.9;">
+                                    หักผลประโยชน์กรณีเจ็บป่วยด้วยโรคร้ายแรงระดับเริ่มต้นที่จ่ายไปแล้ว (ถ้ามี)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="position: relative; margin-top: 50px; margin-bottom: 20px; padding-left: 180px; padding-right: 80px;">
+                        
+                        <div style="position: absolute; left: 0; top: 7px; font-size: 20px; font-weight: 700; color: #333;">ปีกรมธรรม์ที่</div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; position: relative;">
+                            <div style="position: absolute; top: 50%; left: 15px; right: 15px; height: 3px; background: #ccc; z-index: 1; transform: translateY(-50%);"></div>
+                            
+                            <div style="z-index: 2; width: 35px; height: 35px; background: white; border: 3px solid #e86614; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #e86614;">0</div>
+                            <div style="z-index: 2; width: 35px; height: 35px; background: white; border: 3px solid #e86614; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #e86614;">1</div>
+                            <div style="z-index: 2; width: 35px; height: 35px; background: white; border: 3px solid #e86614; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #e86614;">2</div>
+                            <div style="z-index: 2; width: 35px; height: 35px; background: white; border: 3px solid #e86614; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #e86614;">3</div>
+                            <div style="z-index: 2; width: 35px; height: 35px; background: white; border: 3px solid #e86614; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #e86614;">4</div>
+                            <div style="z-index: 2; width: 35px; height: 35px; background: white; border: 3px solid #e86614; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #e86614;">5</div>
+                            <div style="z-index: 2; width: 35px; height: 35px; background: white; border: 3px solid #e86614; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #e86614;">10</div>
+                            <div style="z-index: 2; width: 35px; height: 35px; background: white; border: 3px solid #e86614; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #e86614;">20</div>
+                            <div style="z-index: 2; font-size: 24px; color: #ccc; font-weight: 700; background: white; padding: 0 10px;">//</div>
+                            <div style="z-index: 2; position: relative;">
+                                <div style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); font-weight: 700; font-size: 16px;">อายุ</div>
+                                <div style="width: 45px; height: 45px; background: white; border: 3px solid #e86614; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: #e86614; line-height: 1.1;">90<br>ปี</div>
+                            </div>
+                        </div>
+
+                        <div style="position: absolute; right: 25px; top: 60px; text-align: center;">
+                            <div style="background: #e86614; color: white; width: 90px; height: 90px; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; font-weight: 700; font-size: 18px; line-height: 1.2; box-shadow: 0 5px 15px rgba(232, 102, 20, 0.4); position: relative; margin: 0 auto;">
+                                <div style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 30px; height: 15px; background: #e86614; border-radius: 5px;"></div>
+                                รับ<br>100%*
+                            </div>
+                            <div style="color: #e86614; font-weight: 700; font-size: 16.5px; margin-top: 5px; position: relative; left: -5px;">${formatNum(sum100)} บาท</div>
+                        </div>
+
+                        <div style="position: absolute; left: 0; top: 75px; font-size: 18px; font-weight: 700; color: #333; line-height: 1.2;">
+                            ระยะเวลาการชำระ<br>เบี้ยประกันภัย
+                        </div>
+                        
+                        <div style="margin-top: 30px; padding-left: 20px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 5px;">
+                                <div style="height: 35px; width: 32%; background: ${payYears === 5 ? '#67c2a3' : '#e0e0e0'}; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: ${payYears === 5 ? '#000' : '#888'};">5 ปี</div>
+                                <div style="margin-left: 15px; font-weight: 600; font-size: 16px; color: #444;">${total5 !== '-' ? total5 : ''}</div>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-bottom: 5px;">
+                                <div style="height: 35px; width: 55%; background: ${payYears === 10 ? '#9cd5be' : '#e0e0e0'}; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: ${payYears === 10 ? '#000' : '#888'};">10 ปี</div>
+                                <div style="margin-left: 15px; font-weight: 600; font-size: 16px; color: #444;">${total10 !== '-' ? total10 : ''}</div>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-bottom: 5px;">
+                                <div style="height: 35px; width: 75%; background: ${payYears === 20 ? '#cce8dd' : '#e0e0e0'}; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: ${payYears === 20 ? '#000' : '#888'};">20 ปี</div>
+                                <div style="margin-left: 15px; font-weight: 600; font-size: 16px; color: #444;">${total20 !== '-' ? total20 : ''}</div>
+                            </div>
+                        </div>
+
+                        <div style="position: absolute; left: 0; bottom: 0; background: #fceea9; padding: 10px 20px; font-weight: 700; font-size: 18px; color: #1e3b2b; width: 140px; text-align: center;">
+                            เงินครบกำหนด
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 50px; padding-top: 15px; border-top: 1px solid #eee; font-size: 12px; color: #555; line-height: 1.5;">
+                        <strong>หมายเหตุ</strong><br>
+                        ** เสียชีวิต หรือ เจ็บป่วยด้วย 1 ใน 15 โรคร้ายแรงระดับรุนแรง (ยกเว้น การทุพพลภาพถาวรสิ้นเชิง ก่อนวันครบรอบปีกรมธรรม์ที่ผู้เอาประกันภัยมี อายุครบ 75 ปี)<br>
+                        * 100% ของทุนประกันภัย หักผลประโยชน์กรณีเจ็บป่วยด้วยโรคร้ายแรงระดับเริ่มต้นที่จ่ายไปแล้ว (ถ้ามี) หรือ เบี้ยประกันภัยที่ชำระมาแล้วทั้งหมด (ไม่รวมเบี้ยฯ สัญญาเพิ่มเติม) หัก ผลประโยชน์กรณีเจ็บป่วยด้วยโรคร้ายแรงระดับเริ่มต้นที่จ่ายไปแล้ว (ถ้ามี) แล้วแต่จำนวนใดมากกว่า
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button onclick="saveAsImage('l')" class="btn-act btn-save" id="save-btn-info"><i class="fa-solid fa-image"></i> เซฟเป็นรูปภาพ</button>
+                    <button onclick="saveAsPDF('l')" class="btn-act btn-pdf" id="pdf-btn-info"><i class="fa-solid fa-file-pdf"></i> บันทึก PDF</button>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('main-content').style.display = 'none';
+        document.getElementById('sticky-bar').style.display = 'none';
+        
+        const overlay = document.getElementById('report-overlay');
+        overlay.innerHTML = htmlContent;
+        overlay.style.display = 'block';
+        window.scrollTo(0,0);
+    }
+
+    // ==========================================
+    // 2. ฟังก์ชันสร้างตารางผลประโยชน์แนวตั้ง
+    // ==========================================
+    function openDetailedTable() {
+        const age = parseInt(document.getElementById('age-input').value) || 16;
+        const planStr = currentPlan; 
+        const payYears = parseInt(planStr.split('/')[1]); 
+        const totalPremiumPaid = Math.ceil(computedPremiumYr) * payYears;
+        const txtGender = currentGender === 'male' ? 'ชาย' : 'หญิง';
+        const txtPeriod = currentPeriod === 'year' ? 'รายปี' : (currentPeriod === 'half' ? 'ราย 6 เดือน' : 'รายเดือน');
+        const priceDisplay = document.getElementById(`price-${planStr.replace('/','')}`).innerText;
+
+        let htmlContent = `
+            <button class="close-report-btn" onclick="closeReport()"><i class="fa-solid fa-xmark"></i></button>
+            <div id="report-content-wrapper">
+                <div id="capture-area" style="margin: 0 auto; max-width: 950px; background: white; padding: 40px 30px; border-radius: 12px; position: relative; box-sizing: border-box; font-family: 'Prompt';">
+                    <style>
+                        .rp-header { text-align: center; margin-bottom: 25px; }
+                        .rp-header h2 { color: #e86614; font-size: 28px; margin: 0 0 8px; font-weight: 700; }
+                        .rp-header p { color: #555; font-size: 16px; margin: 0; }
+                        .rp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; background: #fffaf5; padding: 20px; border-radius: 12px; border: 1px solid #fce4d6; margin-bottom: 25px; }
+                        .rp-row { display: flex; justify-content: space-between; font-size: 15px; border-bottom: 1px dashed #e5e5e5; padding-bottom: 8px; }
+                        .rp-row:last-child { border-bottom: none; padding-bottom: 0; }
+                        .rp-row span.val { font-weight: 700; color: #e86614; }
+                        
+                        table { width: 100%; border-collapse: collapse; text-align: center; font-size: 14px; margin-bottom: 30px; }
+                        th { background: #e86614; color: white; padding: 12px; border: 1px solid #c8540d; font-weight: 500; }
+                        td { padding: 10px; border: 1px solid #e5e5e5; color: #333; }
+                        tr:nth-child(even) td { background: #fafafa; }
+                        .fw-bold { font-weight: 700; color: #e86614; }
+                    </style>
+                    
+                    <div class="rp-header">
+                        <h2>ตารางสรุปผลประโยชน์ FWD ซีไอ ฟิกซ์ เปย์ ตลอดชีพ</h2>
+                        <p>แผน ${planStr} | ชำระเบี้ยประกัน ${payYears} ปี คุ้มครองยาวถึงอายุ 90 ปี</p>
+                    </div>
+
+                    <div class="rp-grid">
+                        <div>
+                            <div class="rp-row"><span>เพศผู้เอาประกัน:</span> <span class="val">${txtGender}</span></div>
+                            <div class="rp-row"><span>อายุเริ่มสัญญา:</span> <span class="val">${age} ปี</span></div>
+                            <div class="rp-row"><span>ระยะเวลาชำระเบี้ย:</span> <span class="val">${payYears} ปี</span></div>
+                        </div>
+                        <div>
+                            <div class="rp-row"><span>ทุนประกันความคุ้มครอง:</span> <span class="val">${formatNum(sumInsured)} บาท</span></div>
+                            <div class="rp-row"><span>งวดการชำระ:</span> <span class="val">${txtPeriod}</span></div>
+                            <div class="rp-row"><span>เบี้ยประกันภัยต่องวด:</span> <span class="val">${priceDisplay} บาท</span></div>
+                        </div>
+                    </div>
+
+                    <h3 style="color: #333; font-size: 18px; margin-bottom: 10px; border-left: 4px solid #e86614; padding-left: 10px;">ตารางตัวอย่างความคุ้มครอง (แบบย่อ)</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>สิ้นปี<br>กรมธรรม์</th>
+                                <th>อายุ<br>(ปี)</th>
+                                <th>เบี้ยประกันที่ชำระ<br>สะสม</th>
+                                <th>ความคุ้มครอง<br>ชีวิต / 19 โรคร้ายแรง (100%)</th>
+                                <th>ผลประโยชน์เมื่ออยู่ครบสัญญา<br>(เงินคืน 100%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+        `;
+
+        let currentAge = age;
+        let cumPremium = 0;
+        let yearsToShow = [1, 2, 3, 4, 5, 10, 15, 20, 25, 30, 40, 50, (90 - age)]; 
+        let shownYears = new Set();
+
+        for(let yr of yearsToShow) {
+            if(yr <= 0 || yr > (90 - age)) continue;
+            if(shownYears.has(yr)) continue;
+            shownYears.add(yr);
+
+            let displayAge = age + yr;
+            let yrsPaid = Math.min(yr, payYears);
+            let premPaidSoFar = Math.ceil(computedPremiumYr) * yrsPaid;
+            let protection = Math.max(sumInsured, premPaidSoFar);
+            let maturityBenefit = (displayAge === 90) ? formatNum(sumInsured) : "-";
+
+            htmlContent += `
+                <tr>
+                    <td>${yr}</td>
+                    <td>${displayAge}</td>
+                    <td>${formatNum(premPaidSoFar)}</td>
+                    <td class="fw-bold">${formatNum(protection)}</td>
+                    <td style="color:#06C755; font-weight:700;">${maturityBenefit}</td>
+                </tr>
+            `;
+        }
+
+        htmlContent += `
+                        </tbody>
+                    </table>
+
+                    <div style="display: flex; gap: 15px; margin-top: 20px;">
+                        <div style="flex:1; background:#fff2e8; padding: 20px; border-radius:12px; text-align:center; border: 1px solid #fce4d6;">
+                            <div style="font-size:14px; color:#555; margin-bottom:5px;">รวมเบี้ยประกันที่ชำระทั้งหมด (${payYears} ปี)</div>
+                            <div style="font-size:24px; font-weight:700; color:#e86614;">${formatNum(totalPremiumPaid)} บาท</div>
+                        </div>
+                        <div style="flex:1; background:#e3f2eb; padding: 20px; border-radius:12px; text-align:center; border: 1px solid #c2e0d1;">
+                            <div style="font-size:14px; color:#555; margin-bottom:5px;">เงินคืนเมื่ออยู่ครบสัญญา (อายุ 90)</div>
+                            <div style="font-size:24px; font-weight:700; color:#06C755;">${formatNum(sumInsured)} บาท</div>
+                        </div>
+                    </div>
+                    <div style="font-size: 12px; color: #777; margin-top: 20px; text-align: center;">
+                        * ตารางผลประโยชน์นี้จัดทำขึ้นเพื่อความเข้าใจเบื้องต้น การรับประกันและผลประโยชน์เป็นไปตามเงื่อนไขที่ระบุในกรมธรรม์
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button onclick="saveAsImage('p')" class="btn-act btn-save" id="save-btn-tbl"><i class="fa-solid fa-image"></i> เซฟเป็นรูปภาพ</button>
+                    <button onclick="saveAsPDF('p')" class="btn-act btn-pdf" id="pdf-btn-tbl"><i class="fa-solid fa-file-pdf"></i> บันทึก PDF</button>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('main-content').style.display = 'none';
+        document.getElementById('sticky-bar').style.display = 'none';
+        
+        const overlay = document.getElementById('report-overlay');
+        overlay.innerHTML = htmlContent;
+        overlay.style.display = 'block';
+        window.scrollTo(0,0);
+    }
+
+    function closeReport() {
+        document.getElementById('report-overlay').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+        if (window.scrollY > 200) {
+            document.getElementById('sticky-bar').style.display = 'block';
+        }
+        window.scrollTo(0,0);
+    }
+
+    // ฟังก์ชันสร้างรูปภาพ
+    function saveAsImage(orientation) {
+        const btnId = orientation === 'l' ? 'save-btn-info' : 'save-btn-tbl';
+        const btn = document.getElementById(btnId);
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ประมวลผล...';
+        btn.disabled = true;
+
+        window.scrollTo(0,0);
+        const target = document.getElementById("capture-area");
+        
+        setTimeout(() => {
+            html2canvas(target, { scale: 2, backgroundColor: "#ffffff", useCORS: true }).then(canvas => {
+                const imgData = canvas.toDataURL("image/jpeg", 0.95);
+                const wrapper = document.getElementById('report-content-wrapper');
+                wrapper.innerHTML = `
+                    <div style="text-align:center; padding: 20px; max-width: 900px; margin: 0 auto;">
+                        <h2 style="color: #06C755; margin:0 0 10px 0;"><i class="fa-solid fa-circle-check"></i> สร้างภาพสำเร็จ!</h2>
+                        <div style="background: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; text-align:left;">
+                            แตะค้างที่รูปภาพด้านล่างเพื่อ <b>"บันทึกรูปภาพ"</b> ลงเครื่อง หรือคลิกขวาแล้วเลือก Save image as...
+                        </div>
+                        <img src="${imgData}" onclick="document.getElementById('lightbox-img').src=this.src; document.getElementById('image-lightbox').style.display='block';" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); cursor: zoom-in; border:1px solid #ddd;">
+                        <br><br>
+                        <button onclick="closeReport()" style="background:#333; color:white; padding:12px 35px; border:none; border-radius:8px; font-family:'Prompt'; font-size:16px; cursor:pointer;">
+                            <i class="fa-solid fa-arrow-left"></i> กลับสู่หน้าหลัก
+                        </button>
+                    </div>
+                `;
+            }).catch(err => {
+                alert("Error: " + err.message);
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-image"></i> เซฟเป็นรูปภาพ';
+            });
+        }, 500);
+    }
+
+    // ฟังก์ชันสร้าง PDF
+    function saveAsPDF(orientation) {
+        const btnId = orientation === 'l' ? 'pdf-btn-info' : 'pdf-btn-tbl';
+        const btn = document.getElementById(btnId);
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> สร้าง PDF...';
+        btn.disabled = true;
+
+        window.scrollTo(0,0);
+        const target = document.getElementById("capture-area");
+
+        setTimeout(() => {
+            html2canvas(target, { scale: 2, backgroundColor: "#ffffff", useCORS: true }).then(canvas => {
+                const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                const { jsPDF } = window.jspdf;
+                // หากเป็น infographic (แนวนอน = 'l') หากเป็น Table (แนวตั้ง = 'p')
+                const pdf = new jsPDF(orientation, 'mm', 'a4');
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                
+                const margin = 10;
+                const pdfWidthWithMargin = pdfWidth - (margin * 2);
+                const imgHeightWithMargin = (canvas.height * pdfWidthWithMargin) / canvas.width;
+                
+                pdf.addImage(imgData, 'JPEG', margin, margin, pdfWidthWithMargin, imgHeightWithMargin);
+                
+                const fileName = `FWD_CIFixedPay_${currentPlan}_Age${document.getElementById('age-input').value}.pdf`;
+                pdf.save(fileName);
+                
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-file-pdf"></i> บันทึก PDF';
+            });
+        }, 500);
+    }
+
+    window.addEventListener('scroll', () => {
+        const stickyBar = document.getElementById('sticky-bar');
+        if (document.getElementById('report-overlay').style.display === 'block') {
+            stickyBar.style.display = 'none';
+            return;
+        }
+        stickyBar.classList.toggle('show', window.scrollY > 200);
+    });
+
+    // --- คำนวณประสบการณ์ตัวแทน ---
+    function calculateExperience() {
+        const startDate = new Date(2006, 5, 28); 
+        const today = new Date();
+        let years = today.getFullYear() - startDate.getFullYear();
+        let months = today.getMonth() - startDate.getMonth();
+        let days = today.getDate() - startDate.getDate();
+        
+        if (days < 0) {
+            months--;
+            const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+            days += prevMonth.getDate();
+        }
+        if (months < 0) { years--; months += 12; }
+        
+        const expY = document.getElementById('exp-years');
+        const expM = document.getElementById('exp-months');
+        if(expY && expM) {
+            expY.innerText = years; expM.innerText = months;
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const daySelect = document.getElementById('dob-day');
+        if (daySelect && daySelect.options.length <= 1) { 
+            for(let i = 1; i <= 31; i++) daySelect.add(new Option(i, i));
+        }
+        const yearSelect = document.getElementById('dob-year');
+        if (yearSelect && yearSelect.options.length <= 1) {
+            const currentYearBE = new Date().getFullYear() + 543;
+            for(let i = currentYearBE; i >= currentYearBE - 70; i--) yearSelect.add(new Option(i, i));
+        }
+        calculateExperience();
+    });
+
+    function handleManualAge() {
+        document.getElementById('dob-day').value = ""; document.getElementById('dob-month').value = ""; document.getElementById('dob-year').value = ""; document.getElementById('exact-age-display').innerText = ""; calculate(); 
+    }
+
+    function calculateAgeFromDOB() {
+        const d = document.getElementById('dob-day').value;
+        const m = document.getElementById('dob-month').value;
+        const y = document.getElementById('dob-year').value;
+        const exactAgeDisplay = document.getElementById('exact-age-display');
+
+        if(!d || !m || !y) { exactAgeDisplay.innerText = ""; return; }
+        
+        const birthYearCE = parseInt(y) - 543;
+        const birthDate = new Date(birthYearCE, parseInt(m) - 1, parseInt(d));
+        const today = new Date();
+        
+        let years = today.getFullYear() - birthDate.getFullYear();
+        let months = today.getMonth() - birthDate.getMonth();
+        let days = today.getDate() - birthDate.getDate();
+        
+        if (days < 0) { months--; const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0); days += prevMonth.getDate(); }
+        if (months < 0) { years--; months += 12; }
+        
+        exactAgeDisplay.innerText = `(อายุ ${years} ปี ${months} เดือน ${days} วัน)`;
+        document.getElementById('age-input').value = years;
+        calculate(); 
+    }
+
+    calculate();
+</script>
+</body>
+</html>
